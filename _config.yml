@@ -1,0 +1,8 @@
+exclude: []
+permalink: /:categories/:year-:month-:day-:title
+pygments: true
+
+paginate: 5
+paginate_path: /mylife/page:num
+
+tags_path: /tags.html
