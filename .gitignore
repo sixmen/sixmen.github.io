@@ -8,3 +8,6 @@ Thumbs.db
 
 .rbenv-version
 .rvmrc
+
+.evernote_cache
+node_modules
