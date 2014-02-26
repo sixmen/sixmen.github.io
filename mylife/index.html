@@ -18,8 +18,15 @@ title: MyLife
     <li class='disabled'><span>&laquo; Prev</span></li>
   {% endif %}
 
+  {% if paginator.page > 3 %}
+    <li class='disabled'><span>&hellip;</span></li>
+  {% endif %}
+
   {% for page in (1..paginator.total_pages) %}
-    {% if page == paginator.page %}
+    {% assign two_less = page | minus: 2 %}
+    {% assign two_more = page | plus: 2 %}
+    {% if paginator.page < two_less or paginator.page > two_more %}
+    {% elsif page == paginator.page %}
       <li class='active'><span>{{ page }}</span></li>
     {% elsif page == 1 %}
       <li><a href='{{ BASE_PATH }}/mylife/index.html'>{{ page }}</a></li>
@@ -27,6 +34,11 @@ title: MyLife
       <li><a href='{{ BASE_PATH }}{{ site.paginate_path | replace: ':num', page }}'>{{ page }}</a></li>
     {% endif %}
   {% endfor %}
+
+  {% assign total_minus_2 = paginator.total_pages | minus: 2 %}
+  {% if paginator.page < total_minus_2 %}
+    <li class='disabled'><span>&hellip;</span></li>
+  {% endif %}
 
   {% if paginator.next_page %}
     <li><a href='{{ BASE_PATH }}{{ paginator.next_page_path }}'>Next &raquo;</a></li>
