@@ -5,4 +5,6 @@ pygments: true
 paginate: 5
 paginate_path: /mylife/page:num
 
+production_url: http://sixmen.com
+
 tags_path: /tags.html

@@ -6,4 +6,4 @@
   js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=267614300070432";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
-<div class="fb-comments" data-order-by="reverse_time"></div>
+<div class="fb-comments" data-href="{{ site.production_url }}{{ page.url }}" data-order-by="reverse_time"></div>
