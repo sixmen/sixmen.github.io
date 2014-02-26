@@ -2,7 +2,7 @@ exclude: []
 permalink: /:categories/:year-:month-:day-:title
 pygments: true
 
-paginate: 5
+paginate: 3
 paginate_path: /mylife/page:num
 
 production_url: http://sixmen.com
