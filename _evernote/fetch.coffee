@@ -8,7 +8,6 @@ dir = "#{__dirname}/.evernote_cache"
 asset_dir = "#{__dirname}/../assets"
 oauthAccessToken = ''
 notebookGuid = 'bb796ad3-926e-4600-bdc8-068a2a64995c'
-category = 'mylife'
 
 try fs.mkdirSync dir
 
@@ -32,7 +31,7 @@ getResource = (mime, guid, callback) ->
     when 'image/jpeg' then '.jpg'
     when 'image/png' then '.png'
     else ''
-  path = "/#{category}/#{guid}#{ext}"
+  path = "/evernote/#{guid}#{ext}"
   return callback null, path if fs.existsSync asset_dir + path
   console.log 'Get resource: ' + guid
   noteStore.getResource guid, true, false, false, false, (error, data) ->
@@ -171,7 +170,10 @@ romanize = (str) ->
   return str
 
 writePost = (note, tags, meta, content) ->
-  tags = tags.filter (tag) -> tag isnt 'published'
+  category_tags = tags.filter (tag) -> tag.substr(0,9) is 'category:'
+  category = category_tags[0]?.substr 9
+  return if not category
+  tags = tags.filter (tag) -> tag.substr(0,9) isnt 'category:'
 
   front = []
   front.push '---'
