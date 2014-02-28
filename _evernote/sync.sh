@@ -2,8 +2,8 @@
 
 git pull origin master
 
-rm ../_posts/*/*.html
-mkdir -p ../_posts/mylife
+rm ../_posts/evernote/*.html
+mkdir -p ../_posts/evernote
 mkdir -p ../assets/evernote
 
 coffee fetch.coffee

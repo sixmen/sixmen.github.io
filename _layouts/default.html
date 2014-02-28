@@ -34,6 +34,11 @@
       {% else %}
       <a class='hp-nav-item' href='{{ BASE_PATH }}/mylife/'>MyLife</a>
       {% endif %}
+      {% if first_depth == 'travel' %}
+      <a class='hp-nav-item active' href='{{ BASE_PATH }}/travel/'>Travel</a>
+      {% else %}
+      <a class='hp-nav-item' href='{{ BASE_PATH }}/travel/'>Travel</a>
+      {% endif %}
     </nav>
   </div>
 </div>
