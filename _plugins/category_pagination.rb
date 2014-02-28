@@ -50,8 +50,16 @@ module Jekyll
         all_posts.sort!
         (0...all_posts.length).each do |pos|
           post = all_posts[pos]
-          post.data['paginate_previous'] = all_posts[pos-1] if pos > 1
-          post.data['paginate_next'] = all_posts[pos+1] if pos < all_posts.length-1
+          if pos > 0
+            post.data['paginate_previous'] = all_posts[pos-1]
+          else
+            post.data['paginate_previous'] = nil
+          end
+          if pos < all_posts.length-1
+            post.data['paginate_next'] = all_posts[pos+1]
+          else
+            post.data['paginate_next'] = nil
+          end
         end
       end
     end
