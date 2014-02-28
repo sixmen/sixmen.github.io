@@ -1,6 +1,9 @@
 ---
 layout: page
 title: MyLife
+paginate: 3
+paginate_path: /mylife/page:num
+category: mylife
 ---
 {% include setup %}
 
@@ -31,16 +34,16 @@ title: MyLife
       <li class='disabled'><span>&hellip;</span></li>
     {% endif %}
 
-    {% for page in (1..paginator.total_pages) %}
-      {% assign two_less = page | minus: 2 %}
-      {% assign two_more = page | plus: 2 %}
+    {% for cur in (1..paginator.total_pages) %}
+      {% assign two_less = cur | minus: 2 %}
+      {% assign two_more = cur | plus: 2 %}
       {% if paginator.page < two_less or paginator.page > two_more %}
-      {% elsif page == paginator.page %}
-        <li class='active'><span>{{ page }}</span></li>
-      {% elsif page == 1 %}
-        <li><a href='{{ BASE_PATH }}/mylife/index.html'>{{ page }}</a></li>
+      {% elsif cur == paginator.page %}
+        <li class='active'><span>{{ cur }}</span></li>
+      {% elsif cur == 1 %}
+        <li><a href='{{ BASE_PATH }}/mylife/index.html'>{{ cur }}</a></li>
       {% else %}
-        <li><a href='{{ BASE_PATH }}{{ site.paginate_path | replace: ':num', page }}'>{{ page }}</a></li>
+        <li><a href='{{ BASE_PATH }}{{ page.paginate_path | replace: ':num', cur }}'>{{ cur }}</a></li>
       {% endif %}
     {% endfor %}
 
