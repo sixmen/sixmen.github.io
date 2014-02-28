@@ -1,9 +1,9 @@
 ---
-layout: page
-title: Travel
+layout: page.ko
+title: MyLife
 paginate: 3
-paginate_path: /travel/page:num
-category: travel
+paginate_path: /ko/mylife/:num/
+category: ko/mylife
 ---
 {% include setup %}
 
@@ -25,9 +25,11 @@ category: travel
   {% if paginator.total_pages > 1 %}
   <ul class='pagination'>
     {% if paginator.previous_page %}
-      <li><a href='{{ BASE_PATH }}{{ paginator.previous_page_path }}'>&laquo; 이전</a></li>
+      <li><a href='{{ BASE_PATH }}{{ paginator.first_page_path }}'>&laquo; 처음</a></li>
+      <li><a href='{{ BASE_PATH }}{{ paginator.previous_page_path }}'>&lt; 이전</a></li>
     {% else %}
-      <li class='disabled'><span>&laquo; 이전</span></li>
+      <li class='disabled'><span>&laquo; 처음</span></li>
+      <li class='disabled'><span>&lt; 이전</span></li>
     {% endif %}
 
     {% if paginator.page > 3 %}
@@ -41,7 +43,7 @@ category: travel
       {% elsif cur == paginator.page %}
         <li class='active'><span>{{ cur }}</span></li>
       {% elsif cur == 1 %}
-        <li><a href='{{ BASE_PATH }}/travel/index.html'>{{ cur }}</a></li>
+        <li><a href='{{ BASE_PATH }}/mylife/index.html'>{{ cur }}</a></li>
       {% else %}
         <li><a href='{{ BASE_PATH }}{{ page.paginate_path | replace: ':num', cur }}'>{{ cur }}</a></li>
       {% endif %}
@@ -53,9 +55,11 @@ category: travel
     {% endif %}
 
     {% if paginator.next_page %}
-      <li><a href='{{ BASE_PATH }}{{ paginator.next_page_path }}'>다음 &raquo;</a></li>
+      <li><a href='{{ BASE_PATH }}{{ paginator.next_page_path }}'>다음 &gt;</a></li>
+      <li><a href='{{ BASE_PATH }}{{ paginator.last_page_path }}'>끝 &raquo;</a></li>
     {% else %}
-      <li class='disabled'><span>다음 &raquo;</span></li>
+      <li class='disabled'><span>다음 &gt;</span></li>
+      <li class='disabled'><span>끝 &raquo;</span></li>
     {% endif %}
   </ul>
   {% endif %}

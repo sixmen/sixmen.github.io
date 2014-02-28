@@ -22,22 +22,22 @@
 
 <div class='hp-navbar'>
   <div class='container'>
-    {% assign first_depth = page.url | remove_first: '/' | downcase | split: '/' | first %}
+    {% assign first_depth = page.url | remove_first: '/ko/' | downcase | split: '/' | first %}
     <nav class='hp-nav'>
-      {% if page.url == '/index.html' %}
+      {% if page.url == '/ko/index.html' %}
       <a class='hp-nav-item active' href='{{ HOME_PATH }}'>Home</a>
       {% else %}
       <a class='hp-nav-item' href='{{ HOME_PATH }}'>Home</a>
       {% endif %}
       {% if first_depth == 'mylife' %}
-      <a class='hp-nav-item active' href='{{ BASE_PATH }}/mylife/'>MyLife</a>
+      <a class='hp-nav-item active' href='{{ BASE_PATH }}/ko/mylife/'>MyLife</a>
       {% else %}
-      <a class='hp-nav-item' href='{{ BASE_PATH }}/mylife/'>MyLife</a>
+      <a class='hp-nav-item' href='{{ BASE_PATH }}/ko/mylife/'>MyLife</a>
       {% endif %}
       {% if first_depth == 'travel' %}
-      <a class='hp-nav-item active' href='{{ BASE_PATH }}/travel/'>Travel</a>
+      <a class='hp-nav-item active' href='{{ BASE_PATH }}/ko/travel/'>Travel</a>
       {% else %}
-      <a class='hp-nav-item' href='{{ BASE_PATH }}/travel/'>Travel</a>
+      <a class='hp-nav-item' href='{{ BASE_PATH }}/ko/travel/'>Travel</a>
       {% endif %}
     </nav>
   </div>

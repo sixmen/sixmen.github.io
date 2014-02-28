@@ -67,7 +67,8 @@ module Jekyll
 
   class CategoryPager
     attr_reader :page, :per_page, :posts, :total_posts, :total_pages,
-      :previous_page, :previous_page_path, :next_page, :next_page_path
+      :previous_page, :previous_page_path, :next_page, :next_page_path,
+      :first_page_path, :last_page_path
 
     def self.calculate_pages(all_posts, per_page)
       (all_posts.size.to_f / per_page.to_i).ceil
@@ -107,6 +108,8 @@ module Jekyll
       @previous_page_path = CategoryPager.paginate_path(target, @previous_page)
       @next_page = @page != @total_pages ? @page + 1 : nil
       @next_page_path = CategoryPager.paginate_path(target, @next_page)
+      @first_page_path = CategoryPager.paginate_path(target, 1)
+      @last_page_path = CategoryPager.paginate_path(target, @total_pages)
     end
 
     def to_liquid
@@ -119,7 +122,9 @@ module Jekyll
         'previous_page' => previous_page,
         'previous_page_path' => previous_page_path,
         'next_page' => next_page,
-        'next_page_path' => next_page_path
+        'next_page_path' => next_page_path,
+        'first_page_path' => first_page_path,
+        'last_page_path' => last_page_path
       }
     end
   end

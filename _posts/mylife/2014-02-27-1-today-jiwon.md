@@ -1,6 +1,6 @@
 ---
-layout: post
-category: mylife
+layout: post.ko
+category: ko/mylife
 title: 오늘의 지원
 tags: [지원]
 ---

@@ -170,15 +170,18 @@ romanize = (str) ->
   return str
 
 writePost = (note, tags, meta, content) ->
+  lang_tags = tags.filter (tag) -> tag.substr(0,5) is 'lang:'
+  lang = lang_tags[0]?.substr 5
+  return if not lang
   category_tags = tags.filter (tag) -> tag.substr(0,9) is 'category:'
   category = category_tags[0]?.substr 9
   return if not category
-  tags = tags.filter (tag) -> tag.substr(0,9) isnt 'category:'
+  tags = tags.filter (tag) -> not (tag.substr(0,5) is 'lang:' or tag.substr(0,9) is 'category:')
 
   front = []
   front.push '---'
-  front.push 'layout: post'
-  front.push 'category: ' + category
+  front.push 'layout: post.ko'
+  front.push 'category: ' + lang+'/'+category
   front.push 'title: ' + note.title
   front.push 'tags: [' + tags.join(', ') + ']'
   front.push '---'
