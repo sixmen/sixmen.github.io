@@ -17,4 +17,4 @@ cd ..
 jekyll build
 cd _site
 git commit -a -m 'update posts from Evernote'
-git push origin master
+git push origin gh-pages
