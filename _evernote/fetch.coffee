@@ -191,7 +191,7 @@ writePost = (note, tags, meta, content) ->
   url_path = url_path.replace /[*+~.()'"!:@]/g, ''
 
   created = new Date(note.created)
-  path = '../_posts/' + category
+  path = '../_posts/evernote'
   date = "#{created.getFullYear()}-#{datePad created.getMonth()+1}-#{datePad created.getDate()}"
   count = getCountForDate path, date
   filename = "#{path}/#{date}-#{count}-#{url_path}.html"
