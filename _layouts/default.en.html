@@ -22,24 +22,15 @@
 
 <div class='hp-navbar'>
   <div class='container'>
-    {% assign first_depth = page.url | remove_first: '/ko/' | downcase | split: '/' | first %}
     <nav class='hp-nav'>
-      {% if page.url == '/ko/index.html' %}
-      <a class='hp-nav-item active' href='{{ BASE_PATH }}/ko/'>Home</a>
+      {% if page.url == '/en/index.html' %}
+      <a class='hp-nav-item active' href='{{ BASE_PATH }}/en/'>Home</a>
       {% else %}
-      <a class='hp-nav-item' href='{{ BASE_PATH }}/ko/'>Home</a>
+      <a class='hp-nav-item' href='{{ BASE_PATH }}/en/'>Home</a>
       {% endif %}
-      {% if first_depth == 'mylife' %}
-      <a class='hp-nav-item active' href='{{ BASE_PATH }}/ko/mylife/'>MyLife</a>
-      {% else %}
-      <a class='hp-nav-item' href='{{ BASE_PATH }}/ko/mylife/'>MyLife</a>
-      {% endif %}
-      {% if first_depth == 'travel' %}
-      <a class='hp-nav-item active' href='{{ BASE_PATH }}/ko/travel/'>Travel</a>
-      {% else %}
-      <a class='hp-nav-item' href='{{ BASE_PATH }}/ko/travel/'>Travel</a>
-      {% endif %}
-      <a class='hp-nav-item pull-right' href='{{ BASE_PATH }}/en/'>English</a>
+      <a class='hp-nav-item' href='{{ BASE_PATH }}/ko/mylife/'>MyLife <small>(Korean)</small></a>
+      <a class='hp-nav-item' href='{{ BASE_PATH }}/ko/travel/'>Travel <small>(Korean)</small></a>
+      <a class='hp-nav-item pull-right' href='{{ BASE_PATH }}/ko/'>한국어</a>
     </nav>
   </div>
 </div>
