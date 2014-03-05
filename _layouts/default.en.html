@@ -21,7 +21,7 @@
 <body>
 
 <div class='hp-navbar'>
-  <div class='container'>
+  <div class='container-fluid'><div class='row'><div class='col-xs-12'>
     <nav class='hp-nav'>
       {% if page.url == '/en/index.html' %}
       <a class='hp-nav-item active' href='{{ BASE_PATH }}/en/'>Home</a>
@@ -32,11 +32,14 @@
       <a class='hp-nav-item' href='{{ BASE_PATH }}/ko/travel/'>Travel <small>(Korean)</small></a>
       <a class='hp-nav-item pull-right' href='{{ BASE_PATH }}/ko/'>한국어</a>
     </nav>
-  </div>
+  </div></div></div>
 </div>
 
 <div class='container'>
   {{ content }}
+</div>
+
+<div class='container-fluid'>
   <hr>
   <footer>
     <p>

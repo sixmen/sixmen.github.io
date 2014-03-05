@@ -1,7 +1,7 @@
 {% include setup %}
 
 <!DOCTYPE html>
-<html lang='en'>
+<html lang='ko'>
 <head>
   <meta charset='utf-8'>
 
@@ -21,7 +21,7 @@
 <body>
 
 <div class='hp-navbar'>
-  <div class='container'>
+  <div class='container-fluid'><div class='row'><div class='col-xs-12'>
     {% assign first_depth = page.url | remove_first: '/ko/' | downcase | split: '/' | first %}
     <nav class='hp-nav'>
       {% if page.url == '/ko/index.html' %}
@@ -41,11 +41,14 @@
       {% endif %}
       <a class='hp-nav-item pull-right' href='{{ BASE_PATH }}/en/'>English</a>
     </nav>
-  </div>
+  </div></div></div>
 </div>
 
 <div class='container'>
   {{ content }}
+</div>
+
+<div class='container-fluid'>
   <hr>
   <footer>
     <p>

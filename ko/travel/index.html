@@ -1,5 +1,5 @@
 ---
-layout: page.ko
+layout: default.ko
 title: Travel
 paginate: 3
 paginate_path: /ko/travel/:num/
@@ -7,7 +7,9 @@ category: ko/travel
 ---
 {% include setup %}
 
-<div class='col-xs-8 col-xs-offset-2'>
+<div class='row' style='margin-top: 20px;'>
+
+<div class='col-sm-10 col-sm-offset-1'>
   {% for post in paginator.posts %}
   <div class='panel panel-default'>
     <div class='panel-heading'>
@@ -21,7 +23,7 @@ category: ko/travel
   {% endfor %}
 </div>
 
-<div class='col-xs-8 col-xs-offset-2'>
+<div class='col-xs-12 text-center'>
   {% if paginator.total_pages > 1 %}
   <ul class='pagination'>
     {% if paginator.previous_page %}
@@ -43,7 +45,7 @@ category: ko/travel
       {% elsif cur == paginator.page %}
         <li class='active'><span>{{ cur }}</span></li>
       {% elsif cur == 1 %}
-        <li><a href='{{ BASE_PATH }}/travel/index.html'>{{ cur }}</a></li>
+        <li><a href='{{ BASE_PATH }}/travel/'>{{ cur }}</a></li>
       {% else %}
         <li><a href='{{ BASE_PATH }}{{ page.paginate_path | replace: ':num', cur }}'>{{ cur }}</a></li>
       {% endif %}
@@ -63,4 +65,6 @@ category: ko/travel
     {% endif %}
   </ul>
   {% endif %}
+</div>
+
 </div>
