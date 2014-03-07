@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 git pull origin master
 
@@ -14,8 +14,4 @@ git commit -m 'update posts from Evernote'
 git push origin master
 
 cd ..
-jekyll build
-cd _site
-git add .
-git commit -m 'update posts from Evernote'
-git push origin gh-pages
+./_deploy.sh
