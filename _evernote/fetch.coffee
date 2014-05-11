@@ -88,6 +88,7 @@ getAllNotes = (callback) ->
   noteStore.findNotesMetadata filter, 0, 10000, result_spec, (error, response) ->
     return callback error if error
     notes = response.notes
+    notes = _.filter notes, (note) -> note.tagGuids?.length > 0
     async.forEachSeries notes, (note, next) ->
       return next null if seqNums[note.guid] is note.updateSequenceNum
       getNote note, (success) ->
@@ -103,29 +104,30 @@ getTag = (tagGuid, callback) ->
     callback null, tags[tagGuid] = tag.name
 
 cutBeforeHR = (content) ->
-  hr_pos = content.indexOf '<hr/>'
-  return ['', content] if hr_pos<0
-
-  elements = content.substr(0, hr_pos).split('<')[1..].reverse()
-  elements_meta = []
-  elements_content = []
-  depth = 1
-  all_meta = false
-  for element in elements
-    if element[0] is '/'
-      depth++
-    else
-      depth--
-    if all_meta or depth > 0
-      elements_meta.push element
-    else
-      elements_content.push element
-    all_meta = true if depth is 0
-
-  meta_str = '<'+elements_meta.reverse().join('<')
-  content = '<'+elements_content.reverse().join('<') + content.substr(hr_pos+5)
-
-  return [meta_str, content]
+  return ['', content]
+#  hr_pos = content.indexOf '<hr/>'
+#  return ['', content] if hr_pos<0
+#
+#  elements = content.substr(0, hr_pos).split('<')[1..].reverse()
+#  elements_meta = []
+#  elements_content = []
+#  depth = 1
+#  all_meta = false
+#  for element in elements
+#    if element[0] is '/'
+#      depth++
+#    else
+#      depth--
+#    if all_meta or depth > 0
+#      elements_meta.push element
+#    else
+#      elements_content.push element
+#    all_meta = true if depth is 0
+#
+#  meta_str = '<'+elements_meta.reverse().join('<')
+#  content = '<'+elements_content.reverse().join('<') + content.substr(hr_pos+5)
+#
+#  return [meta_str, content]
 
 parseMeta = (meta_str) ->
   meta = {}
