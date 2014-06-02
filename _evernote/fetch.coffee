@@ -6,7 +6,7 @@ slug = require 'slug'
 
 dir = "#{__dirname}/.evernote_cache"
 asset_dir = "#{__dirname}/../assets"
-oauthAccessToken = 'S=s198:U=1732734:E=14bbab5cd46:C=1446304a14e:P=185:A=croquiscom-3065:V=2:H=76dbc4d745cd5a8245e50c8c4ef078ae'
+oauthAccessToken = ''
 notebookGuid = 'bb796ad3-926e-4600-bdc8-068a2a64995c'
 
 try fs.mkdirSync dir
