@@ -188,9 +188,9 @@ writePost = (note, tags, meta, content) ->
 
   front = []
   front.push '---'
-  front.push 'layout: post.ko'
+  front.push "layout: post.#{lang}"
   front.push 'category: ' + lang+'/'+category
-  front.push 'title: ' + note.title
+  front.push "title: '#{note.title}'"
   front.push 'tags: [' + tags.join(', ') + ']'
   front.push '---'
   front.push '{% include setup %}'
