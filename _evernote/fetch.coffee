@@ -61,15 +61,7 @@ getNoteContent = (note, callback) ->
         return uintArrayToHash(r.data.bodyHash) is hash
       return callback null if not res
       getResource res.mime, res.guid, (error, path) ->
-        width = res.width
-        height = res.height
-        if width > height and width > 600
-          height = Math.round(height * 600 / width)
-          width = 600
-        else if width < height and height > 600
-          width = Math.round(width * 600 / height)
-          height = 600
-        content = content.replace media, "<img src='{{ ASSET_PATH }}#{path}' width='#{width}' height='#{height}'>"
+        content = content.replace media, "<img src='{{ ASSET_PATH }}#{path}'>"
         callback null
     , (error) ->
       callback content
