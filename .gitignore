@@ -1,13 +1,11 @@
-_site
-_theme_packages/*
-
+# general
 Thumbs.db
 .DS_Store
 
-!.gitkeep
+# jekyll
+_site
 
-.rbenv-version
-.rvmrc
-
-.evernote_cache
+# evernote fetch
 node_modules
+.evernote_cache
+.access_token
