@@ -16,6 +16,7 @@ try fs.mkdirSync dir
 
 seqNums = {}
 tags = {}
+en_links = {}
 
 updateSeqNum = (guid, seqNum) ->
   seqNums[guid] = seqNum if not seqNums[guid] or seqNums[guid] < seqNum
@@ -112,32 +113,6 @@ getTag = (tagGuid, callback) ->
     return callback null if error
     callback null, tags[tagGuid] = tag.name
 
-cutBeforeHR = (content) ->
-  return ['', content]
-#  hr_pos = content.indexOf '<hr/>'
-#  return ['', content] if hr_pos<0
-#
-#  elements = content.substr(0, hr_pos).split('<')[1..].reverse()
-#  elements_meta = []
-#  elements_content = []
-#  depth = 1
-#  all_meta = false
-#  for element in elements
-#    if element[0] is '/'
-#      depth++
-#    else
-#      depth--
-#    if all_meta or depth > 0
-#      elements_meta.push element
-#    else
-#      elements_content.push element
-#    all_meta = true if depth is 0
-#
-#  meta_str = '<'+elements_meta.reverse().join('<')
-#  content = '<'+elements_content.reverse().join('<') + content.substr(hr_pos+5)
-#
-#  return [meta_str, content]
-
 parseMeta = (meta_str) ->
   meta = {}
   meta_str = meta_str.replace /<[^>]*>/g, '\n'
@@ -146,10 +121,20 @@ parseMeta = (meta_str) ->
       meta[RegExp.$1.trim()] = RegExp.$2.trim()
   return meta
 
+replaceLinks = (content) ->
+  links = content.match(/evernote:\/\/\/view\/\w*\/\w*\/[a-z0-9-]*\/[a-z0-9-]*\//g) or []
+  links.forEach (link) ->
+    /([a-z0-9-]*)\/$/.test link
+    guid = RegExp.$1
+    if en_links[guid]
+      content = content.replace link, en_links[guid]
+  return content
+
 readNote = (filename) ->
   content = fs.readFileSync filename, 'utf-8'
   /<en-note.*?>([\s\S]*)<\/en-note>/.test content
-  [meta_str, content] = cutBeforeHR RegExp.$1
+  content = replaceLinks RegExp.$1
+  meta_str = ''
   meta = parseMeta meta_str
   return [meta, content]
 
@@ -209,6 +194,8 @@ writePost = (note, tags, meta, content) ->
   date = "#{created.getFullYear()}-#{datePad created.getMonth()+1}-#{datePad created.getDate()}"
   count = getCountForDate path, date
   filename = "#{path}/#{date}-#{count}-#{url_path}.html"
+
+  en_links[note.guid] = "#{date}-#{count}-#{url_path}.html"
 
   fs.writeFileSync filename, content
 

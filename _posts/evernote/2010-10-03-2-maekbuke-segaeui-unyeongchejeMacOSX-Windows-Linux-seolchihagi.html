@@ -1,0 +1,94 @@
+---
+layout: post.ko
+category: ko/mylife
+title: '맥북에 세개의 운영체제(MacOSX, Windows, Linux) 설치하기'
+tags: []
+---
+{% include setup %}
+
+<a href="2010-06-12-2-maekbuk-seoljeonggi-1.html" style="color:#69aa35;">맥북 설정기 (1)</a>, <a href="2010-06-12-3-maekbuk-seoljeonggi-2.html" style="color:#69aa35;">맥북 설정기 (2)</a>, <a href="2010-10-02-1-maekbuk-patisyeon-nanugi.html" style="color:#69aa35;">맥북 파티션 나누기</a><br/>
+<div><br/>
+OS를 여러개 설치하려면 우선 파티션과 파일시스템을 미리 잘 정하는 것이 좋다.<br/>
+<br/>
+OS를 재설치 하고 싶을 수 있으니까 역시 OS 파티션은 분리하는 것이 좋다고 생가한다. 거기다가 데이터를 각 OS에서 접근하기 쉽게 하려면 OS와는 분리된 곳에 있는 편이 좋고.<br/>
+<br/>
+내가 가지고 있는 데이터중 1차는 MP3들과 내 개인 문서들. 이게 현재 25G 정도 되고, 조금씩 늘어난다. 아무래도 모든 OS에서 접근하려면 FAT32나 NTFS일 필요가 있다.<br/>
+<br/>
+두번째는 작업 데이터. 내가 필요한 회사 데이터가 한 2G 쯤에, 안드로이드 소스와 각종 참고 소스들이 필요하다. 윈도우즈에서도 작업할 수 있으나 그건 2G 정도의 회사 데이터면 되고, 안드로이드 소스 같은 걸 NTFS에 두기는 어렵다. 따라서 맥과 리눅스만 쓰는 것으로 해서 별도 파티션으로 했다. 양쪽 파티션에서 접근하기 위해서는 HFS+(저널링 미사용)으로 하면 된다. 근데 안드로이드 소스 컴파일을 하려면 대소문자 구분이 필요하다.<br/>
+<br/>
+다음에 정할 건 용량. 하드가 충분하다면 대강 줘도 되겠지만, 128G에 불과하다. 전에 쓰던 것을 보고 사용량을 다음과 같이 정했다.
+<ul>
+<li>MacOSX 26G : 기본 시스템이 한 10G 정도에, XCode가 한 8G 정도였다. 이 이외에 뭐를 더 하게 될지는 모르겠지만 약간 여유롭게</li>
+<li>Linux 8G : 리눅스에서 쓰는 프로그램 중에는 용량 큰게 별로 없어서 이 정도면 충분했다.</li>
+<li>Windows 16G : 윈도우즈 7을 설치해봤더니 한 10G 정도 필요했다. 물론 용량 문제로 64bit 버전을 포기하고, hiberfil.sys도 삭제, pagefile.sys도 512M만 할당한 결과지만. Adobe CS5 같은 거 설치하려면 용량이 더 필요하지만, 그건 회사 컴퓨터에 있고(난 라이선스도 없고), 정 필요하면 NTFS로 된 데이터 파티션에 설치하면 되니까, 일단 16G 정도로 충분할 것으로 봤다.</li>
+<li>Work 25G : 내가 작업하던 것중 가장 용량을 많이 차지하던게 안드로이드 소스. 한 8G 정도? froyo, ecalir 두개쯤 유지한다고 치고, 이것저것 하면 25G 정도면 될 것 같았다.</li>
+<li>Data 46G : 나머지는 데이터로. MP3는 늘면 늘었지 줄지 않고, 요새의 용량 큰 게임들을 여기 설치하려고 좀 크게 줬다.</li>
+</ul>
+용량을 정하면 이제 배치. 용도는 모르겠지만 MacBook에 기본적으로 EFI 파티션이란게 있어서 그대로 두기로 했다. 그러다보니 <a href="http://en.wikipedia.org/wiki/Master_boot_record" target="_blank">MBR</a>은 사용할 수가 없고, <a href="http://en.wikipedia.org/wiki/GUID_Partition_Table" target="_blank">GPT</a>를 사용해야 한다. GPT로 한 경우에도 MBR 파티션 구조를 설정해주긴 하지만, MBR의 확장 파티션은 사용할 수 없다. 따라서 MBR로는 4개의 주 파티션만 가능하다. 그런데 윈도우즈는 이 4개의 파티션 밖에 인식하지 못한다. 따라서 윈도우즈가 접근할 파티션은 이 4개의 파티션안에 존재해야 한다. 이 것을 기반으로 다음과 같이 파티션을 나눴다.
+<table>
+<tbody>
+<tr>
+<td>번호</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+</tr>
+<tr>
+<td>이름</td>
+<td>EFI</td>
+<td>Mac</td>
+<td>Windows</td>
+<td>Data</td>
+<td>Linux</td>
+<td>Work</td>
+</tr>
+<tr>
+<td>용량</td>
+<td>200M</td>
+<td>26G</td>
+<td>16G</td>
+<td>46G</td>
+<td>8G</td>
+<td>24G</td>
+</tr>
+<tr>
+<td>파일시스템</td>
+<td>EFI</td>
+<td>Journaled HFS+</td>
+<td>NTFS</td>
+<td>NTFS</td>
+<td>ext4</td>
+<td>Case-sensitive Non-journaled HFS+</td>
+</tr>
+</tbody>
+</table>
+글쓰면서 생각해보니 Windows에서 BootCamp를 통해 2번 파티션을 보여주는데 Work 파티션을 2번으로 했으면 Windows에서 볼 수 있었던 거 아닌가 싶다. Mac 파티션을 Windows에서 보여줘봐야 할 것도 없는데.<br/>
+<br/>
+<hr/>
+<br/>
+고민은 이러면 되고, 이제 실제로 설치하는 과정. 다른 OS는 문제 없다고 보지만 Windows는 7이 기준이다. XP에서도 문제가 없을지는 모르겠다.<br/>
+<br/>
+우선 MacOSX를 설치한다. MacOSX 설치 프로그램에서 위와 같이 파티션을 나눈다. MacOSX는 FAT32만 만들어 주므로, 3,4,5번은 FAT32로 만든다. Windows만 설치한다면 BootCamp를 이용할 수도 있지만, 사용하지 않고 수동으로 파티션을 나눠도 설치에 문제는 없다.<br/>
+<br/>
+MacOSX를 설치하고 다면 <a href="http://refit.sourceforge.net/" target="_blank">rEFIt</a>을 설치한다. 패키지를 받아서 실행하면 자동으로 설치가 된다. 다만 설치후 처음 부팅하면 동작하지 않고, 두번째 부팅화면부터 rEFIt이 뜬다.<br/>
+<br/>
+다음엔 Windows를 설치한다. 설치중에 3번을 NTFS로 바꾸고 설치하면 된다. 설치한 후 MacOSX 디스크에서 제공하는 BootCamp를 설치하면 윈도우즈용 각종 드라이버가 설치가 된다.<br/>
+<br/>
+마지막으로 설치할 것은 리눅스. 리눅스를 설치하면서 5번 파티션을 ext4로 바꾸고 설치하면 된다. 설치 중에 swap 파티션을 설정해달라고 나오는데 용량이 부족하니 패스. hibernation이 안 된다긴 하는데 워낙 부팅 시간이 빠르니 그냥 무시하기로 결정.<br/>
+맥북에 설치한 리눅스에 필요한 설정을 해주는 건 <a href="https://help.ubuntu.com/community/MacBook" target="_blank">https://help.ubuntu.com/community/MacBook</a> 를 참조하면 된다. 우분투용이지만 다른 거에도 적용할 수 있을 듯.<br/>
+<br/>
+<hr/>
+<br/>
+<br/>
+이렇게 세 개의 OS를 설치한 후 문제는 부팅. Windows와 Linux로 바로 부팅할 방법이 없다. 몇가지 시도를 해봤지만 실패. 더 알아보면 뭔가 방법이 있을지도 모르겠지만, 일단 현재 상태는
+<ul>
+<li>rEFIt -&gt; MacOSX</li>
+<li>rEFIt -&gt; grub -&gt; Linux</li>
+<li>rEFIt -&gt; grub -&gt; Windows</li>
+</ul>
+Windows를 최우선으로 하기 위해 각각의 기본값을 grub/Windows로 설정해두고 timeout도 3으로 했다.(재설치 전에는 1로 했는데 그럼 가끔 선택지를 바꿀 시간이 부족하다)<br/>
+<br/>
+grub-efi 란것도 있던데 이게 내가 원하는 건지 모르겠다. 어쨌든 한번 해보려고 했는데 실패했다.</div>
