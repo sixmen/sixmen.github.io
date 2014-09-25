@@ -40,7 +40,9 @@ awk가 좀 오래된 도구다 보니 열린 파일 수 제한이 낮은 듯 합
 
 이 경우 파일을 계속 닫아주면 됩니다. 대신 '>>'를 써줘야 정상적으로 추출됩니다.
 
+```
 awk '{ split(substr($4,2),array,"[/:]"); fn = array[1] "-" array[4] ".log"; print >> fn; close(fn) }' access.log
+```
 
 ### 참고
 * [How to split existing apache logfile by month?](http://stackoverflow.com/questions/11713978/how-to-split-existing-apache-logfile-by-month/11714105#11714105)
