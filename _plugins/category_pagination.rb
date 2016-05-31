@@ -1,65 +1,63 @@
 module Jekyll
-  class Post
-    alias_method :original_next, :next
-    def next
+  class Document
+    alias_method :original_next_doc, :next_doc
+    def next_doc
       if self.data.has_key?('paginate_next')
         self.data['paginate_next']
       else
-        original_next
+        original_next_doc
       end
     end
 
-    alias_method :original_previous, :previous
-    def previous
+    alias_method :original_previous_doc, :previous_doc
+    def previous_doc
       if self.data.has_key?('paginate_previous')
         self.data['paginate_previous']
       else
-        original_previous
+        original_previous_doc
       end
     end
   end
 
-  module Generators
-    class CategoryPagination < Generator
-      def generate(site)
-        site.pages.dup.each do |page|
-          paginate(site, page) if CategoryPager.pagination_enabled?(site, page)
+  class CategoryPagination < Generator
+    def generate(site)
+      site.pages.dup.each do |page|
+        paginate(site, page) if CategoryPager.pagination_enabled?(site, page)
+      end
+    end
+
+    def paginate(site, target)
+      all_posts = site.site_payload['site']['posts']
+      if !target.data['category'].nil?
+        category = target.data['category']
+        all_posts = all_posts.select do |post|
+          post.data['category'] == category
         end
       end
-
-      def paginate(site, target)
-        all_posts = site.site_payload['site']['posts']
-        if !target.data['category'].nil?
-          category = target.data['category']
-          all_posts = all_posts.select do |post|
-            post.data['category'] == category
-          end
+      pages = CategoryPager.calculate_pages(all_posts, target.data['paginate'].to_i)
+      (1..pages).each do |num_page|
+        pager = CategoryPager.new(target, num_page, all_posts, pages)
+        if num_page > 1
+          newpage = Page.new(site, site.source, target.dir, target.name)
+          newpage.pager = pager
+          newpage.dir = CategoryPager.paginate_path(target, num_page)
+          site.pages << newpage
+        else
+          target.pager = pager
         end
-        pages = CategoryPager.calculate_pages(all_posts, target.data['paginate'].to_i)
-        (1..pages).each do |num_page|
-          pager = CategoryPager.new(target, num_page, all_posts, pages)
-          if num_page > 1
-            newpage = Page.new(site, site.source, target.dir, target.name)
-            newpage.pager = pager
-            newpage.dir = CategoryPager.paginate_path(target, num_page)
-            site.pages << newpage
-          else
-            target.pager = pager
-          end
+      end
+      all_posts.sort!
+      (0...all_posts.length).each do |pos|
+        post = all_posts[pos]
+        if pos > 0
+          post.data['paginate_previous'] = all_posts[pos-1]
+        else
+          post.data['paginate_previous'] = nil
         end
-        all_posts.sort!
-        (0...all_posts.length).each do |pos|
-          post = all_posts[pos]
-          if pos > 0
-            post.data['paginate_previous'] = all_posts[pos-1]
-          else
-            post.data['paginate_previous'] = nil
-          end
-          if pos < all_posts.length-1
-            post.data['paginate_next'] = all_posts[pos+1]
-          else
-            post.data['paginate_next'] = nil
-          end
+        if pos < all_posts.length-1
+          post.data['paginate_next'] = all_posts[pos+1]
+        else
+          post.data['paginate_next'] = nil
         end
       end
     end
