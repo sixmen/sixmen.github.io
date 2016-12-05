@@ -1,0 +1,11 @@
+<div class='hp-navbar'>
+  <div class='container-fluid'><div class='row'><div class='col-xs-12'>
+    <nav class='hp-nav'>
+      <a class='hp-nav-item{{ if eq .URL "/en/" }}{{ " active" }}{{ end }}' href='{{ "/en/" | relURL }}'>Home</a>
+      <a class='hp-nav-item' href='{{ "/ko/mylife/" | relURL }}'>MyLife <small>(Korean)</small></a>
+      <a class='hp-nav-item' href='{{ "/ko/travel/" | relURL }}'>Travel <small>(Korean)</small></a>
+      <a class='hp-nav-item' href='{{ "/ko/tech/" | relURL }}'>Tech<small>(Korean)</small></a>
+      <a class='hp-nav-item pull-right' href='{{ "/ko/" | relURL }}'>한국어</a>
+    </nav>
+  </div></div></div>
+</div>

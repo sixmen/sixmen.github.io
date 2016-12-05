@@ -1,0 +1,13 @@
+<div class='hp-navbar'>
+  <div class='container-fluid'><div class='row'><div class='col-xs-12'>
+    {{ $first_depth := index (split (.URL | replaceRE "^/ko/" "" | lower) "/") 0 }}
+    <nav class='hp-nav'>
+      <a class='hp-nav-item{{ if eq .URL "/ko/" }}{{ " active" }}{{ end }}' href='{{ "/ko/" | relURL }}'>Home</a>
+      <a class='hp-nav-item{{ if eq $first_depth "mylife" }}{{ " active" }}{{ end }}' href='{{ "/ko/mylife/" | relURL }}'>MyLife</a>
+      <a class='hp-nav-item{{ if eq $first_depth "travel" }}{{ " active" }}{{ end }}' href='{{ "/ko/travel/" | relURL }}'>Travel</a>
+      <a class='hp-nav-item{{ if eq $first_depth "tech" }}{{ " active" }}{{ end }}' href='{{ "/ko/tech/" | relURL }}'>Tech</a>
+      <a class='hp-nav-item{{ if eq $first_depth "tags" }}{{ " active" }}{{ end }}' href='{{ "/ko/tags/" | relURL }}'>Tags</a>
+      <a class='hp-nav-item pull-right' href='{{ "/en/" | relURL }}'>English</a>
+    </nav>
+  </div></div></div>
+</div>

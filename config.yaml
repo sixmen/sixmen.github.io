@@ -1,0 +1,27 @@
+baseurl: http://sixmen.com/
+title: sixmen.com
+
+defaultContentLanguage: ko
+defaultContentLanguageInSubdir: true
+
+hasCJKLanguage: true
+
+googleAnalytics: UA-48366784-1
+
+paginate: 3
+
+pygmentsuseclasses: true
+
+disqusShortname: sixmen-blog
+
+author:
+  name: Sangmin Yoon
+
+languages:
+  en:
+    weight: 0
+  ko:
+    weight: 0
+
+blackfriday:
+  smartypants: false

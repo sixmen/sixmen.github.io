@@ -1,0 +1,26 @@
+{{ partial "header.html" . }}
+{{ partial "navbar.html" . }}
+
+<div class='container'>
+
+<div class='row' style='margin-top: 20px;'>
+
+<div class='col-sm-10 col-sm-offset-1'>
+  <div class='list-group'>
+    {{ range .Data.Pages }}
+    <a href='{{ .URL }}' class='list-group-item'>
+      <h4 class='list-group-item-heading'>
+        {{ .Title }}
+        <small class='pull-right list-group-item-text'>{{ .Date.Format "02 Jan 2006" }}</small>
+      </h4>
+      <p class='list-group-item-text'>{{ .Summary }}</p>
+    </a>
+    {{ end }}
+  </div>
+</div>
+
+</div>
+
+</div>
+
+{{ partial "footer.html" . }}
