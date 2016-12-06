@@ -199,7 +199,7 @@ writePost = (note, tags, content) ->
   content = front.join('\n') + content
 
   path = "../content/#{category}"
-  filename = "#{path}/#{en_links[note.guid]}"
+  filename = "#{path}/#{en_links[note.guid].replace('.html', ".#{lang}.html")}"
 
   fs.writeFileSync filename, content
 
