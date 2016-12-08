@@ -92,3 +92,32 @@ img {
   border: 1px solid #4c964d;
   color: #FFF;
 }
+
+.langsheet .panel-body {
+	color: #f8f8f2;
+	background-color: #272822;
+}
+.cmd_hr {
+  display: block;
+  border-top: solid red 1px;
+  margin-top: 0.8em;
+  margin-bottom: -0.7em;
+}
+.cmd_comment {
+  color: #75715e;
+}
+.cmd_keyword {
+  color: #66d9ef;
+}
+.cmd_stdlib {
+  color: #a6e22e;
+}
+.cmd_preproc {
+  color: #1364b4;
+}
+.cmd_string {
+  color: #e6db74;
+}
+.cmd_number {
+  color: #ae81ff;
+}
