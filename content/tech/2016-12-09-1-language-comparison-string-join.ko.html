@@ -1,7 +1,7 @@
 ---
 title: 언어 비교 - 문자열 배열 합치기
 tags: ['언어비교']
-date: 2016-12-07
+date: 2016-12-09
 ---
 
 <div class='langsheet'>
@@ -17,6 +17,12 @@ date: 2016-12-07
   <div class='panel-heading'>C++</div>
   <div class='panel-body'>
     <span class='cmd_comment'>//&nbsp;one-liner</span><br><span class='cmd_stdlib'>vector</span>&lt;<span class='cmd_stdlib'>string</span>&gt;&nbsp;strs&nbsp;=&nbsp;{<span class='cmd_string'>"one"</span>,&nbsp;<span class='cmd_string'>"two"</span>,&nbsp;<span class='cmd_string'>"three"</span>};<br><span class='cmd_stdlib'>string</span>&nbsp;out&nbsp;=&nbsp;<span class='cmd_stdlib'>accumulate</span>(<span class='cmd_stdlib'>next</span>(strs.<span class='cmd_stdlib'>begin</span>()),&nbsp;strs.<span class='cmd_stdlib'>end</span>(),&nbsp;strs[0],<br>&nbsp;&nbsp;[](<span class='cmd_keyword'>const</span>&nbsp;<span class='cmd_stdlib'>string</span>&nbsp;&amp;a,&nbsp;<span class='cmd_keyword'>const</span>&nbsp;<span class='cmd_stdlib'>string</span>&nbsp;&amp;b)&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class='cmd_keyword'>return</span>&nbsp;a&nbsp;+&nbsp;<span class='cmd_string'>","</span>&nbsp;+&nbsp;b;<br>&nbsp;&nbsp;});<br><span class='cmd_hr'></span><br><span class='cmd_comment'>//&nbsp;prevent&nbsp;reallocation</span><br><span class='cmd_stdlib'>vector</span>&lt;<span class='cmd_stdlib'>string</span>&gt;&nbsp;strs&nbsp;=&nbsp;{<span class='cmd_string'>"one"</span>,&nbsp;<span class='cmd_string'>"two"</span>,&nbsp;<span class='cmd_string'>"three"</span>};<br><span class='cmd_stdlib'>ostringstream</span>&nbsp;os;<br><span class='cmd_stdlib'>copy</span>(strs.<span class='cmd_stdlib'>begin</span>(),&nbsp;strs.<span class='cmd_stdlib'>end</span>()-1,&nbsp;<span class='cmd_stdlib'>ostream_iterator</span>&lt;<span class='cmd_stdlib'>string</span>&gt;(os,&nbsp;<span class='cmd_string'>","</span>));<br>os&nbsp;&lt;&lt;&nbsp;*strs.<span class='cmd_stdlib'>rbegin</span>();<br><span class='cmd_stdlib'>string</span>&nbsp;out&nbsp;=&nbsp;os.<span class='cmd_stdlib'>str</span>();
+  </div>
+  <div class='panel-footer'>
+    #include &lt;algorithm&gt; // copy<br>
+#include &lt;iterator&gt; // next, ostream_iterator<br>
+#include &lt;numeric&gt; // accumulate<br>
+#include &lt;sstream&gt; // ostringstream
   </div>
 </div>
 

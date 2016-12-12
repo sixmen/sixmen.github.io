@@ -9,7 +9,7 @@ date: 2016-12-07
 <div class='panel panel-info'>
   <div class='panel-heading'>C</div>
   <div class='panel-body'>
-    <span class='cmd_keyword'>char</span>&nbsp;*s1&nbsp;=&nbsp;<span class='cmd_string'>"hello"</span>;<br><span class='cmd_keyword'>char</span>&nbsp;*s2&nbsp;=&nbsp;<span class='cmd_string'>"&nbsp;world"</span>;<br><span class='cmd_keyword'>char</span>&nbsp;*s3&nbsp;=&nbsp;(<span class='cmd_keyword'>char</span>&nbsp;*)<span class='cmd_stdlib'>malloc</span>(<span class='cmd_stdlib'>strlen</span>(s1)+<span class='cmd_stdlib'>strlen</span>(s2)+1);<br><span class='cmd_stdlib'>strcpy</span>(s3,&nbsp;s1);<br><span class='cmd_stdlib'>strcat</span>(s3,&nbsp;s2);
+    <span class='cmd_keyword'>const</span>&nbsp;<span class='cmd_keyword'>char</span>&nbsp;*s1&nbsp;=&nbsp;<span class='cmd_string'>"hello"</span>;<br><span class='cmd_keyword'>const</span>&nbsp;<span class='cmd_keyword'>char</span>&nbsp;*s2&nbsp;=&nbsp;<span class='cmd_string'>"&nbsp;world"</span>;<br><span class='cmd_keyword'>char</span>&nbsp;*s3&nbsp;=&nbsp;(<span class='cmd_keyword'>char</span>&nbsp;*)<span class='cmd_stdlib'>malloc</span>(<span class='cmd_stdlib'>strlen</span>(s1)+<span class='cmd_stdlib'>strlen</span>(s2)+<span class='cmd_number'>1</span>);<br><span class='cmd_stdlib'>strcpy</span>(s3,&nbsp;s1);<br><span class='cmd_stdlib'>strcat</span>(s3,&nbsp;s2);
   </div>
 </div>
 

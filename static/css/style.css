@@ -97,6 +97,9 @@ img {
 	color: #f8f8f2;
 	background-color: #272822;
 }
+.langsheet .panel-footer {
+  font-size: 0.8em;
+}
 .cmd_hr {
   display: block;
   border-top: solid red 1px;
