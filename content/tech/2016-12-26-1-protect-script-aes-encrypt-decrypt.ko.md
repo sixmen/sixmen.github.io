@@ -1,7 +1,7 @@
 ---
 title: 스크립트 보호 - AES 암호화/해독화 하기
 tags: []
-date: 2016-12-27
+date: 2016-12-26
 ---
 
 <a href='{{< relref "tech/2016-12-23-1-protect-script-encryption-types.ko.md" >}}'>전편</a>에 이어
