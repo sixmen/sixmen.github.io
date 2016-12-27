@@ -1,4 +1,4 @@
 #!/bin/bash
-rm -rf public/*
-hugo
-cp static/index.html public
+rm -rf docs/*
+hugo -d docs
+cp static/index.html docs

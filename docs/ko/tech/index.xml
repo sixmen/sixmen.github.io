@@ -1,0 +1,1376 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tech-rsses on sixmen.com</title>
+    <link>http://sixmen.com/ko/tech/index.xml</link>
+    <description>Recent content in Tech-rsses on sixmen.com</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 27 Dec 2016 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://sixmen.com/ko/tech/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>스크립트 보호 - 모바일에서 AES 해독화 하기</title>
+      <link>http://sixmen.com/ko/tech/2016-12-27-1-protect-script-decrypt-aes-mobile/</link>
+      <pubDate>Tue, 27 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/ko/tech/2016-12-27-1-protect-script-decrypt-aes-mobile/</guid>
+      <description>&lt;p&gt;이번에는 &lt;a href=&#39;http://sixmen.com/ko/tech/2016-12-27-1-protect-script-decrypt-aes-mobile/&#39;&gt;전편&lt;/a&gt;에서
+암호화한 파일을 모바일 환경(iOS, 안드로이드)에서 해독화 해보겠습니다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;iOS에서 AES 해독화를 하기 위해서는 CommonCrypto 라이브러리를 사용합니다.
+Swift에서 사용하기 위해서 Bridging-Header.h에 다음을 포함하면 됩니다.&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-objective-c&#34; data-lang=&#34;objective-c&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#import &amp;lt;CommonCrypto/CommonCryptor.h&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;암호화/해독화는 CCCrypt 함수를 사용하면 됩니다.
+그런데 함수 원형을 보면 key와 iv(Initialization vector)란 인자가 보입니다.
+OpenSSL을 써서 암호화 할때는 보지 못한 것입니다.
+여기에 어떤 값을 넣어줘야 할까요?&lt;/p&gt;
+
+&lt;p&gt;찾아보니 OpenSSL은 암호에서 key와 iv를 유도해서 사용한다고 합니다
+(&lt;a href=&#34;https://en.wikipedia.org/wiki/PBKDF2&#34;&gt;PBKDF2&lt;/a&gt; 참고).
+-p 옵션을 사용하면 이 정보를 볼 수 있습니다.&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span&gt;&lt;/span&gt;$ openssl aes-256-cbc -d -in encrypted.dat -out restored.txt -k &lt;span class=&#34;m&#34;&gt;1234&lt;/span&gt; -p
+&lt;span class=&#34;nv&#34;&gt;salt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;FBA42868201CC0ED
+&lt;span class=&#34;nv&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;A8C174B6F635A7770CE3AE18FCB7290E7E09F289D1187CE0E28A842E07057EDA
+&lt;span class=&#34;nv&#34;&gt;iv&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;7B3E50E41A9F2A33A568F4C34D2C129C
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;이제 해독화를 해봅니다.&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-swift&#34; data-lang=&#34;swift&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 암호화된 데이터 준비&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;let&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;url&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Bundle&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;forResource&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;encrypted&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;withExtension&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;dat&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;let&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;encrypted_data&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;try&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;?&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;contentsOf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;!)&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;// key, iv 준비&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;// hexadecimal 메소드는 http://stackoverflow.com/a/26502285 참고&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;let&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;key&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;A8C174B6F635A7770CE3AE18FCB7290E7E09F289D1187CE0E28A842E07057EDA&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hexadecimal&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;let&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;iv&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;7B3E50E41A9F2A33A568F4C34D2C129C&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hexadecimal&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;// 해독화된 데이터를 받을 공간 준비&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;output&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;encrypted_data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;!.&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;count&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;kCCBlockSizeAES128&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;dataOutMoved&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;// 해독화&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;let&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;result&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;output&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;withUnsafeMutableBytes&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;outputPtr&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;in&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;CCCrypt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;CCOperation&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;kCCDecrypt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;CCAlgorithm&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;kCCAlgorithmAES&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;CCOptions&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;kCCOptionPKCS7Padding&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
+            &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;UInt8&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;](&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;!),&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;kCCKeySizeAES256&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;UInt8&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;](&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;iv&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;!),&lt;/span&gt;
+            &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;UInt8&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;](&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;encrypted_data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;!),&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;encrypted_data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;!.&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;outputPtr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;output&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dataOutMoved&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;output&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;count&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dataOutMoved&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;// 해독화된 데이터를 문자열로 변환&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;let&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;outputStr&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;output&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;encoding&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;utf8&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;실제로 나온 결과를 보면 원본과 다릅니다.
+그것은 OpenSSL이 암호화한 파일 앞에 16 바이트의 소금(salt)가 추가되어 있기 때문입니다.
+16 바이트를 제거한 파일을 입력으로 주면 제대로 해독화가 됩니다.&lt;/p&gt;
+
+&lt;p&gt;그런데 원본 파일을 변경한 후 다시 암호화를 해보면 key와 iv가 다른 값으로 바뀝니다.
+이렇게 되면 이 값을 하드코딩할 수는 없습니다.
+정식으로는 암호와 소금으로 부터 key와 iv를 유도해야 겠지만, 귀찮으니 다른 방법을 찾아봅니다.
+다행히 OpenSSL에는 소금을 사용하지 않는 옵셥이 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span&gt;&lt;/span&gt;$ openssl aes-256-cbc -in original.txt -out encrypted.dat -nosalt -k 1234
+$ openssl aes-256-cbc -d -in encrypted.dat -out restored.txt -nosalt -k &lt;span class=&#34;m&#34;&gt;1234&lt;/span&gt; -p
+&lt;span class=&#34;nv&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;81DC9BDB52D04DC20036DBD8313ED055CC5776D16A1FB6E4AFA34B18395DA656
+&lt;span class=&#34;nv&#34;&gt;iv&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;6305309076F3AB48FF8FEF0F3B70A434
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;p&gt;이렇게 하면 key와 iv가 항상 일정합니다. 그리고 암호화된 파일에서 소금 부분을 삭제하는 작업을 하지 않아도 됩니다.&lt;/p&gt;
+
+&lt;p&gt;물론 보통의 경우 이렇게 하면 안 되겠지만, 이번 작업에서는 이 정도로 충분하다는 판단을 했습니다.
+실제로는 암호도 사용하지 않고 key와 iv를 직접 주어서 암호화를 했습니다.&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span&gt;&lt;/span&gt;$ openssl aes-256-cbc -in original.txt -out encrypted.dat -K &lt;span class=&#34;m&#34;&gt;01020304&lt;/span&gt; -iv 0a0b0c0d -nosalt
+$ openssl aes-256-cbc -d -in encrypted.dat -out restored.txt -K &lt;span class=&#34;m&#34;&gt;01020304&lt;/span&gt; -iv 0a0b0c0d -nosalt -p
+&lt;span class=&#34;nv&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;0102030400000000000000000000000000000000000000000000000000000000
+&lt;span class=&#34;nv&#34;&gt;iv&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;0A0B0C0D000000000000000000000000
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;hr /&gt;
+
+&lt;p&gt;똑같은 동작을 Java(안드로이드)에서도 할 수 있습니다.
+Java에서는 javax.crypto 패키지를 사용합니다.&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 암호화된 데이터 준비&lt;/span&gt;
+&lt;span class=&#34;kt&#34;&gt;byte&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;encrypted_data&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Files&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;readAllBytes&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Paths&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;encrypted.dat&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;// key, iv 준비&lt;/span&gt;
+&lt;span class=&#34;kt&#34;&gt;byte&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;key&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;BigInteger&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;0102030400000000000000000000000000000000000000000000000000000000&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;toByteArray&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+&lt;span class=&#34;kt&#34;&gt;byte&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;iv&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;BigInteger&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;0A0B0C0D000000000000000000000000&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;toByteArray&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;// 해독화 준비&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;Cipher&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cipher&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Cipher&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getInstance&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;AES/CBC/PKCS5Padding&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;SecretKeySpec&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;keySpec&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;SecretKeySpec&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;AES&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;IvParameterSpec&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ivSpec&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IvParameterSpec&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;iv&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;cipher&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;init&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Cipher&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;DECRYPT_MODE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;keySpec&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ivSpec&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;// 해독화&lt;/span&gt;
+&lt;span class=&#34;kt&#34;&gt;byte&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;output&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cipher&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;doFinal&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;encrypted_data&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;outputStr&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;output&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;UTF-8&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;JVM 위에서 위 코드를 실행하면 &lt;code&gt;java.security.InvalidKeyException: Illegal key size&lt;/code&gt; 에러가 발생할 수 있습니다.
+그것은 기본 배포되는 JRE가 256 비트의 키를 허용하지 않기 때문입니다.
+aes-128-cbc로 암호화하고 key에 16 바이트(=128 비트)의 키를 주면 잘 동작합니다.
+제가 목표로 한 안드로이드 환경에서는 256 비트의 키도 사용할 수 있었습니다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;여기까지의 내용을 기반으로 AES 알고리즘을 써서 단순한 스크립트 보호를 해봤습니다.
+더 깊게 들어갈 부분도 있겠지만, AES를 다루는데 도움이 되었으면 합니다.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>스크립트 보호 - AES 암호화/해독화 하기</title>
+      <link>http://sixmen.com/ko/tech/2016-12-26-1-protect-script-aes-encrypt-decrypt/</link>
+      <pubDate>Mon, 26 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/ko/tech/2016-12-26-1-protect-script-aes-encrypt-decrypt/</guid>
+      <description>&lt;p&gt;&lt;a href=&#39;http://sixmen.com/ko/tech/2016-12-23-1-protect-script-encryption-types/&#39;&gt;전편&lt;/a&gt;에 이어
+실제로 파일을 암호화/해독화 해보겠습니다.&lt;/p&gt;
+
+&lt;p&gt;OpenSSL 커맨드 라인 도구를 사용하면 프로그램을 따로 작성하지 않아도 암호화를 할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;우선 원본 파일을 준비합니다.&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span&gt;&lt;/span&gt;$ cat original.txt
+Hello World
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;openssl list-cipher-commands&lt;/code&gt;를 실행하면 사용가능한 알고리즘을 보여줍니다.
+그중 AES 알고리즘은 다음과 같습니다.&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span&gt;&lt;/span&gt;$ openssl list-cipher-commands &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep aes
+aes-128-cbc
+aes-128-ecb
+aes-192-cbc
+aes-192-ecb
+aes-256-cbc
+aes-256-ecb
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;128, 192, 256은 키의 크기입니다. CBC, ECB는 &lt;a href=&#34;https://ko.wikipedia.org/wiki/%EB%B8%94%EB%A1%9D_%EC%95%94%ED%98%B8_%EC%9A%B4%EC%9A%A9_%EB%B0%A9%EC%8B%9D&#34;&gt;블록 암호 운용 방식&lt;/a&gt;을 나타냅니다. 여기서는 aes-256-cbc로 암호화를 해보겠습니다.&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span&gt;&lt;/span&gt;$ openssl aes-256-cbc -in original.txt -out encrypted.dat
+enter aes-256-cbc encryption password:
+Verifying - enter aes-256-cbc encryption password:
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;해독화는 -d 옵션을 사용합니다.&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span&gt;&lt;/span&gt;$ openssl aes-256-cbc -d -in encrypted.dat -out restored.txt
+enter aes-256-cbc decryption password:
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;암호화를 자동화하려면 암호를 명령에 포함시켜야 합니다. 이를 위해서는 -k 나 -pass 옵션을 사용합니다.&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span&gt;&lt;/span&gt;$ openssl aes-256-cbc -in original.txt -out encrypted.dat -k 1234
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;또는&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span&gt;&lt;/span&gt;$ openssl aes-256-cbc -in original.txt -out encrypted.dat -pass pass:1234
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;암호를 파일에서 읽도록 하려면 -kfile 이나 -pass 옵션을 사용합니다.&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span&gt;&lt;/span&gt;$ openssl aes-256-cbc -in original.txt -out encrypted.dat -kfile password_file
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;또는&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span&gt;&lt;/span&gt;$ openssl aes-256-cbc -in original.txt -out encrypted.dat -pass file:password_file
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;다음에는 암호화한 파일을 iOS나 Android에서 해독화하는 방법에 대해서 알아보겠습니다.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>스크립트 보호 - 암호화 종류</title>
+      <link>http://sixmen.com/ko/tech/2016-12-23-1-protect-script-encryption-types/</link>
+      <pubDate>Fri, 23 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/ko/tech/2016-12-23-1-protect-script-encryption-types/</guid>
+      <description>&lt;p&gt;한때 하이브리드 앱이 유행했지만 성능문제로 어느 이상을 커지지는 못했습니다.
+그러던 와중에 React Native가 나오면서 다시 하나의 코드로 여러 플랫폼을 지원하는
+방식이 탄력을 받고 있습니다.&lt;/p&gt;
+
+&lt;p&gt;저도 React Native등을 써서 한번의 코딩으로 iOS와 안드로이드 모두를 지원하고 싶은
+생각은 간절하지만, 같이 일하는 기획자가 그렇게 만들어진 앱의 느낌에 만족하지 못하는 고로,
+더 많은 발전이 있기 전에는 React Native로 넘어가지 못할 것 같습니다.&lt;/p&gt;
+
+&lt;p&gt;그렇지만 현재 만들고 있는 앱을 네이티브(Swift, Java등)로만 작성하고 있는 것은 아닙니다.
+UI/UX에 상관이 없고 자주 갱신되어야 하는 부분은 JavaScript로 작성해서 앱 업데이트 없이도
+갱신할 수 있도록 하고 있습니다.&lt;/p&gt;
+
+&lt;p&gt;그런데 이 스크립트가 나름 앱의 핵심 노하우라고 여기고 있기에 외부에서 보지 못하도록 하고 싶었습니다.
+물론 난독화(uglify)만으로도 분석이 어려워지긴 합니다.
+그래도 간단한 암호화라도 추가 하고 싶어서 조금 찾아봤습니다.&lt;/p&gt;
+
+&lt;p&gt;암호화 종류를 살펴보기에 앞서 짚어볼 가장 중요한 점은 &#39;100% 안전한 방법은 없다&#39; 입니다.
+당연한 것이 이 스크립트는 언젠가 JavaScript 엔진이 이해할 수 있는 형태로 변환되어야 하기 때문입니다.
+다만 적어도 단순히 ipa, apk를 푸는 것만으로 스크립트를 가져가는 것은 방지하고 싶었습니다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;암호화는 일단 크게 대칭 방식과 비대칭 방식이 있습니다.&lt;/p&gt;
+
+&lt;p&gt;대칭 방식은 암호화화 해독화를 같은 키로 하는 것입니다. 속도가 빠른 대신 키를 양측이 모두
+알고 있어야 하기에 키가 노출될 가능성이 높습니다.
+주요 알고리즘으로 AES가 있습니다.&lt;/p&gt;
+
+&lt;p&gt;비대칭 방식은 암호화화 해독화를 다른 키로 하는 것입니다. 속도가 느린 대신 해독화 키(비밀 키)를
+나만 가지고 있기 때문에 노출될 가능성이 적어집니다.
+주요 알고리즘으로 RSA가 있습니다.&lt;/p&gt;
+
+&lt;p&gt;반면 보안에 관련된 얘기에서 종종 나오곤 하는 MD5, SHA, HMAC등은 해시를 만들어내는 것으로,
+원문이 변형되지 않았는지(무결성) 검사하기 위함이지 그 자체로 원문을 복원하지는 못합니다.
+다만 &#39;암호가 MD5로 저장되어서 원래 암호를 얻어냈다&#39; 같은 뉴스가 있는 것은 원문(암호)의 크기가
+작기 때문에 높은 확률로 원문이라고 짐작되는 글을 알아냈다라는 것이지, 원문을 복원했다는 것은 아닙니다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;처음에는 내 키가 노출되는게 꺼려져서 RSA를 알아봤습니다.
+그런데 RSA는 암호화하려는 데이터가 키보다 작아야 한다는 것을 알게 됐습니다.
+그렇기에 원문 암호화는 AES로 하지만 그 키는 RSA로 암호화하는 방식등을 사용하는 것 같습니다.&lt;/p&gt;
+
+&lt;p&gt;그래서 스크립트는 AES로 암호화하기로 했습니다.
+암호화 키는 RSA로 암호화를 하려다가 키를 얻기 위해 앱을 해킹한다면 어떻게 하든
+알아낼 수 있을 것으로 판단해서, 암호화 키는 문자열로 바로 노출되는 것만 막는 정도로 처리하기로 했습니다.&lt;/p&gt;
+
+&lt;p&gt;다음에는 실제로 AES로 암호화 하는 방법에 대해서 알아보겠습니다.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>언어 비교 - 함수 매개 변수에 기본값 지정</title>
+      <link>http://sixmen.com/ko/tech/2016-12-19-1-language-comparison-function-default-argument/</link>
+      <pubDate>Mon, 19 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/ko/tech/2016-12-19-1-language-comparison-function-default-argument/</guid>
+      <description>&lt;div class=&#39;langsheet&#39;&gt;
+
+&lt;div class=&#39;panel panel-warning&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;C&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    해당 기능이 존재하지 않음
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;C++&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;double&lt;/span&gt;&amp;nbsp;logarithm(&lt;span class=&#39;cmd_keyword&#39;&gt;double&lt;/span&gt;&amp;nbsp;x,&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;double&lt;/span&gt;&amp;nbsp;base=&lt;span class=&#39;cmd_number&#39;&gt;10&lt;/span&gt;)&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;return&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;(x)&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;(base);&lt;br&gt;}
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;CoffeeScript&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    logarithm&amp;nbsp;=&amp;nbsp;(x,&amp;nbsp;base=&lt;span class=&#39;cmd_number&#39;&gt;10&lt;/span&gt;)&amp;nbsp;-&amp;gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Math&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;(x)&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Math&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;(base)
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Java&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;double&lt;/span&gt;&amp;nbsp;logarithm(&lt;span class=&#39;cmd_keyword&#39;&gt;double&lt;/span&gt;&amp;nbsp;x)&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;return&lt;/span&gt;&amp;nbsp;logarithm(x,&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;10&lt;/span&gt;);&lt;br&gt;}&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;double&lt;/span&gt;&amp;nbsp;logarithm(&lt;span class=&#39;cmd_keyword&#39;&gt;double&lt;/span&gt;&amp;nbsp;x,&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;double&lt;/span&gt;&amp;nbsp;base)&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;return&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Math&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;(x)&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Math&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;(base);&lt;br&gt;}
+  &lt;/div&gt;
+  &lt;div class=&#39;panel-footer&#39;&gt;
+    use method overloading
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;JavaScript&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;function&lt;/span&gt;&amp;nbsp;logarithm(x,&amp;nbsp;base)&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;if&lt;/span&gt;&amp;nbsp;(base==&lt;span class=&#39;cmd_keyword&#39;&gt;null&lt;/span&gt;)&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;base&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;10&lt;/span&gt;;&lt;br&gt;&amp;nbsp;&amp;nbsp;}&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;return&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Math&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;(x)&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Math&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;(base);&lt;br&gt;}
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Kotlin&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;fun&lt;/span&gt;&amp;nbsp;logarithm(x:&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;Double&lt;/span&gt;,&amp;nbsp;base:&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;Double&lt;/span&gt;=&lt;span class=&#39;cmd_number&#39;&gt;10.0&lt;/span&gt;):&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;Double&lt;/span&gt;&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;return&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Math&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;(x)&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Math&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;(base)&lt;br&gt;}
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Lua&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;function&lt;/span&gt;&amp;nbsp;logarithm(x,&amp;nbsp;base)&lt;br&gt;&amp;nbsp;&amp;nbsp;base&amp;nbsp;=&amp;nbsp;base&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;or&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;10&lt;/span&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;return&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;math&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;(x)&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;math&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;(base)&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;end}
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-warning&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Objective-C&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    해당 기능이 존재하지 않음
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Perl&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;sub&lt;/span&gt;&amp;nbsp;logarithm&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;my&lt;/span&gt;&amp;nbsp;$x&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;shift&lt;/span&gt;;&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;my&lt;/span&gt;&amp;nbsp;$base&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;shift&lt;/span&gt;&amp;nbsp;//&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;10&lt;/span&gt;;&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;($x)&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;($base);&lt;br&gt;}
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;PHP&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;function&lt;/span&gt;&amp;nbsp;logarithm($x,&amp;nbsp;$base=&lt;span class=&#39;cmd_number&#39;&gt;10&lt;/span&gt;)&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;return&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;($x)&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;($base);&lt;br&gt;}
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Python&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;def&lt;/span&gt;&amp;nbsp;logarithm(x,&amp;nbsp;base=&lt;span class=&#39;cmd_number&#39;&gt;10&lt;/span&gt;):&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;return&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;math&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;(x)&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;math&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;(base)
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Ruby&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;def&lt;/span&gt;&amp;nbsp;logarithm(x,&amp;nbsp;base=&lt;span class=&#39;cmd_number&#39;&gt;10&lt;/span&gt;)&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Math&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;(x)&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Math&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;(base)&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;end&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Swift&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;func&lt;/span&gt;&amp;nbsp;logarithm(x:&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;Double&lt;/span&gt;,&amp;nbsp;base:&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;Double&lt;/span&gt;=&lt;span class=&#39;cmd_number&#39;&gt;10&lt;/span&gt;)&amp;nbsp;-&amp;gt;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;Double&lt;/span&gt;&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;return&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;(x)&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;(base)&lt;br&gt;}
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>iOS에서 년도를 구할 때 비정상적인 값이 나오는 문제</title>
+      <link>http://sixmen.com/ko/tech/2016-12-16-1-ios-calendar/</link>
+      <pubDate>Fri, 16 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/ko/tech/2016-12-16-1-ios-calendar/</guid>
+      <description>&lt;p&gt;지그재그 앱을 사용하는 사용자를 분석할 때 사용하기 위해서
+최근 업데이트에 나이를 입력받는 화면이 추가되었습니다.&lt;/p&gt;
+
+&lt;p&gt;입력은 나이를 받지만 나이는 매년 달라지기 때문에 고정된 값인 태어난 년도로 변환하여 저장하고 있습니다.
+그런데 대부분은 정상적인 년도가 들어오는데 일부 사용자의 태어난 년도가 10이하 또는 2500이상인 문제가 있었습니다.&lt;/p&gt;
+
+&lt;p&gt;처음에는 사용자가 게임등을 위해 핸드폰의 시간을 변경해서 발생했다고 생각했습니다.
+하지만 값이 너무 튀었고, 또 그렇게 값이 다양하지는 않았습니다.&lt;/p&gt;
+
+&lt;p&gt;그러던 중에 값이 이상한 경우는 모두 iOS라는 사실을 깨달았습니다.
+그래도 짐작가는 것은 없던 차에 값이 2500~2600사이라는 것을 보고 혹시나 해서 &#39;ios year 2500&#39;이라는
+검색어로 검색을 해봤습니다. 그랬더니 &lt;a href=&#34;http://forums.imore.com/general-apple-news-discussion/262432-my-ipad-my-set-year-2558-a.html&#34;&gt;my iPad my set year is 2558 BE?&lt;/a&gt;라는
+문서가 딱 처음에 나왔습니다.&lt;/p&gt;
+
+&lt;p&gt;결론적으로 iOS는 그레고리언 달력 외에도 일본력과 불교력을 지원합니다.
+올해가 일본력으로 헤이세이 28년이기 때문에 나이를 20으로 입력하면 태어난 년도가 9가 됩니다.
+불기로는 올해가 2560년이고 태어난 20살은 태어난 년도가 2541이 됩니다.&lt;/p&gt;
+
+&lt;p&gt;이것을 깨닫고 다시 태어난 년도가 이상한 사용자의 사용언어를 살펴보니 일본력은 일본어 사용자,
+불교력은 태국어등 사용자로 나왔습니다.
+지극히 한국과 한국어에 특화된 지그재그 서비스라고 생각하고 있었는데 드물지만 외국어 사용자가 있다는 사실이 놀라웠습니다.&lt;/p&gt;
+
+&lt;p&gt;기술적으로는&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-swift&#34; data-lang=&#34;swift&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;let&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;calendar&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Calendar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;current&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// &amp;lt;--&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;let&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;components&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;calendar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dateComponents&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;year&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;from&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Date&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;let&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;currentYear&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;components&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;year&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;??&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2016&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;로 되어 있던 것을&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-swift&#34; data-lang=&#34;swift&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;let&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;calendar&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Calendar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;identifier&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;gregorian&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;로 변경했더니 사용자가 설정한 캘린더와 상관없이 기대한 값이 반환되었습니다.&lt;/p&gt;
+
+&lt;p&gt;혹시 유사한 증상이 있을 경우 한번 의심해보시면 좋을 것 같습니다.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>문자열이 여러개의 패턴에 일치하는지 여부 검사하기</title>
+      <link>http://sixmen.com/ko/tech/2016-12-15-1-match-multiple-patterns/</link>
+      <pubDate>Thu, 15 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/ko/tech/2016-12-15-1-match-multiple-patterns/</guid>
+      <description>&lt;p&gt;지그재그에서는 현재 하루에 수천만개의 사용자 로그가 쌓이고 있습니다.
+그리고 이 로그를 분석해 사용자가 얼마나 쇼핑몰에 가입을 하는지,
+주문을 얼마나 하는지 살피고 있습니다.&lt;/p&gt;
+
+&lt;p&gt;그런데 지그재그가 지원하는 수많은 쇼핑몰은 다양한 솔루션을 사용하고 있고,
+그에 따라 패턴도 전부 제각각입니다.
+따라서 어떤 로그가 가입 페이지인지, 주문 페이지인지 확인하기 위해서
+모든 솔루션의 패턴과 대조를 해야 합니다.&lt;/p&gt;
+
+&lt;p&gt;오늘은 이러한 대조를 어떻게 하고 있는지 살펴보겠습니다.
+분석은 여러가지 언어로 하고 있지만, 여기서는 JavaScript를 살펴보겠습니다.&lt;/p&gt;
+
+&lt;p&gt;JavaScript에서 어떤 문자열이 패턴을 포함하고 있는지 검사하는 방법은 다음과 같은 것들이 있습니다.
+&lt;a href=&#34;https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/String/indexOf&#34;&gt;String.prototype.indexOf&lt;/a&gt;,
+&lt;a href=&#34;https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/String/includes&#34;&gt;String.prototype.includes&lt;/a&gt;,
+&lt;a href=&#34;https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/String/match&#34;&gt;String.prototype.match&lt;/a&gt;,
+&lt;a href=&#34;https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/RegExp/test&#34;&gt;RegExp.prototype.test&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;우선 10만개짜리 로그들을 놓고 간단한 문자열 포함 여부 검사를 각 방법으로 해서 시간을 비교해봤습니다.&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-coffeescript&#34; data-lang=&#34;coffeescript&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;fs = &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;require&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#39;fs&amp;#39;&lt;/span&gt;
+&lt;span class=&#34;nv&#34;&gt;logs = &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;fs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;readFileSync&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#39;logs&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#39;utf-8&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;split&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#39;\n&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+&lt;span class=&#34;nv&#34;&gt;run = &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;(name, fn) -&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;nv&#34;&gt;start = &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;Date&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;now&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1000&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;fn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;console&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;#{&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s&#34;&gt; - &lt;/span&gt;&lt;span class=&#34;si&#34;&gt;#{&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;Date&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;now&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;start&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;ms&amp;quot;&lt;/span&gt;
+
+&lt;span class=&#34;nx&#34;&gt;run&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#39;indexOf&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;-&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;nv&#34;&gt;count = &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;logs&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;indexOf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#39;o&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;
+      &lt;span class=&#34;nx&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;
+
+&lt;span class=&#34;nx&#34;&gt;run&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#39;includes&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;-&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;nv&#34;&gt;count = &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;logs&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;includes&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#39;o&amp;#39;&lt;/span&gt;
+      &lt;span class=&#34;nx&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;
+
+&lt;span class=&#34;nx&#34;&gt;run&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#39;test&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;-&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;nv&#34;&gt;count = &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;logs&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;sr&#34;&gt;/o/&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;test&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt;
+      &lt;span class=&#34;nx&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;
+
+&lt;span class=&#34;nx&#34;&gt;run&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#39;match&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;-&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;nv&#34;&gt;count = &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;logs&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;match&lt;/span&gt; &lt;span class=&#34;sr&#34;&gt;/o/&lt;/span&gt;
+      &lt;span class=&#34;nx&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;다음은 그 결과입니다.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;indexOf - 6517ms
+includes - 7247ms
+test - 13539ms
+match - 14369ms
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;속도 차이가 많아보입니다.&lt;/p&gt;
+
+&lt;p&gt;이번에는 검색 패턴을 좀더 실제에 가깝게 해봤습니다.&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-coffeescript&#34; data-lang=&#34;coffeescript&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;run&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#39;indexOf&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;-&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;nv&#34;&gt;count = &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;logs&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;indexOf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#39;join.html&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;
+      &lt;span class=&#34;nx&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;
+
+&lt;span class=&#34;nx&#34;&gt;run&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#39;includes&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;-&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;nv&#34;&gt;count = &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;logs&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;includes&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#39;join.html&amp;#39;&lt;/span&gt;
+      &lt;span class=&#34;nx&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;
+
+&lt;span class=&#34;nx&#34;&gt;run&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#39;test&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;-&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;nv&#34;&gt;count = &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;logs&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;sr&#34;&gt;/join\.html/&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;test&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt;
+      &lt;span class=&#34;nx&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;
+
+&lt;span class=&#34;nx&#34;&gt;run&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#39;match&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;-&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;nv&#34;&gt;count = &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;logs&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;match&lt;/span&gt; &lt;span class=&#34;sr&#34;&gt;/join\.html/&lt;/span&gt;
+      &lt;span class=&#34;nx&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;다음은 그 결과입니다.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;indexOf - 6812ms
+includes - 7947ms
+test - 10420ms
+match - 10943ms
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;indexOf, includes에 대해서 시간이 증가하는 것은 예상된 것이지만,
+정규식을 쓰는 경우 오히려 시간이 감소했습니다.
+혹시 이유를 아시는 분은 알려주시면 감사하겠습니다.&lt;/p&gt;
+
+&lt;p&gt;그래도 indexOf가 가장 빠르지만, 우리가 원하는 패턴은 하나가 아닙니다.
+패턴을 두개로 늘려봤습니다.&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-coffeescript&#34; data-lang=&#34;coffeescript&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;run&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#39;indexOf&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;-&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;nv&#34;&gt;count = &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;logs&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;indexOf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#39;join.html&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;or&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;indexOf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#39;join_contract.html&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;
+      &lt;span class=&#34;nx&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;
+
+&lt;span class=&#34;nx&#34;&gt;run&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#39;includes&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;-&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;nv&#34;&gt;count = &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;logs&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;includes&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#39;join.html&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;or&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;includes&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#39;join_contract.html&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+      &lt;span class=&#34;nx&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;
+
+&lt;span class=&#34;nx&#34;&gt;run&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#39;test&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;-&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;nv&#34;&gt;count = &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;logs&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;sr&#34;&gt;/join\.html|join_contract\.html/&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;test&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt;
+      &lt;span class=&#34;nx&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;
+
+&lt;span class=&#34;nx&#34;&gt;run&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#39;match&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;-&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;nv&#34;&gt;count = &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;logs&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;match&lt;/span&gt; &lt;span class=&#34;sr&#34;&gt;/join\.html|join_contract\.html/&lt;/span&gt;
+      &lt;span class=&#34;nx&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;다음은 그 결과입니다.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;indexOf - 12686ms
+includes - 13864ms
+test - 11690ms
+match - 12089ms
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;패턴이 두개만 되도 정규식이 빠릅니다. 심지어 저희는 패턴이 일단 10개는 넘습니다.
+그래서 정규식의 test를 쓰는 것으로 결정을 했습니다.
+그리고 알려진 패턴을 추가했습니다.&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-coffeescript&#34; data-lang=&#34;coffeescript&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;PATTERN = &lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;/join\.html|join_contract\.html|member\/register|register_form\.php|..../&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;10개미만일때는 그래도 괜찮은데 길어지니까 어디까지가 하나의 패턴인지 눈에 안 들어옵니다.
+거기에 일일이 기억하기 어려워서 각 패턴이 어떤 솔루션의 것인지 주석을 달고 싶어졌습니다.
+그래서 정규식을 여러 줄로 나눠서 쓸 수 있는지 찾아봤습니다.
+몇몇언어(예. Perl)는 정규식 자체를 여러 줄로 나눌 수 있지만 JavaScript는 그런 문법은 없는 것 같습니다.&lt;/p&gt;
+
+&lt;p&gt;방법을 찾아보니 &lt;a href=&#34;http://stackoverflow.com/q/12317049&#34;&gt;regex - How to split a long regular expression into multiple lines in JavaScript? - Stack Overflow&lt;/a&gt;를 찾을 수 있었습니다.
+그 중에서도 단순히 문자열을 합친 후 RegExp 생성자를 이용하는 것은 문자열 escape에 신경을 써야 해서,
+최종적으로는 &lt;a href=&#34;http://stackoverflow.com/a/34755045&#34;&gt;두번째 답변&lt;/a&gt;의 방법을 이용하기로 했습니다.&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-coffeescript&#34; data-lang=&#34;coffeescript&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;PATTERNS = &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;
+    &lt;span class=&#34;sr&#34;&gt;/join\.html/&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# 솔루션 A&lt;/span&gt;
+    &lt;span class=&#34;sr&#34;&gt;/join_contract\.html/&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# 솔루션 B&lt;/span&gt;
+    &lt;span class=&#34;sr&#34;&gt;/member\/register/&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# 솔루션 C&lt;/span&gt;
+    &lt;span class=&#34;sr&#34;&gt;/register_form\.php/&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# 솔루션 D&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;span class=&#34;nv&#34;&gt;PATTERN_RE = &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;RegExp&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;PATTERNS&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;(p) -&amp;gt;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;source&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;join&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#39;|&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;이상 패턴 일치 여부 검사 방법이였습니다.
+(원래는 JavaScript에서 정규식을 여러 줄로 쓰는 방법에 대해서 쓰려던 건데 사족이 붙어서 길어졌네요)&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>언어 비교 - 정규식 캡쳐링 그룹</title>
+      <link>http://sixmen.com/ko/tech/2016-12-14-1-language-comparison-regular-expression-capturing-group/</link>
+      <pubDate>Wed, 14 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/ko/tech/2016-12-14-1-language-comparison-regular-expression-capturing-group/</guid>
+      <description>&lt;div class=&#39;langsheet&#39;&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;C&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;const&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;char&lt;/span&gt;&amp;nbsp;*str&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;2016-12-05&#34;&lt;/span&gt;;&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;regex_t&lt;/span&gt;&amp;nbsp;rx;&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;if&lt;/span&gt;&amp;nbsp;(&lt;span class=&#39;cmd_stdlib&#39;&gt;regcomp&lt;/span&gt;(&amp;amp;rx,&amp;nbsp;&#34;([[:digit:]]{4})-([[:digit:]]{2})-([[:digit:]]{2})&#34;,&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;REG_EXTENDED&lt;/span&gt;)==0)&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;regmatch_t&lt;/span&gt;&amp;nbsp;m[&lt;span class=&#39;cmd_number&#39;&gt;4&lt;/span&gt;];&lt;br&gt;&amp;nbsp;&amp;nbsp;if&amp;nbsp;(&lt;span class=&#39;cmd_stdlib&#39;&gt;regexec&lt;/span&gt;(&amp;amp;rx,&amp;nbsp;str,&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;4&lt;/span&gt;,&amp;nbsp;m,&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;0&lt;/span&gt;)==&lt;span class=&#39;cmd_number&#39;&gt;0&lt;/span&gt;)&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;&amp;nbsp;year&amp;nbsp;=&amp;nbsp;str2int(str+m[&lt;span class=&#39;cmd_number&#39;&gt;1&lt;/span&gt;].&lt;span class=&#39;cmd_stdlib&#39;&gt;rm_so&lt;/span&gt;,&amp;nbsp;m[&lt;span class=&#39;cmd_number&#39;&gt;1&lt;/span&gt;].&lt;span class=&#39;cmd_stdlib&#39;&gt;rm_eo&lt;/span&gt;&amp;nbsp;-&amp;nbsp;m[&lt;span class=&#39;cmd_number&#39;&gt;1&lt;/span&gt;].&lt;span class=&#39;cmd_stdlib&#39;&gt;rm_so&lt;/span&gt;);&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;&amp;nbsp;month&amp;nbsp;=&amp;nbsp;str2int(str+m[&lt;span class=&#39;cmd_number&#39;&gt;2&lt;/span&gt;].&lt;span class=&#39;cmd_stdlib&#39;&gt;rm_so&lt;/span&gt;,&amp;nbsp;m[&lt;span class=&#39;cmd_number&#39;&gt;2&lt;/span&gt;].&lt;span class=&#39;cmd_stdlib&#39;&gt;rm_eo&lt;/span&gt;&amp;nbsp;-&amp;nbsp;m[&lt;span class=&#39;cmd_number&#39;&gt;2&lt;/span&gt;].&lt;span class=&#39;cmd_stdlib&#39;&gt;rm_so&lt;/span&gt;);&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;&amp;nbsp;day&amp;nbsp;=&amp;nbsp;str2int(str+m[&lt;span class=&#39;cmd_number&#39;&gt;3&lt;/span&gt;].&lt;span class=&#39;cmd_stdlib&#39;&gt;rm_so&lt;/span&gt;,&amp;nbsp;m[&lt;span class=&#39;cmd_number&#39;&gt;3&lt;/span&gt;].&lt;span class=&#39;cmd_stdlib&#39;&gt;rm_eo&lt;/span&gt;&amp;nbsp;-&amp;nbsp;m[&lt;span class=&#39;cmd_number&#39;&gt;3&lt;/span&gt;].&lt;span class=&#39;cmd_stdlib&#39;&gt;rm_so&lt;/span&gt;);&lt;br&gt;&amp;nbsp;&amp;nbsp;}&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;regfree&lt;/span&gt;(&amp;amp;rx);&lt;br&gt;}
+  &lt;/div&gt;
+  &lt;div class=&#39;panel-footer&#39;&gt;
+    #include &amp;lt;regex.h&amp;gt;&lt;br&gt;
+int str2int(const char *str, int len) {&lt;br&gt;
+  int value = 0;&lt;br&gt;
+  char *tmp = strndup(str, len);&lt;br&gt;
+  value = strtol(tmp, (char **)NULL, 10);&lt;br&gt;
+  free(tmp);&lt;br&gt;
+  return value;&lt;br&gt;
+}
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;C++&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_stdlib&#39;&gt;string&lt;/span&gt;&amp;nbsp;str(&lt;span class=&#39;cmd_string&#39;&gt;&#34;2016-12-05&#34;&lt;/span&gt;);&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;regex&lt;/span&gt;&amp;nbsp;rx(&lt;span class=&#39;cmd_string&#39;&gt;&#34;(\\d{4})-(\\d{2})-(\\d{2})&#34;&lt;/span&gt;);&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;smatch&lt;/span&gt;&amp;nbsp;m;&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;if&lt;/span&gt;&amp;nbsp;(&lt;span class=&#39;cmd_stdlib&#39;&gt;regex_match&lt;/span&gt;(str,&amp;nbsp;m,&amp;nbsp;rx))&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;&amp;nbsp;year&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;stoi&lt;/span&gt;(m.&lt;span class=&#39;cmd_stdlib&#39;&gt;str&lt;/span&gt;(&lt;span class=&#39;cmd_number&#39;&gt;1&lt;/span&gt;));&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;&amp;nbsp;month&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;stoi&lt;/span&gt;(m.&lt;span class=&#39;cmd_stdlib&#39;&gt;str&lt;/span&gt;(&lt;span class=&#39;cmd_number&#39;&gt;2&lt;/span&gt;));&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;&amp;nbsp;day&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;stoi&lt;/span&gt;(m.&lt;span class=&#39;cmd_stdlib&#39;&gt;str&lt;/span&gt;(&lt;span class=&#39;cmd_number&#39;&gt;3&lt;/span&gt;));&lt;br&gt;}
+  &lt;/div&gt;
+  &lt;div class=&#39;panel-footer&#39;&gt;
+    #include &amp;lt;regex&amp;gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;CoffeeScript&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    str&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;2016-12-05&#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;if&lt;/span&gt;&amp;nbsp;/(\d{4})-(\d{2})-(\d{2})/.&lt;span class=&#39;cmd_stdlib&#39;&gt;test&lt;/span&gt;&amp;nbsp;str&lt;br&gt;&amp;nbsp;&amp;nbsp;year&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Number&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;RegExp&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;$1&lt;/span&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;month&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Number&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;RegExp&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;$2&lt;/span&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;day&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Number&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;RegExp&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;$3&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Java&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_stdlib&#39;&gt;String&lt;/span&gt;&amp;nbsp;str&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;2016-12-05&#34;&lt;/span&gt;;&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;Pattern&lt;/span&gt;&amp;nbsp;rx&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Pattern&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;compile&lt;/span&gt;(&lt;span class=&#39;cmd_string&#39;&gt;&#34;(\\d{4})-(\\d{2})-(\\d{2})&#34;&lt;/span&gt;);&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;Matcher&lt;/span&gt;&amp;nbsp;m&amp;nbsp;=&amp;nbsp;rx.&lt;span class=&#39;cmd_stdlib&#39;&gt;matcher&lt;/span&gt;(str);&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;if&lt;/span&gt;&amp;nbsp;(m.&lt;span class=&#39;cmd_stdlib&#39;&gt;matches&lt;/span&gt;())&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;&amp;nbsp;year&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Integer&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;parseInt&lt;/span&gt;(m.&lt;span class=&#39;cmd_stdlib&#39;&gt;group&lt;/span&gt;(&lt;span class=&#39;cmd_number&#39;&gt;1&lt;/span&gt;));&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;&amp;nbsp;month&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Integer&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;parseInt&lt;/span&gt;(m.&lt;span class=&#39;cmd_stdlib&#39;&gt;group&lt;/span&gt;(&lt;span class=&#39;cmd_number&#39;&gt;2&lt;/span&gt;));&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;&amp;nbsp;day&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Integer&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;parseInt&lt;/span&gt;(m.&lt;span class=&#39;cmd_stdlib&#39;&gt;group&lt;/span&gt;(&lt;span class=&#39;cmd_number&#39;&gt;3&lt;/span&gt;));&lt;br&gt;}
+  &lt;/div&gt;
+  &lt;div class=&#39;panel-footer&#39;&gt;
+    import java.util.regex.Matcher;&lt;br&gt;
+import java.util.regex.Pattern;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;JavaScript&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;var&lt;/span&gt;&amp;nbsp;str&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;2016-12-05&#39;&lt;/span&gt;;&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;if&lt;/span&gt;&amp;nbsp;(/(\d{4})-(\d{2})-(\d{2})/.&lt;span class=&#39;cmd_stdlib&#39;&gt;test&lt;/span&gt;(str))&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;var&lt;/span&gt;&amp;nbsp;year&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Number&lt;/span&gt;(&lt;span class=&#39;cmd_stdlib&#39;&gt;RegExp&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;$1&lt;/span&gt;);&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;var&lt;/span&gt;&amp;nbsp;month&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Number&lt;/span&gt;(&lt;span class=&#39;cmd_stdlib&#39;&gt;RegExp&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;$2&lt;/span&gt;);&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;var&lt;/span&gt;&amp;nbsp;day&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Number&lt;/span&gt;(&lt;span class=&#39;cmd_stdlib&#39;&gt;RegExp&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;$3&lt;/span&gt;);&lt;br&gt;}
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Kotlin&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;val&lt;/span&gt;&amp;nbsp;str&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;2016-12-05&#34;&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;val&lt;/span&gt;&amp;nbsp;rx&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;(\\d{4})-(\\d{2})-(\\d{2})&#34;&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;toRegex&lt;/span&gt;()&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;val&lt;/span&gt;&amp;nbsp;m&amp;nbsp;=&amp;nbsp;rx.&lt;span class=&#39;cmd_stdlib&#39;&gt;matchEntire&lt;/span&gt;(str)&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;if&lt;/span&gt;&amp;nbsp;(m!=null)&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;val&lt;/span&gt;&amp;nbsp;year&amp;nbsp;=&amp;nbsp;m.&lt;span class=&#39;cmd_stdlib&#39;&gt;groups&lt;/span&gt;[&lt;span class=&#39;cmd_number&#39;&gt;1&lt;/span&gt;]!!.&lt;span class=&#39;cmd_stdlib&#39;&gt;value&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;toInt&lt;/span&gt;()&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;val&lt;/span&gt;&amp;nbsp;month&amp;nbsp;=&amp;nbsp;m.&lt;span class=&#39;cmd_stdlib&#39;&gt;groups&lt;/span&gt;[&lt;span class=&#39;cmd_number&#39;&gt;2&lt;/span&gt;]!!.&lt;span class=&#39;cmd_stdlib&#39;&gt;value&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;toInt&lt;/span&gt;()&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;val&lt;/span&gt;&amp;nbsp;day&amp;nbsp;=&amp;nbsp;m.&lt;span class=&#39;cmd_stdlib&#39;&gt;groups&lt;/span&gt;[&lt;span class=&#39;cmd_number&#39;&gt;3&lt;/span&gt;]!!.&lt;span class=&#39;cmd_stdlib&#39;&gt;value&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;toInt&lt;/span&gt;()&lt;br&gt;}
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Lua&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    str&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;2016-12-05&#39;&lt;/span&gt;&lt;br&gt;rx&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;(%d%d%d%d)-(%d%d)-(%d%d)&#39;&lt;/span&gt;&lt;br&gt;year,&amp;nbsp;month,&amp;nbsp;day&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;string&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;match&lt;/span&gt;(str,&amp;nbsp;rx)&lt;br&gt;year&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;tonumber&lt;/span&gt;(year)&lt;br&gt;month&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;tonumber&lt;/span&gt;(month)&lt;br&gt;day&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;tonumber&lt;/span&gt;(day)
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Objective-C&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_stdlib&#39;&gt;NSString&lt;/span&gt;&amp;nbsp;*str&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;@&#34;2016-12-05&#34;&lt;/span&gt;;&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;NSRegularExpression&lt;/span&gt;&amp;nbsp;*rx&amp;nbsp;=&amp;nbsp;[&lt;span class=&#39;cmd_stdlib&#39;&gt;NSRegularExpression&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;regularExpressionWithPattern&lt;/span&gt;:&lt;span class=&#39;cmd_string&#39;&gt;@&#34;(\\d{4})-(\\d{2})-(\\d{2})&#34;&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;options&lt;/span&gt;:&lt;span class=&#39;cmd_number&#39;&gt;0&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;error&lt;/span&gt;:&lt;span class=&#39;cmd_keyword&#39;&gt;nil&lt;/span&gt;];&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;NSTextCheckingResult&lt;/span&gt;&amp;nbsp;*m&amp;nbsp;=&amp;nbsp;[rx&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;firstMatchInString&lt;/span&gt;:str&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;options&lt;/span&gt;:&lt;span class=&#39;cmd_number&#39;&gt;0&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;range&lt;/span&gt;:&lt;span class=&#39;cmd_stdlib&#39;&gt;NSMakeRange&lt;/span&gt;(&lt;span class=&#39;cmd_number&#39;&gt;0&lt;/span&gt;,&amp;nbsp;[str&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;length&lt;/span&gt;])];&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;if&lt;/span&gt;&amp;nbsp;(m!=&lt;span class=&#39;cmd_keyword&#39;&gt;nil&lt;/span&gt;)&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;NSInteger&lt;/span&gt;&amp;nbsp;year&amp;nbsp;=&amp;nbsp;[[str&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;substringWithRange&lt;/span&gt;:[m&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;rangeAtIndex&lt;/span&gt;:&lt;span class=&#39;cmd_number&#39;&gt;1&lt;/span&gt;]]&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;integerValue&lt;/span&gt;];&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;NSInteger&lt;/span&gt;&amp;nbsp;month&amp;nbsp;=&amp;nbsp;[[str&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;substringWithRange&lt;/span&gt;:[m&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;rangeAtIndex&lt;/span&gt;:&lt;span class=&#39;cmd_number&#39;&gt;2&lt;/span&gt;]]&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;integerValue&lt;/span&gt;];&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;NSInteger&lt;/span&gt;&amp;nbsp;day&amp;nbsp;=&amp;nbsp;[[str&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;substringWithRange&lt;/span&gt;:[m&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;rangeAtIndex&lt;/span&gt;:&lt;span class=&#39;cmd_number&#39;&gt;3&lt;/span&gt;]]&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;integerValue&lt;/span&gt;];&lt;br&gt;}
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Perl&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    $str&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;2016-12-05&#39;&lt;/span&gt;;&lt;br&gt;$rx&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;qr&lt;/span&gt;/(\d{4})-(\d{2})-(\d{2})/;&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;if&lt;/span&gt;&amp;nbsp;($str&amp;nbsp;=~&amp;nbsp;$rx)&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;($year,&amp;nbsp;$month,&amp;nbsp;$day)&amp;nbsp;=&amp;nbsp;(&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;&amp;nbsp;$1,&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;&amp;nbsp;$2,&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;&amp;nbsp;$3);&lt;br&gt;}
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;PHP&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    $str&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;2016-12-05&#39;&lt;/span&gt;;&lt;br&gt;$rx&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;/(\d{4})-(\d{2})-(\d{2})/&#39;&lt;/span&gt;;&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;if&lt;/span&gt;&amp;nbsp;(&lt;span class=&#39;cmd_stdlib&#39;&gt;preg_match&lt;/span&gt;($rx,&amp;nbsp;$str,&amp;nbsp;$m))&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;$year&amp;nbsp;=&amp;nbsp;(&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;)$m[&lt;span class=&#39;cmd_number&#39;&gt;1&lt;/span&gt;];&lt;br&gt;&amp;nbsp;&amp;nbsp;$month&amp;nbsp;=&amp;nbsp;(&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;)$m[&lt;span class=&#39;cmd_number&#39;&gt;2&lt;/span&gt;];&lt;br&gt;&amp;nbsp;&amp;nbsp;$day&amp;nbsp;=&amp;nbsp;(&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;)$m[&lt;span class=&#39;cmd_number&#39;&gt;3&lt;/span&gt;];&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;if&amp;nbsp;you&amp;nbsp;don&#39;t&amp;nbsp;need&amp;nbsp;integers&lt;/span&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;list&lt;/span&gt;($_,&amp;nbsp;$year,&amp;nbsp;$month,&amp;nbsp;$day)&amp;nbsp;=&amp;nbsp;$m;&lt;br&gt;}
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Python&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    str&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;2016-12-05&#39;&lt;/span&gt;&lt;br&gt;rx&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;(\\d{4})-(\\d{2})-(\\d{2})&#39;&lt;/span&gt;&lt;br&gt;m&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;re&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;search&lt;/span&gt;(rx,&amp;nbsp;str)&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;if&lt;/span&gt;&amp;nbsp;m:&lt;br&gt;&amp;nbsp;&amp;nbsp;year&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;int&lt;/span&gt;(m.&lt;span class=&#39;cmd_stdlib&#39;&gt;group&lt;/span&gt;(&lt;span class=&#39;cmd_number&#39;&gt;1&lt;/span&gt;))&lt;br&gt;&amp;nbsp;&amp;nbsp;month&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;int&lt;/span&gt;(m.&lt;span class=&#39;cmd_stdlib&#39;&gt;group&lt;/span&gt;(&lt;span class=&#39;cmd_number&#39;&gt;2&lt;/span&gt;))&lt;br&gt;&amp;nbsp;&amp;nbsp;day&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;int&lt;/span&gt;(m.&lt;span class=&#39;cmd_stdlib&#39;&gt;group&lt;/span&gt;(&lt;span class=&#39;cmd_number&#39;&gt;3&lt;/span&gt;))&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;if&amp;nbsp;you&amp;nbsp;don&#39;t&amp;nbsp;need&amp;nbsp;integers&lt;/span&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;year,&amp;nbsp;month,&amp;nbsp;day&amp;nbsp;=&amp;nbsp;m.&lt;span class=&#39;cmd_stdlib&#39;&gt;groups&lt;/span&gt;()
+  &lt;/div&gt;
+  &lt;div class=&#39;panel-footer&#39;&gt;
+    import re
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Ruby&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;using&amp;nbsp;method&lt;/span&gt;&lt;br&gt;str&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;2016-12-05&#39;&lt;/span&gt;&lt;br&gt;rx&amp;nbsp;=&amp;nbsp;/(\d{4})-(\d{2})-(\d{2})/&lt;br&gt;m&amp;nbsp;=&amp;nbsp;rx.&lt;span class=&#39;cmd_stdlib&#39;&gt;match&lt;/span&gt;(str)&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;if&lt;/span&gt;&amp;nbsp;m&lt;br&gt;&amp;nbsp;&amp;nbsp;year&amp;nbsp;=&amp;nbsp;m[&lt;span class=&#39;cmd_number&#39;&gt;1&lt;/span&gt;].&lt;span class=&#39;cmd_stdlib&#39;&gt;to_i&lt;/span&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;month&amp;nbsp;=&amp;nbsp;m[&lt;span class=&#39;cmd_number&#39;&gt;2&lt;/span&gt;].&lt;span class=&#39;cmd_stdlib&#39;&gt;to_i&lt;/span&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;day&amp;nbsp;=&amp;nbsp;m[&lt;span class=&#39;cmd_number&#39;&gt;3&lt;/span&gt;].&lt;span class=&#39;cmd_stdlib&#39;&gt;to_i&lt;/span&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;if&amp;nbsp;you&amp;nbsp;don&#39;t&amp;nbsp;need&amp;nbsp;integers&lt;/span&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;year,&amp;nbsp;month,&amp;nbsp;day&amp;nbsp;=&amp;nbsp;m[&lt;span class=&#39;cmd_number&#39;&gt;1&lt;/span&gt;..&lt;span class=&#39;cmd_number&#39;&gt;3&lt;/span&gt;]&lt;br&gt;end&lt;br&gt;&lt;span class=&#39;cmd_hr&#39;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;using&amp;nbsp;pattern-matching&amp;nbsp;operator&lt;/span&gt;&lt;br&gt;str&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;2016-12-05&#39;&lt;/span&gt;&lt;br&gt;rx&amp;nbsp;=&amp;nbsp;/(\d{4})-(\d{2})-(\d{2})/&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;if&lt;/span&gt;&amp;nbsp;rx&amp;nbsp;=~&amp;nbsp;str&lt;br&gt;&amp;nbsp;&amp;nbsp;year&amp;nbsp;=&amp;nbsp;$~[&lt;span class=&#39;cmd_number&#39;&gt;1&lt;/span&gt;].&lt;span class=&#39;cmd_stdlib&#39;&gt;to_i&lt;/span&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;month&amp;nbsp;=&amp;nbsp;$~[&lt;span class=&#39;cmd_number&#39;&gt;2&lt;/span&gt;].&lt;span class=&#39;cmd_stdlib&#39;&gt;to_i&lt;/span&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;day&amp;nbsp;=&amp;nbsp;$~[&lt;span class=&#39;cmd_number&#39;&gt;3&lt;/span&gt;].&lt;span class=&#39;cmd_stdlib&#39;&gt;to_i&lt;/span&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;if&amp;nbsp;you&amp;nbsp;don&#39;t&amp;nbsp;need&amp;nbsp;integers&lt;/span&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;year,&amp;nbsp;month,&amp;nbsp;day&amp;nbsp;=&amp;nbsp;$~[&lt;span class=&#39;cmd_number&#39;&gt;1&lt;/span&gt;..&lt;span class=&#39;cmd_number&#39;&gt;3&lt;/span&gt;]&lt;br&gt;end
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Swift&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;let&lt;/span&gt;&amp;nbsp;str&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;2016-12-05&#34;&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;let&lt;/span&gt;&amp;nbsp;rx&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;try!&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;NSRegularExpression&lt;/span&gt;(&lt;span class=&#39;cmd_stdlib&#39;&gt;pattern&lt;/span&gt;:&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;(\\d{4})-(\\d{2})-(\\d{2})&#34;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;options&lt;/span&gt;:&amp;nbsp;[])&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;if&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;let&lt;/span&gt;&amp;nbsp;m&amp;nbsp;=&amp;nbsp;rx.&lt;span class=&#39;cmd_stdlib&#39;&gt;firstMatch&lt;/span&gt;(&lt;span class=&#39;cmd_stdlib&#39;&gt;in&lt;/span&gt;:&amp;nbsp;str,&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;options&lt;/span&gt;:&amp;nbsp;[],&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;range&lt;/span&gt;:&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;NSRange&lt;/span&gt;(&lt;span class=&#39;cmd_stdlib&#39;&gt;location&lt;/span&gt;:&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;0&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;length&lt;/span&gt;:&amp;nbsp;(str&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;as&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;NSString&lt;/span&gt;).&lt;span class=&#39;cmd_stdlib&#39;&gt;length&lt;/span&gt;))&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;let&lt;/span&gt;&amp;nbsp;year&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Int&lt;/span&gt;((str&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;as&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;NSString&lt;/span&gt;).&lt;span class=&#39;cmd_stdlib&#39;&gt;substring&lt;/span&gt;(&lt;span class=&#39;cmd_stdlib&#39;&gt;with&lt;/span&gt;:&amp;nbsp;m.&lt;span class=&#39;cmd_stdlib&#39;&gt;rangeAt&lt;/span&gt;(&lt;span class=&#39;cmd_number&#39;&gt;1&lt;/span&gt;)))&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;let&lt;/span&gt;&amp;nbsp;month&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Int&lt;/span&gt;((str&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;as&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;NSString&lt;/span&gt;).&lt;span class=&#39;cmd_stdlib&#39;&gt;substring&lt;/span&gt;(&lt;span class=&#39;cmd_stdlib&#39;&gt;with&lt;/span&gt;:&amp;nbsp;m.&lt;span class=&#39;cmd_stdlib&#39;&gt;rangeAt&lt;/span&gt;(&lt;span class=&#39;cmd_number&#39;&gt;2&lt;/span&gt;)))&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;let&lt;/span&gt;&amp;nbsp;day&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Int&lt;/span&gt;((str&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;as&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;NSString&lt;/span&gt;).&lt;span class=&#39;cmd_stdlib&#39;&gt;substring&lt;/span&gt;(&lt;span class=&#39;cmd_stdlib&#39;&gt;with&lt;/span&gt;:&amp;nbsp;m.&lt;span class=&#39;cmd_stdlib&#39;&gt;rangeAt&lt;/span&gt;(&lt;span class=&#39;cmd_number&#39;&gt;3&lt;/span&gt;)))&lt;br&gt;}
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>언어 비교 - 변수 값 교환</title>
+      <link>http://sixmen.com/ko/tech/2016-12-12-1-language-comparison-variable-swap/</link>
+      <pubDate>Mon, 12 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/ko/tech/2016-12-12-1-language-comparison-variable-swap/</guid>
+      <description>&lt;div class=&#39;langsheet&#39;&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;C&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;basic&lt;/span&gt;&lt;br&gt;tmp&amp;nbsp;=&amp;nbsp;x;&lt;br&gt;x&amp;nbsp;=&amp;nbsp;y;&lt;br&gt;y&amp;nbsp;=&amp;nbsp;tmp;&lt;br&gt;&lt;span class=&#39;cmd_hr&#39;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;function&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;void&lt;/span&gt;&amp;nbsp;swap(&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;&amp;nbsp;*a,&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;&amp;nbsp;*b)&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;&amp;nbsp;tmp;&lt;br&gt;&amp;nbsp;&amp;nbsp;tmp&amp;nbsp;=&amp;nbsp;*b;&lt;br&gt;&amp;nbsp;&amp;nbsp;*b&amp;nbsp;=&amp;nbsp;*a;&lt;br&gt;&amp;nbsp;&amp;nbsp;*a&amp;nbsp;=&amp;nbsp;tmp;&lt;br&gt;}&lt;br&gt;swap(&amp;amp;x,&amp;nbsp;&amp;amp;y);&lt;br&gt;&lt;span class=&#39;cmd_hr&#39;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;no&amp;nbsp;temporary&amp;nbsp;variable&lt;/span&gt;&lt;br&gt;x&amp;nbsp;=&amp;nbsp;x&amp;nbsp;+&amp;nbsp;y;&lt;br&gt;y&amp;nbsp;=&amp;nbsp;x&amp;nbsp;-&amp;nbsp;y;&lt;br&gt;x&amp;nbsp;=&amp;nbsp;x&amp;nbsp;-&amp;nbsp;y;&lt;br&gt;&lt;span class=&#39;cmd_hr&#39;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;no&amp;nbsp;temporary&amp;nbsp;variable&amp;nbsp;2&lt;/span&gt;&lt;br&gt;x&amp;nbsp;=&amp;nbsp;x&amp;nbsp;^&amp;nbsp;y;&lt;br&gt;y&amp;nbsp;=&amp;nbsp;x&amp;nbsp;^&amp;nbsp;y;&lt;br&gt;x&amp;nbsp;=&amp;nbsp;x&amp;nbsp;^&amp;nbsp;y;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;C++&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_stdlib&#39;&gt;swap&lt;/span&gt;(x,&amp;nbsp;y);
+  &lt;/div&gt;
+  &lt;div class=&#39;panel-footer&#39;&gt;
+    #include &amp;lt;algorithm&amp;gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;CoffeeScript&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    [x,&amp;nbsp;y]&amp;nbsp;=&amp;nbsp;[y,&amp;nbsp;x]
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Java&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    tmp&amp;nbsp;=&amp;nbsp;x;&lt;br&gt;x&amp;nbsp;=&amp;nbsp;y;&lt;br&gt;y&amp;nbsp;=&amp;nbsp;tmp;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;JavaScript&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;basic&lt;/span&gt;&lt;br&gt;tmp&amp;nbsp;=&amp;nbsp;x;&lt;br&gt;x&amp;nbsp;=&amp;nbsp;y;&lt;br&gt;y&amp;nbsp;=&amp;nbsp;tmp;&lt;br&gt;&lt;span class=&#39;cmd_hr&#39;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;tricky&amp;nbsp;one-line&lt;/span&gt;&lt;br&gt;x&amp;nbsp;=&amp;nbsp;[y,&amp;nbsp;y&amp;nbsp;=&amp;nbsp;x][&lt;span class=&#39;cmd_number&#39;&gt;0&lt;/span&gt;];&lt;br&gt;&lt;span class=&#39;cmd_hr&#39;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;ES2015&amp;nbsp;(ES6)&lt;/span&gt;&lt;br&gt;[x,&amp;nbsp;y]&amp;nbsp;=&amp;nbsp;[y,&amp;nbsp;x]
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Kotlin&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    tmp&amp;nbsp;=&amp;nbsp;x&lt;br&gt;x&amp;nbsp;=&amp;nbsp;y&lt;br&gt;y&amp;nbsp;=&amp;nbsp;tmp
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Lua&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    x,&amp;nbsp;y&amp;nbsp;=&amp;nbsp;y,&amp;nbsp;x
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Objective-C&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    tmp&amp;nbsp;=&amp;nbsp;x;&lt;br&gt;x&amp;nbsp;=&amp;nbsp;y;&lt;br&gt;y&amp;nbsp;=&amp;nbsp;tmp;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Perl&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    ($x,&amp;nbsp;$y)&amp;nbsp;=&amp;nbsp;($y,&amp;nbsp;$x);
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;PHP&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;basic&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;list&lt;/span&gt;($x,&amp;nbsp;$y)&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;array&lt;/span&gt;($y,&amp;nbsp;$x);&lt;br&gt;&lt;span class=&#39;cmd_hr&#39;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;function&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;function&lt;/span&gt;&amp;nbsp;swap(&amp;amp;$x,&amp;nbsp;&amp;amp;$y)&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;$tmp&amp;nbsp;=&amp;nbsp;$x;&lt;br&gt;&amp;nbsp;&amp;nbsp;$x&amp;nbsp;=&amp;nbsp;$y;&lt;br&gt;&amp;nbsp;&amp;nbsp;$y&amp;nbsp;=&amp;nbsp;$tmp;&lt;br&gt;}
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Python&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    x,&amp;nbsp;y&amp;nbsp;=&amp;nbsp;y,&amp;nbsp;x
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Ruby&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    x,&amp;nbsp;y&amp;nbsp;=&amp;nbsp;y,&amp;nbsp;x
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Swift&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_stdlib&#39;&gt;swap&lt;/span&gt;(&amp;amp;x,&amp;nbsp;&amp;amp;y)
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>언어 비교 - 문자열 배열 합치기</title>
+      <link>http://sixmen.com/ko/tech/2016-12-09-1-language-comparison-string-join/</link>
+      <pubDate>Fri, 09 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/ko/tech/2016-12-09-1-language-comparison-string-join/</guid>
+      <description>&lt;div class=&#39;langsheet&#39;&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;C&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;const&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;char&lt;/span&gt;&amp;nbsp;*&lt;span class=&#39;cmd_keyword&#39;&gt;const&lt;/span&gt;&amp;nbsp;strs[]&amp;nbsp;=&amp;nbsp;{&lt;span class=&#39;cmd_string&#39;&gt;&#34;one&#34;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;two&#34;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;three&#34;&lt;/span&gt;};&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;&amp;nbsp;i&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;0&lt;/span&gt;;&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;&amp;nbsp;size&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;0&lt;/span&gt;;&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;char&lt;/span&gt;&amp;nbsp;*out;&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;for&lt;/span&gt;&amp;nbsp;(i=&lt;span class=&#39;cmd_number&#39;&gt;0&lt;/span&gt;;i&amp;lt;&lt;span class=&#39;cmd_number&#39;&gt;3&lt;/span&gt;;i++)&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;size&amp;nbsp;+=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;strlen&lt;/span&gt;(strs[i])&amp;nbsp;+&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;1&lt;/span&gt;;&lt;br&gt;}&lt;br&gt;out&amp;nbsp;=&amp;nbsp;(&lt;span class=&#39;cmd_keyword&#39;&gt;char&lt;/span&gt;&amp;nbsp;*)&lt;span class=&#39;cmd_stdlib&#39;&gt;malloc&lt;/span&gt;(size);&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;strcpy&lt;/span&gt;(out,&amp;nbsp;strs[&lt;span class=&#39;cmd_number&#39;&gt;0&lt;/span&gt;]);&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;for&lt;/span&gt;&amp;nbsp;(i=&lt;span class=&#39;cmd_number&#39;&gt;1&lt;/span&gt;;i&amp;lt;&lt;span class=&#39;cmd_number&#39;&gt;3&lt;/span&gt;;i++)&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;strcat&lt;/span&gt;(out,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;,&#34;&lt;/span&gt;);&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;strcat&lt;/span&gt;(out,&amp;nbsp;strs[i]);&lt;br&gt;}
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;C++&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;one-liner&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;vector&lt;/span&gt;&amp;lt;&lt;span class=&#39;cmd_stdlib&#39;&gt;string&lt;/span&gt;&amp;gt;&amp;nbsp;strs&amp;nbsp;=&amp;nbsp;{&lt;span class=&#39;cmd_string&#39;&gt;&#34;one&#34;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;two&#34;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;three&#34;&lt;/span&gt;};&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;string&lt;/span&gt;&amp;nbsp;out&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;accumulate&lt;/span&gt;(&lt;span class=&#39;cmd_stdlib&#39;&gt;next&lt;/span&gt;(strs.&lt;span class=&#39;cmd_stdlib&#39;&gt;begin&lt;/span&gt;()),&amp;nbsp;strs.&lt;span class=&#39;cmd_stdlib&#39;&gt;end&lt;/span&gt;(),&amp;nbsp;strs[0],&lt;br&gt;&amp;nbsp;&amp;nbsp;[](&lt;span class=&#39;cmd_keyword&#39;&gt;const&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;string&lt;/span&gt;&amp;nbsp;&amp;amp;a,&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;const&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;string&lt;/span&gt;&amp;nbsp;&amp;amp;b)&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;return&lt;/span&gt;&amp;nbsp;a&amp;nbsp;+&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;,&#34;&lt;/span&gt;&amp;nbsp;+&amp;nbsp;b;&lt;br&gt;&amp;nbsp;&amp;nbsp;});&lt;br&gt;&lt;span class=&#39;cmd_hr&#39;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;prevent&amp;nbsp;reallocation&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;vector&lt;/span&gt;&amp;lt;&lt;span class=&#39;cmd_stdlib&#39;&gt;string&lt;/span&gt;&amp;gt;&amp;nbsp;strs&amp;nbsp;=&amp;nbsp;{&lt;span class=&#39;cmd_string&#39;&gt;&#34;one&#34;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;two&#34;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;three&#34;&lt;/span&gt;};&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;ostringstream&lt;/span&gt;&amp;nbsp;os;&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;copy&lt;/span&gt;(strs.&lt;span class=&#39;cmd_stdlib&#39;&gt;begin&lt;/span&gt;(),&amp;nbsp;strs.&lt;span class=&#39;cmd_stdlib&#39;&gt;end&lt;/span&gt;()-1,&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;ostream_iterator&lt;/span&gt;&amp;lt;&lt;span class=&#39;cmd_stdlib&#39;&gt;string&lt;/span&gt;&amp;gt;(os,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;,&#34;&lt;/span&gt;));&lt;br&gt;os&amp;nbsp;&amp;lt;&amp;lt;&amp;nbsp;*strs.&lt;span class=&#39;cmd_stdlib&#39;&gt;rbegin&lt;/span&gt;();&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;string&lt;/span&gt;&amp;nbsp;out&amp;nbsp;=&amp;nbsp;os.&lt;span class=&#39;cmd_stdlib&#39;&gt;str&lt;/span&gt;();
+  &lt;/div&gt;
+  &lt;div class=&#39;panel-footer&#39;&gt;
+    #include &amp;lt;algorithm&amp;gt; // copy&lt;br&gt;
+#include &amp;lt;iterator&amp;gt; // next, ostream_iterator&lt;br&gt;
+#include &amp;lt;numeric&amp;gt; // accumulate&lt;br&gt;
+#include &amp;lt;sstream&amp;gt; // ostringstream
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;CoffeeScript&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    strs&amp;nbsp;=&amp;nbsp;[&lt;span class=&#39;cmd_string&#39;&gt;&#39;one&#39;&lt;/span&gt;,&lt;span class=&#39;cmd_string&#39;&gt;&#39;two&#39;&lt;/span&gt;,&lt;span class=&#39;cmd_string&#39;&gt;&#39;three&#39;&lt;/span&gt;]&lt;br&gt;out&amp;nbsp;=&amp;nbsp;strs.&lt;span class=&#39;cmd_stdlib&#39;&gt;join&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;,&#39;&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Java&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;Java&amp;nbsp;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;List&lt;/span&gt;&amp;lt;&lt;span class=&#39;cmd_stdlib&#39;&gt;String&lt;/span&gt;&amp;gt;&amp;nbsp;strs&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Arrays&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;asList&lt;/span&gt;(&lt;span class=&#39;cmd_string&#39;&gt;&#34;one&#34;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;two&#34;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;three&#34;&lt;/span&gt;);&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;String&lt;/span&gt;&amp;nbsp;out&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;String&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;join&lt;/span&gt;(&lt;span class=&#39;cmd_string&#39;&gt;&#34;,&#34;&lt;/span&gt;,&amp;nbsp;strs);&lt;br&gt;&lt;span class=&#39;cmd_hr&#39;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;Java&amp;nbsp;7&amp;nbsp;and&amp;nbsp;below&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;String&lt;/span&gt;[]&amp;nbsp;strs&amp;nbsp;=&amp;nbsp;{&lt;span class=&#39;cmd_string&#39;&gt;&#34;one&#34;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;two&#34;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;three&#34;&lt;/span&gt;};&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;StringBuilder&lt;/span&gt;&amp;nbsp;sb&amp;nbsp;=&amp;nbsp;new&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;StringBuilder&lt;/span&gt;();&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;boolean&lt;/span&gt;&amp;nbsp;first&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;true&lt;/span&gt;;&lt;br&gt;for&amp;nbsp;(&lt;span class=&#39;cmd_stdlib&#39;&gt;String&lt;/span&gt;&amp;nbsp;str&amp;nbsp;:&amp;nbsp;strs)&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;if&lt;/span&gt;&amp;nbsp;(first)&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;first&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;false&lt;/span&gt;;&lt;br&gt;&amp;nbsp;&amp;nbsp;}&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;else&lt;/span&gt;&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;sb.&lt;span class=&#39;cmd_stdlib&#39;&gt;append&lt;/span&gt;(&lt;span class=&#39;cmd_string&#39;&gt;&#34;,&#34;&lt;/span&gt;);&lt;br&gt;&amp;nbsp;&amp;nbsp;}&lt;br&gt;&amp;nbsp;&amp;nbsp;sb.&lt;span class=&#39;cmd_stdlib&#39;&gt;append&lt;/span&gt;(str);&lt;br&gt;}&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;String&lt;/span&gt;&amp;nbsp;out&amp;nbsp;=&amp;nbsp;sb.&lt;span class=&#39;cmd_stdlib&#39;&gt;toString&lt;/span&gt;();
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;JavaScript&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;let&lt;/span&gt;&amp;nbsp;strs&amp;nbsp;=&amp;nbsp;[&lt;span class=&#39;cmd_string&#39;&gt;&#39;one&#39;&lt;/span&gt;,&lt;span class=&#39;cmd_string&#39;&gt;&#39;two&#39;&lt;/span&gt;,&lt;span class=&#39;cmd_string&#39;&gt;&#39;three&#39;&lt;/span&gt;]&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;let&lt;/span&gt;&amp;nbsp;out&amp;nbsp;=&amp;nbsp;strs.&lt;span class=&#39;cmd_stdlib&#39;&gt;join&lt;/span&gt;(&lt;span class=&#39;cmd_string&#39;&gt;&#39;,&#39;&lt;/span&gt;)
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Kotlin&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;val&lt;/span&gt;&amp;nbsp;strs&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;arrayOf&lt;/span&gt;(&lt;span class=&#39;cmd_string&#39;&gt;&#34;one&#34;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;two&#34;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;three&#34;&lt;/span&gt;)&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;val&lt;/span&gt;&amp;nbsp;out&amp;nbsp;=&amp;nbsp;strs.&lt;span class=&#39;cmd_stdlib&#39;&gt;joinToString&lt;/span&gt;(&lt;span class=&#39;cmd_string&#39;&gt;&#34;,&#34;&lt;/span&gt;)
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Lua&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    strs&amp;nbsp;=&amp;nbsp;{&lt;span class=&#39;cmd_string&#39;&gt;&#34;one&#34;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;two&#34;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;three&#34;&lt;/span&gt;}&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;table&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;concat&lt;/span&gt;(strs,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;,&#34;&lt;/span&gt;)
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Objective-C&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_stdlib&#39;&gt;NSArray&lt;/span&gt;&amp;nbsp;*strs&amp;nbsp;=&amp;nbsp;@[&lt;span class=&#39;cmd_string&#39;&gt;@&#34;one&#34;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;@&#34;two&#34;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;@&#34;three&#34;&lt;/span&gt;];&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;NSString&lt;/span&gt;&amp;nbsp;*out&amp;nbsp;=&amp;nbsp;[strs&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;componentsJoinedByString&lt;/span&gt;:&lt;span class=&#39;cmd_string&#39;&gt;@&#34;,&#34;&lt;/span&gt;];
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Perl&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    @strs&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;qw&lt;/span&gt;(&lt;span class=&#39;cmd_string&#39;&gt;one&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;two&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;three&lt;/span&gt;);&lt;br&gt;$out&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;join&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;,&#39;&lt;/span&gt;,&amp;nbsp;@strs;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;PHP&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    $strs&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;array&lt;/span&gt;(&lt;span class=&#39;cmd_string&#39;&gt;&#39;one&#39;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;two&#39;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;three&#39;&lt;/span&gt;);&lt;br&gt;$out&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;implode&lt;/span&gt;(&lt;span class=&#39;cmd_string&#39;&gt;&#39;,&#39;&lt;/span&gt;,&amp;nbsp;$strs);
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Python&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    strs&amp;nbsp;=&amp;nbsp;[&lt;span class=&#39;cmd_string&#39;&gt;&#39;one&#39;&lt;/span&gt;,&lt;span class=&#39;cmd_string&#39;&gt;&#39;two&#39;&lt;/span&gt;,&lt;span class=&#39;cmd_string&#39;&gt;&#39;three&#39;&lt;/span&gt;]&lt;br&gt;&lt;span class=&#39;cmd_string&#39;&gt;&#39;,&#39;&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;join&lt;/span&gt;(strs)
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Ruby&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    strs&amp;nbsp;=&amp;nbsp;%w(&lt;span class=&#39;cmd_string&#39;&gt;one&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;two&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;three&lt;/span&gt;)&lt;br&gt;out&amp;nbsp;=&amp;nbsp;strs.&lt;span class=&#39;cmd_stdlib&#39;&gt;join&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;,&#39;&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Swift&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;let&lt;/span&gt;&amp;nbsp;strs&amp;nbsp;=&amp;nbsp;[&lt;span class=&#39;cmd_string&#39;&gt;&#34;one&#34;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;two&#34;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;three&#34;&lt;/span&gt;]&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;let&lt;/span&gt;&amp;nbsp;out&amp;nbsp;=&amp;nbsp;strs.&lt;span class=&#39;cmd_stdlib&#39;&gt;joined&lt;/span&gt;(&lt;span class=&#39;cmd_stdlib&#39;&gt;separator&lt;/span&gt;:&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;,&#34;&lt;/span&gt;)
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>언어 비교 - 문자열 연결</title>
+      <link>http://sixmen.com/ko/tech/2016-12-07-1-language-comparison-string-concatenate/</link>
+      <pubDate>Wed, 07 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/ko/tech/2016-12-07-1-language-comparison-string-concatenate/</guid>
+      <description>&lt;div class=&#39;langsheet&#39;&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;C&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;const&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;char&lt;/span&gt;&amp;nbsp;*s1&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;hello&#34;&lt;/span&gt;;&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;const&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;char&lt;/span&gt;&amp;nbsp;*s2&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;&amp;nbsp;world&#34;&lt;/span&gt;;&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;char&lt;/span&gt;&amp;nbsp;*s3&amp;nbsp;=&amp;nbsp;(&lt;span class=&#39;cmd_keyword&#39;&gt;char&lt;/span&gt;&amp;nbsp;*)&lt;span class=&#39;cmd_stdlib&#39;&gt;malloc&lt;/span&gt;(&lt;span class=&#39;cmd_stdlib&#39;&gt;strlen&lt;/span&gt;(s1)+&lt;span class=&#39;cmd_stdlib&#39;&gt;strlen&lt;/span&gt;(s2)+&lt;span class=&#39;cmd_number&#39;&gt;1&lt;/span&gt;);&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;strcpy&lt;/span&gt;(s3,&amp;nbsp;s1);&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;strcat&lt;/span&gt;(s3,&amp;nbsp;s2);
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;C++&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;destructive&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;string&lt;/span&gt;&amp;nbsp;s1&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;hello&#34;&lt;/span&gt;;&lt;br&gt;s1&amp;nbsp;+=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;&amp;nbsp;world&#34;&lt;/span&gt;;&lt;br&gt;&lt;span class=&#39;cmd_hr&#39;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;non-destructive&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;string&lt;/span&gt;&amp;nbsp;s1&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;hello&#34;&lt;/span&gt;;&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;string&lt;/span&gt;&amp;nbsp;s2&amp;nbsp;=&amp;nbsp;s1&amp;nbsp;+&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;&amp;nbsp;world&#34;&lt;/span&gt;;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;CoffeeScript&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_string&#39;&gt;&#39;hello&#39;&lt;/span&gt;&amp;nbsp;+&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;&amp;nbsp;world&#39;&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Java&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_string&#39;&gt;&#34;hello&#34;&lt;/span&gt;&amp;nbsp;+&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;&amp;nbsp;world&#34;&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;JavaScript&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_string&#39;&gt;&#39;hello&#39;&lt;/span&gt;&amp;nbsp;+&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;&amp;nbsp;world&#39;&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Kotlin&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_string&#39;&gt;&#34;hello&#34;&lt;/span&gt;&amp;nbsp;+&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;&amp;nbsp;world&#34;&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Lua&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_string&#39;&gt;&#39;hello&#39;&lt;/span&gt;&amp;nbsp;..&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;&amp;nbsp;world&#39;&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Objective-C&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;destructive&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;NSMutableString&lt;/span&gt;&amp;nbsp;*s1&amp;nbsp;=&amp;nbsp;[&lt;span class=&#39;cmd_string&#39;&gt;@&#34;hello&#34;&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;mutableCopy&lt;/span&gt;];&lt;br&gt;[s1&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;appendString&lt;/span&gt;:&lt;span class=&#39;cmd_string&#39;&gt;@&#34;&amp;nbsp;world&#34;&lt;/span&gt;];&lt;br&gt;&lt;span class=&#39;cmd_hr&#39;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;non-destructive&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;NSString&lt;/span&gt;&amp;nbsp;*s1&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;@&#34;hello&#34;&lt;/span&gt;;&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;NSString&lt;/span&gt;&amp;nbsp;*s2&amp;nbsp;=&amp;nbsp;[s1&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;stringByAppendingString&lt;/span&gt;:&lt;span class=&#39;cmd_string&#39;&gt;@&#34;&amp;nbsp;world&#34;&lt;/span&gt;];
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Perl&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_string&#39;&gt;&#39;hello&#39;&lt;/span&gt;&amp;nbsp;.&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;&amp;nbsp;world&#39;&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;PHP&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_string&#39;&gt;&#39;hello&#39;&lt;/span&gt;&amp;nbsp;.&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;&amp;nbsp;world&#39;&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Python&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_string&#39;&gt;&#39;hello&#39;&lt;/span&gt;&amp;nbsp;+&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;&amp;nbsp;world&#39;&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Ruby&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_string&#39;&gt;&#39;hello&#39;&lt;/span&gt;&amp;nbsp;+&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;&amp;nbsp;world&#39;&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Swift&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_string&#39;&gt;&#34;hello&#34;&lt;/span&gt;&amp;nbsp;+&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;&amp;nbsp;world&#34;&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>iPhone PPI와 논리 픽셀에 대응하는 물리 크기</title>
+      <link>http://sixmen.com/ko/tech/2014-12-23-1-iphone-ppi/</link>
+      <pubDate>Tue, 23 Dec 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/ko/tech/2014-12-23-1-iphone-ppi/</guid>
+      <description>&lt;p&gt;앱을 iPhone 6 / 6 Plus에 맞추는 작업을 하던 중에 PPI에 혼란이 와서 직접 계산해 봤습니다.&lt;/p&gt;
+
+&lt;p&gt;우선 오리지널 iPhone의 물리적 스크린 크기는 가로 1.94 인치(4.93cm), 세로 2.91 인치(7.4cm)입니다.&lt;sup&gt;1&lt;/sup&gt;
+해상도(resolution)는 320x480이므로 PPI는 약 163입니다.
+(위 수치로 계산하면 165가 되는데 대부분 163으로 표시해서 이를 기준으로 합니다.)
+PPI가 163라는 것은 64x64 픽셀의 이미지가 물리적으로 0.4인치 x 0.4인치 = 1cm x 1cm 정도의
+크기가 된다는 것을 의미합니다. (64/163=0.39in=1cm)&lt;/p&gt;
+
+&lt;p&gt;iPhone 4로 넘어오면서 물리적인 크기는 유지하면서 해상도를 두배(640x960)로 만들었습니다.
+따라서 PPI는 약 326(계산으로는 330)이 되었습니다.
+iPhone 4에서 1cm x 1cm로 이미지를 표현하려면 128x128 픽셀이 필요합니다. (1/2.54*326=128)
+하지만 프로그래밍시에는 scale factor를 도입해서(UIScreen의 scale 속성)
+논리적인 좌표는 오리지널 iPhone과 동일하게 64x64를 갖도록 해서
+iPhone 4를 지원하기 위해 별도의 작업이 필요없도록 했습니다.
+(대신 hairline을 표현하기가 까다로워 졌습니다.)&lt;/p&gt;
+
+&lt;p&gt;iPhone 5에서는 해상도가 640x1152(논리적 해상도 320x568)로 켜졌지만, 물리적 크기도 1.94 인치 x 3.49 인치로 늘어서
+PPI는 iPhone 4와 동일하게 326입니다.&lt;/p&gt;
+
+&lt;p&gt;이제 iPhone 6를 보겠습니다.
+iPhone 6의 물리적 스크린 크기는 가로 2.3 인치(5.8cm), 세로 4.1 인치(10.4cm)이고,
+해상도는 750x1334(논리적 해상도 375x667)입니다.&lt;sup&gt;2&lt;/sup&gt;
+PPI를 계산해보면 326으로 iPhone 4, iPhone 5와 동일합니다.
+즉, iPhone 4, iPhone 5에서와 동일한 논리적 픽셀 값을 사용하면 사용자에게 같은 크기로 보인다는 얘기입니다.
+대신 스크린 크기가 커졌으므로 더 많은 1cm x 1cm 이미지를 표시할 수 있겠죠.&lt;/p&gt;
+
+&lt;p&gt;그런데 여기서 하나 새로운 개념이 추가됩니다. 디스플레이 확대/축소(Display Zoome)에서 확대됨(Zoomed)를 설정하면
+이미지, 글씨등이 크게 표시됩니다. 기술적으로는 논리적 해상도로 375x667 대신 320x568을 기준으로 작업함을 의미합니다.
+이 상태에서 iPhone 4와 동일하게 64x64 픽셀로 이미지를 위치시키면 물리적 크기가 1.17cm x 1.17cm가 됩니다.&lt;/p&gt;
+
+&lt;p&gt;마지막으로 iPhone 6 Plus는 가로 2.7 인치(6.8cm), 세로 4.8 인치(12.2cm), 해상도 1080x1920을 갖습니다.
+PPI는 400이 되겠네요. 그런데 iPhone 6 Plus는 특이하게 414x736의 논리적 해상도를 갖습니다.
+(scale factor는 3으로 1242x2208 캔버스에 그려집니다.)
+실 해상도와 정수로 대응하지 않습니다. 왜 이렇게 했을까요?&lt;/p&gt;
+
+&lt;p&gt;만약 논리적 해상도를 360x640으로 했다면, iPhone 4에 맞춰 64x64로 작업한 이미지는 1.2cmx1.2cm로 표시됩니다.
+반면 414x736인 경우 1.05cmx1.05cm로 나머지 기종에서 기대하는 크기와 비슷합니다.
+(어짜피 물리적 해상도와 다른데 정확히 맞추지 않은 이유는 모르겠습니다.)&lt;/p&gt;
+
+&lt;p&gt;마지막으로 iPhone 6 Plus에서 확대됨을 선택하면 iPhone 6의 논리적 해상도인 375x667로 동작합니다.
+이 경우 64x64로 작업한 이미지(scale factor는 3x이므로 192x192 픽셀의 이미지가 필요)는 1.16cm x 1.16cm로
+iPhone 6의 확대됨 모드와 비슷한 크기로 표시됩니다.&lt;/p&gt;
+
+&lt;p&gt;요약하면 코드 작성시 같은 픽셀 크기로 작업하면 iPhone 종류와 상관없이 같은 물리적 크기로 표시됩니다.
+다만 한 화면에서 표시되는 양만 달라집니다.
+iPhone 6 / 6 Plus의 확대됨 모드에서는 약 16%~17%가 더 크게 표시됩니다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.theverge.com/2012/4/9/2937265/the-4-inch-iphone-5&#34;&gt;http://www.theverge.com/2012/4/9/2937265/the-4-inch-iphone-5&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://stackoverflow.com/questions/25756087/detecting-iphone-6-6-screen-sizes-in-point-values&#34;&gt;http://stackoverflow.com/questions/25756087/detecting-iphone-6-6-screen-sizes-in-point-values&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Git에서 변경된 내용 무시하기</title>
+      <link>http://sixmen.com/ko/tech/2014-11-12-1-git-ignore-changes/</link>
+      <pubDate>Wed, 12 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/ko/tech/2014-11-12-1-git-ignore-changes/</guid>
+      <description>
+
+&lt;p&gt;개발을 하다보면 몇몇 설정 파일을 수정한 채로 개발을 하는 경우가 있습니다.
+예를 들면 서버 주소를 개발용 서버로 변경해서 작업을 할 수 있겠죠.
+만약 개발용 서버가 명확히 정해져 있다면, 디버그 모드와 출시 모드를 구분하는 식으로 고정된 설정 파일을 만들 수 있겠지만,
+개발용 서버가 개발자 개인 컴퓨터인 경우는 이것도 쉽지 않습니다.&lt;/p&gt;
+
+&lt;p&gt;이런 용도로 변경된 파일들은 당연히 주 저장소에 올라가면 안 되겠죠.
+(하지만 이 파일 자체는 주 저장소에 포함되어야 하기에 .gitignore를 쓸 수는 없습니다)
+저 같이 &#39;git commit -a&#39;을 실행하는데 익숙한 사람은 매번 커밋시 이 파일이 포함되지 않도록 신경써주는것이 꽤 큰 비용입니다.&lt;/p&gt;
+
+&lt;p&gt;다행히 git는 이를 위한 해결책이 있습니다. 다음 명령을 실행하면 해당 파일에 대한 변경을 무시합니다.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git update-index --assume-unchanged &amp;lt;file&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;다시 변경된 내역을 표시하려면 다음 명령을 실행합니다.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git update-index --no-assume-unchanged &amp;lt;file&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;변경이 무시되고 있는 파일 목록은 다음 명령으로 확인할 수 있습니다.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git ls-files -v | grep &#39;^h&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;참고&#34;&gt;참고&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://blog.pagebakers.nl/2009/01/29/git-ignoring-changes-in-tracked-files/&#34;&gt;GIT: ignoring changes in tracked files « Pagebakers&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>쉘에서 Nginx(Apache) 로그를 시간별로 분리하기</title>
+      <link>http://sixmen.com/ko/tech/2014-09-25-1-split-nginx-log/</link>
+      <pubDate>Thu, 25 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/ko/tech/2014-09-25-1-split-nginx-log/</guid>
+      <description>
+
+&lt;p&gt;Nginx 로그 분석을 위해 시간별로 나누고 싶었습니다.
+스크립트를 짜도 오래 걸리는 일은 아니겠지만, 쉘에서 하는 방법을 한번 찾아봤습니다.&lt;/p&gt;
+
+&lt;p&gt;Nginx 로그는 다음과 같은 형태를 가집니다.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;xx.xx.xx.xx - - [25/Sep/2014:06:54:29 +0000] &amp;quot;GET /blahblah HTTP/1.1&amp;quot; 200 130 &amp;quot;-&amp;quot; &amp;quot;User-Agent&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;다음 명령은 공백으로 나눠진 토큰 중 4번째, 즉 시간을 표시합니다.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;awk &#39;{ print $4 }&#39; access.log
+awk &#39;{ print substr($4,2) }&#39; access.log # 앞의 [ 제거
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;여기에 split 함수를 써서 날짜와 시간을 얻을 수 있습니다.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;awk &#39;{ split(substr($4,2),array,&amp;quot;[/:]&amp;quot;); print array[1], array[4] }&#39; access.log
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;필요한 정보를 알았으니 각 줄을 적절한 파일에 쓰도록 하면 됩니다.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;awk &#39;{ split(substr($4,2),array,&amp;quot;[/:]&amp;quot;); print &amp;gt; (array[1] &amp;quot;-&amp;quot; array[4] &amp;quot;.log&amp;quot;) }&#39; access.log
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;갱신:&lt;/p&gt;
+
+&lt;p&gt;좀 더 큰 데이터에 해보니 too many open files 에러가 발생합니다.
+awk가 좀 오래된 도구다 보니 열린 파일 수 제한이 낮은 듯 합니다. (MacOSX 기준으로 채 20개를 넘지 못하네요.)&lt;/p&gt;
+
+&lt;p&gt;이 경우 파일을 계속 닫아주면 됩니다. 대신 &#39;&amp;gt;&amp;gt;&#39;를 써줘야 정상적으로 추출됩니다.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;awk &#39;{ split(substr($4,2),array,&amp;quot;[/:]&amp;quot;); fn = array[1] &amp;quot;-&amp;quot; array[4] &amp;quot;.log&amp;quot;; print &amp;gt;&amp;gt; fn; close(fn) }&#39; access.log
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;참고&#34;&gt;참고&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://stackoverflow.com/questions/11713978/how-to-split-existing-apache-logfile-by-month/11714105#11714105&#34;&gt;How to split existing apache logfile by month?&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>서버 어플리케이션에 logrotate를 적용하기</title>
+      <link>http://sixmen.com/ko/tech/2014-04-18-1-logrotate/</link>
+      <pubDate>Fri, 18 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/ko/tech/2014-04-18-1-logrotate/</guid>
+      <description>&lt;div class=&#39;alert alert-info&#39;&gt;
+요약: logrotate를 통해 로그를 분할하기 위해서는, 서버 어플리케이션이 적당한
+시그널(주로 SIGUSR1을 사용. Node.js에서는 디버그 모드 진입용으로 사용하고 있으니 SIGUSR2 사용)을
+받았을때 로그 파일을 다시 열도록 하면 됩니다.
+&lt;/div&gt;
+
+&lt;p&gt;회사에서 서비스를 하는 중에 로그 파일이 너무 커져서, 적당한 크기에서 나눌 방법이 필요해졌습니다.
+이런 경우 리눅스에서 주로 쓰는 방법은 logrotate입니다.
+그리고 이를 서비스에 적용하기 위해 필요한 것을 찾아봤습니다.&lt;/p&gt;
+
+&lt;p&gt;logrotate 설정에 나눌 로그 파일을 추가하면 설정된 상황(매일 또는 매주, 무조건 또는
+주어진 크기를 넘었을 때등)에서 로그 파일을 나눕니다.
+이때 하는 동작은 기존 로그 파일의 이름을 변경하고, 같은 이름으로 새 로그 파일을 만드는 것입니다.&lt;/p&gt;
+
+&lt;p&gt;만약 잠깐 실행되고 마는 프로그램이면 이것으로 잘 동작합니다.
+매번 실행할 때마다 주어진 이름의 로그 파일을 새로 열어서 쓰니까요.
+하지만 프로그램이 계속 떠 있는 경우 새 로그 파일에 쓰지 않고 계속 기존 로그 파일에 데이터가 쌓입니다.&lt;/p&gt;
+
+&lt;p&gt;간단하게 이 동작을 확인할 수 있습니다.
+shell에서 &lt;code&gt;node -e &amp;quot;setInterval(function () { console.log(&#39;hello&#39;); }, 1000)&amp;quot; &amp;gt; log&lt;/code&gt;를 실행한 후
+다른 창에서 log 파일의 이름을 변경하고 새로 생성해도 계속 기존 파일에 로그가 추가됩니다.
+이것은 한번 파일을 열면 그 파일의 이름이 아닌 descriptor에 의해서 접근하기 때문입니다.&lt;/p&gt;
+
+&lt;p&gt;이 문제를 해결하기 위해 logrotate는 copytruncate라는 옵션을 제공합니다.
+이 옵션을 사용하면 파일의 이름을 변경하는 대신 새 파일로 내용을 복사하고
+기존 파일의 크기를 0으로 만들어버립니다.
+하지만 이 경우 복사하는 동안 추가된 로그가 사라지는 문제가 있습니다.&lt;/p&gt;
+
+&lt;p&gt;다른 방법으로는 logrotate가 파일 이름을 변경한 후에 프로그램이 로그 파일을 새로 열도록 하는 것이 있습니다.
+이미 떠 있는 프로그램에 명령을 내리기 위해서는 주로 시그널을 사용합니다.
+예를 들어 &lt;a href=&#34;http://nginx.org/&#34;&gt;nginx&lt;/a&gt;는 SIGUSR1을 받으면 로그 파일을 다시 열도록 되어 있습니다.
+(&lt;a href=&#34;http://wiki.nginx.org/CommandLine#Stopping_or_Restarting_Nginx&#34;&gt;Stopping or Restarting Nginx&lt;/a&gt;)
+logrotate에서는 postrotate 옵션으로 이를 표현합니다. 다음은 Ubuntu에 적용된 nginx를 위한 logrotate 설정입니다.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;postrotate
+  [ ! -f /run/nginx.pid ] || kill -USR1 `cat /run/nginx.pid`
+endscript
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;다음은 이 방법이 적용된 서버 코드입니다. Node.js를 사용하고 CoffeeScript로 작성되어 있습니다.&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-coffeescript&#34; data-lang=&#34;coffeescript&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;logstream = &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;undefined&lt;/span&gt;
+&lt;span class=&#34;nv&#34;&gt;openLogFile = &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;-&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;logstream&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;close&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;logstream&lt;/span&gt;
+  &lt;span class=&#34;nv&#34;&gt;logstream = &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;fs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;createWriteStream&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;log&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;flags: &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#39;a+&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;mode: &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#39;0644&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;encoding: &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#39;utf8&amp;#39;&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;openLogFile&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;# 시그널을 받으면 로그 파일을 다시 연다&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;process&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;on&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#39;SIGUSR2&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;-&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;openLogFile&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;SIGUSR1은 Node.js가 디버그 모드 진입용으로 사용하고 있습니다. 그래서 대신 SIGUSR2를 사용했습니다.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>암호 없이 SSH 접속하기</title>
+      <link>http://sixmen.com/ko/tech/2012-06-18-1-ssh-without-password/</link>
+      <pubDate>Mon, 18 Jun 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/ko/tech/2012-06-18-1-ssh-without-password/</guid>
+      <description>
+
+&lt;p&gt;이번 글에서는 SSH 서버에 암호 입력 없이 접속하는 방법에 대해서 설명하겠습니다.
+정확히 얘기하자면 암호 대신 열쇠를 이용해서 접속하는 방법이 되겠습니다.
+암호를 입력하지 않는다고 해서 보안에 허술하다는 뜻은 아닙니다.&lt;/p&gt;
+
+&lt;h1 id=&#34;원리&#34;&gt;원리&lt;/h1&gt;
+
+&lt;p&gt;제가 처음 유닉스를 접했을 당시에는 서버에 접속하려면 주로 Telnet을 사용했었습니다.
+그때의 인식이 이어져 내려와 암호 없이 서버에 접속하는 것이 어색하게 느껴지긴 했으나,
+사실 열쇠를 이용하는 것이 여러모로 편리하고 좋습니다.&lt;/p&gt;
+
+&lt;p&gt;두가지는 어떤 차이점이 있을까요?&lt;/p&gt;
+
+&lt;p&gt;암호의 경우 각 서버가 가지고 있는 것입니다.
+따라서 어떠한 클라이언트에서라도 암호만 알고 있으면 서버에 접속할 수 있습니다.
+외우기 위해서는 암호가 어느 정도 이상 어려워지기 힘들기 때문에, 아무리 암호가 잘 암호화되어 서버에 저장되었어도,
+암호 DB가 유출되면 풀릴 가능성이 높습니다. 같은 암호를 쓴 다른 서버가 있다면 다른 서버도 덩달아 위험해지겠죠.
+그리고 여러 사람이 같은 계정을 공유해야 하는 경우 암호를 한번 바꾸는 것도 쉽지 않습니다.&lt;/p&gt;
+
+&lt;p&gt;반면에 열쇠는 클라이언트와 서버가 나눠서 가지고 있고, 나누어진 열쇠가 맞아야지만 온전한 열쇠가 됩니다.
+이 때 클라이언트가 가진 키를 개인 열쇠(private key), 서버가 가진 열쇠를 공공 열쇠(public key)라고 합니다.
+서버에 공공 열쇠가 등록되어야지만 접속이 가능하기 때문에 장소를 가리지 않고 접속해야 하는 경우에는 사용하기 어렵지만,
+서버에서 공공 열쇠가 유출되어도 개인 열쇠를 거의 알 수 없기 때문에 (다른 열쇠를 알기 어렵다는 것이 개인/공공 열쇠 방식의 핵심입니다)
+다른 서버에 영향이 가지 않습니다.
+또 한 계정에 등록할 수 있는 공공 열쇠에 제한이 없기 때문에, 여러 사람이 각자 가진 개인 열쇠들로 계정을 공유할 수 있습니다.
+대신 개인 열쇠가 유출되면 문제가 생기지만 (개인 열쇠는 아무렇게나 복사해서 쓰면 안 되고
+클라이언트별로 다른 열쇠를 만들어야 합니다), 열쇠를 적절히 제한해서 서버에 등록해뒀다면 영향이 최소화 될 순 있습니다.
+또 개인 열쇠에 암호를 걸 수도 있습니다. 이 경우 유출되어도 비교적 안심할 수 있겠죠.&lt;/p&gt;
+
+&lt;p&gt;두가지 방식의 특징에 대한 논의는 많이 존재하므로 궁금하신 분은 인터넷에서 쉽게 정보를 얻으실 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;열쇠를 이용할 경우 자동화가 쉬워진다는 추가 장점이 있습니다.
+많은 서버/클라이언트 프로토콜(Git등)이 SSH을 통하기 때문에 SSH 인증만 자동으로 된다면 많은 일들이 자동화가 됩니다.
+그런데 암호를 이용한 SSH 인증 사용시 어딘가에 암호가 &lt;strong&gt;평문&lt;/strong&gt;으로 존재해야 한다는 부담이 생깁니다.
+반면 열쇠를 이용한 경우 서버에 자동 접속을 허가하려는 클라이언트의 공공 열쇠를 등록하는 것으로 충분하고,
+추가적인 보안 위험은 없습니다.&lt;/p&gt;
+
+&lt;h1 id=&#34;방법&#34;&gt;방법&lt;/h1&gt;
+
+&lt;p&gt;이제 실제로 암호 없이 SSH 서버에 접속하는 방법을 설명드리겠습니다.
+원리를 이해하셨다면 큰 어려움이 없을 겁니다.&lt;/p&gt;
+
+&lt;h2 id=&#34;개인-열쇠-생성&#34;&gt;개인 열쇠 생성&lt;/h2&gt;
+
+&lt;p&gt;우선 &lt;strong&gt;클라이언트&lt;/strong&gt;에서 개인 열쇠를 생성합니다.&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span&gt;&lt;/span&gt;$ ssh-keygen -t rsa -C &lt;span class=&#34;s2&#34;&gt;&amp;quot;comment to key&amp;quot;&lt;/span&gt;
+Generating public/private rsa key pair.
+Enter file in which to save the key &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;/home/user/.ssh/id_rsa&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;:
+Enter passphrase &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;empty &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; no passphrase&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;:
+Enter same passphrase again:
+Your identification has been saved in /home/user/.ssh/id_rsa.
+Your public key has been saved in /home/user/.ssh/id_rsa.pub.
+The key fingerprint is:
+50:a5:15:0b:4b:b5:2e:2e:fb:97:6d:f8:b1:c0:48:a6 comment to key
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;-C 뒤에 주는 것은 개인 열쇠에 대한 설명입니다. 보통 간단하게 이메일 형식을 사용합니다. 저의 경우 &#39;sangmin.yoon@컴퓨터명&#39;을 사용합니다.&lt;/p&gt;
+
+&lt;p&gt;첫번째로 경로를 입력하게 되어 있습니다. 대부분의 경우 기본값을 그대로 둡니다. (ssh 명령에서 따로 인자를 주지 않으면 저 경로를 참고합니다.)&lt;/p&gt;
+
+&lt;p&gt;두번째는 암호구를 입력하는 곳입니다. 우리의 주 목적은 암호없이 서버에 접속하는 것이기 때문에 이 부분은 빈칸으로 둡니다.
+여기에 암호구를 넣으면 열쇠를 사용하기 전에 암호구를 확인합니다.
+단 이 암호구는 서버로 전송되지 않는 것으로, 암호를 통한 SSH 접속과는 다른 동작을 합니다.
+원하는 경우 나중에 &#39;ssh-keygen -p&#39; 명령으로 암호구를 변경할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;위와 같이 하면 .ssh 디렉토리에 id_rsa와 id_rsa.pub 파일이 생기는데 각각 개인 열쇠와 공공 열쇠입니다.
+파일 권한을 살펴보시면 id_rsa 파일이 더 한정된 권한을 갖는 것을 볼 수 있습니다.&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span&gt;&lt;/span&gt;$ ls -l
+-rw------- &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; user user &lt;span class=&#34;m&#34;&gt;1675&lt;/span&gt; Jun &lt;span class=&#34;m&#34;&gt;18&lt;/span&gt; 16:19 id_rsa
+-rw-r--r-- &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; user user  &lt;span class=&#34;m&#34;&gt;396&lt;/span&gt; Jun &lt;span class=&#34;m&#34;&gt;18&lt;/span&gt; 16:11 id_rsa.pub
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2 id=&#34;공공-열쇠-등록&#34;&gt;공공 열쇠 등록&lt;/h2&gt;
+
+&lt;p&gt;자 이제 공공 열쇠를 &lt;strong&gt;서버&lt;/strong&gt;에 등록하면 됩니다.&lt;/p&gt;
+
+&lt;p&gt;서버에 접속해서 .ssh/authorized_keys 파일에 id_rsa.pub의 내용을 추가하면 됩니다.
+여려 개의 공공 열쇠를 등록할 경우 한줄에 하나씩 넣으면 됩니다.
+이 파일은 본인에게만 읽기/쓰기 권한(0600)이 있어야 합니다.&lt;/p&gt;
+
+&lt;p&gt;제 서버 설정 예입니다.&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span&gt;&lt;/span&gt;$ cat .ssh/authorized_keys 
+ssh-rsa AAAA....OXIj sangmin.yoon@iMac
+ssh-rsa AAAA....Ew&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; sangmin.yoon@wiki
+ssh-rsa AAAA....xgrT sangmin.yoon@git
+$ ls -l .ssh/authorized_keys
+-rw------- &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; user user &lt;span class=&#34;m&#34;&gt;1585&lt;/span&gt; Jun  &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; 09:09 .ssh/authorized_keys
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2 id=&#34;접속-확인&#34;&gt;접속 확인&lt;/h2&gt;
+
+&lt;p&gt;다시 &lt;strong&gt;클라이언트&lt;/strong&gt;로 돌아와 SSH 접속을 시도했을 때 암호 없이 접속되었다면 성공한 것입니다.&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span&gt;&lt;/span&gt;$ ssh sangmin.yoon@git.croquis.com
+Last login: Mon Jun &lt;span class=&#34;m&#34;&gt;18&lt;/span&gt; 16:09:20 &lt;span class=&#34;m&#34;&gt;2012&lt;/span&gt; from 192.168.23.7
+sangmin.yoon@git:~$ 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+</description>
+    </item>
+    
+  </channel>
+</rss>

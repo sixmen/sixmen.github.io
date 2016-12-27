@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>sixmen.com</title>
+    <link>http://sixmen.com/ko/tags/%EC%96%B8%EC%96%B4%EB%B9%84%EA%B5%90/index.xml</link>
+    <description>Recent content on sixmen.com</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://sixmen.com/ko/tags/%EC%96%B8%EC%96%B4%EB%B9%84%EA%B5%90/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>언어 비교 - 함수 매개 변수에 기본값 지정</title>
+      <link>http://sixmen.com/ko/tech/2016-12-19-1-language-comparison-function-default-argument/</link>
+      <pubDate>Mon, 19 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/ko/tech/2016-12-19-1-language-comparison-function-default-argument/</guid>
+      <description>&lt;div class=&#39;langsheet&#39;&gt;
+
+&lt;div class=&#39;panel panel-warning&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;C&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    해당 기능이 존재하지 않음
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;C++&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;double&lt;/span&gt;&amp;nbsp;logarithm(&lt;span class=&#39;cmd_keyword&#39;&gt;double&lt;/span&gt;&amp;nbsp;x,&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;double&lt;/span&gt;&amp;nbsp;base=&lt;span class=&#39;cmd_number&#39;&gt;10&lt;/span&gt;)&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;return&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;(x)&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;(base);&lt;br&gt;}
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;CoffeeScript&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    logarithm&amp;nbsp;=&amp;nbsp;(x,&amp;nbsp;base=&lt;span class=&#39;cmd_number&#39;&gt;10&lt;/span&gt;)&amp;nbsp;-&amp;gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Math&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;(x)&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Math&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;(base)
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Java&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;double&lt;/span&gt;&amp;nbsp;logarithm(&lt;span class=&#39;cmd_keyword&#39;&gt;double&lt;/span&gt;&amp;nbsp;x)&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;return&lt;/span&gt;&amp;nbsp;logarithm(x,&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;10&lt;/span&gt;);&lt;br&gt;}&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;double&lt;/span&gt;&amp;nbsp;logarithm(&lt;span class=&#39;cmd_keyword&#39;&gt;double&lt;/span&gt;&amp;nbsp;x,&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;double&lt;/span&gt;&amp;nbsp;base)&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;return&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Math&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;(x)&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Math&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;(base);&lt;br&gt;}
+  &lt;/div&gt;
+  &lt;div class=&#39;panel-footer&#39;&gt;
+    use method overloading
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;JavaScript&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;function&lt;/span&gt;&amp;nbsp;logarithm(x,&amp;nbsp;base)&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;if&lt;/span&gt;&amp;nbsp;(base==&lt;span class=&#39;cmd_keyword&#39;&gt;null&lt;/span&gt;)&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;base&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;10&lt;/span&gt;;&lt;br&gt;&amp;nbsp;&amp;nbsp;}&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;return&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Math&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;(x)&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Math&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;(base);&lt;br&gt;}
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Kotlin&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;fun&lt;/span&gt;&amp;nbsp;logarithm(x:&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;Double&lt;/span&gt;,&amp;nbsp;base:&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;Double&lt;/span&gt;=&lt;span class=&#39;cmd_number&#39;&gt;10.0&lt;/span&gt;):&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;Double&lt;/span&gt;&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;return&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Math&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;(x)&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Math&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;(base)&lt;br&gt;}
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Lua&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;function&lt;/span&gt;&amp;nbsp;logarithm(x,&amp;nbsp;base)&lt;br&gt;&amp;nbsp;&amp;nbsp;base&amp;nbsp;=&amp;nbsp;base&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;or&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;10&lt;/span&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;return&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;math&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;(x)&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;math&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;(base)&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;end}
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-warning&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Objective-C&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    해당 기능이 존재하지 않음
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Perl&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;sub&lt;/span&gt;&amp;nbsp;logarithm&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;my&lt;/span&gt;&amp;nbsp;$x&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;shift&lt;/span&gt;;&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;my&lt;/span&gt;&amp;nbsp;$base&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;shift&lt;/span&gt;&amp;nbsp;//&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;10&lt;/span&gt;;&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;($x)&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;($base);&lt;br&gt;}
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;PHP&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;function&lt;/span&gt;&amp;nbsp;logarithm($x,&amp;nbsp;$base=&lt;span class=&#39;cmd_number&#39;&gt;10&lt;/span&gt;)&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;return&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;($x)&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;($base);&lt;br&gt;}
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Python&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;def&lt;/span&gt;&amp;nbsp;logarithm(x,&amp;nbsp;base=&lt;span class=&#39;cmd_number&#39;&gt;10&lt;/span&gt;):&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;return&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;math&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;(x)&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;math&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;(base)
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Ruby&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;def&lt;/span&gt;&amp;nbsp;logarithm(x,&amp;nbsp;base=&lt;span class=&#39;cmd_number&#39;&gt;10&lt;/span&gt;)&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Math&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;(x)&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Math&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;(base)&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;end&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Swift&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;func&lt;/span&gt;&amp;nbsp;logarithm(x:&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;Double&lt;/span&gt;,&amp;nbsp;base:&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;Double&lt;/span&gt;=&lt;span class=&#39;cmd_number&#39;&gt;10&lt;/span&gt;)&amp;nbsp;-&amp;gt;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;Double&lt;/span&gt;&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;return&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;(x)&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;log&lt;/span&gt;(base)&lt;br&gt;}
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>언어 비교 - 정규식 캡쳐링 그룹</title>
+      <link>http://sixmen.com/ko/tech/2016-12-14-1-language-comparison-regular-expression-capturing-group/</link>
+      <pubDate>Wed, 14 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/ko/tech/2016-12-14-1-language-comparison-regular-expression-capturing-group/</guid>
+      <description>&lt;div class=&#39;langsheet&#39;&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;C&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;const&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;char&lt;/span&gt;&amp;nbsp;*str&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;2016-12-05&#34;&lt;/span&gt;;&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;regex_t&lt;/span&gt;&amp;nbsp;rx;&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;if&lt;/span&gt;&amp;nbsp;(&lt;span class=&#39;cmd_stdlib&#39;&gt;regcomp&lt;/span&gt;(&amp;amp;rx,&amp;nbsp;&#34;([[:digit:]]{4})-([[:digit:]]{2})-([[:digit:]]{2})&#34;,&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;REG_EXTENDED&lt;/span&gt;)==0)&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;regmatch_t&lt;/span&gt;&amp;nbsp;m[&lt;span class=&#39;cmd_number&#39;&gt;4&lt;/span&gt;];&lt;br&gt;&amp;nbsp;&amp;nbsp;if&amp;nbsp;(&lt;span class=&#39;cmd_stdlib&#39;&gt;regexec&lt;/span&gt;(&amp;amp;rx,&amp;nbsp;str,&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;4&lt;/span&gt;,&amp;nbsp;m,&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;0&lt;/span&gt;)==&lt;span class=&#39;cmd_number&#39;&gt;0&lt;/span&gt;)&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;&amp;nbsp;year&amp;nbsp;=&amp;nbsp;str2int(str+m[&lt;span class=&#39;cmd_number&#39;&gt;1&lt;/span&gt;].&lt;span class=&#39;cmd_stdlib&#39;&gt;rm_so&lt;/span&gt;,&amp;nbsp;m[&lt;span class=&#39;cmd_number&#39;&gt;1&lt;/span&gt;].&lt;span class=&#39;cmd_stdlib&#39;&gt;rm_eo&lt;/span&gt;&amp;nbsp;-&amp;nbsp;m[&lt;span class=&#39;cmd_number&#39;&gt;1&lt;/span&gt;].&lt;span class=&#39;cmd_stdlib&#39;&gt;rm_so&lt;/span&gt;);&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;&amp;nbsp;month&amp;nbsp;=&amp;nbsp;str2int(str+m[&lt;span class=&#39;cmd_number&#39;&gt;2&lt;/span&gt;].&lt;span class=&#39;cmd_stdlib&#39;&gt;rm_so&lt;/span&gt;,&amp;nbsp;m[&lt;span class=&#39;cmd_number&#39;&gt;2&lt;/span&gt;].&lt;span class=&#39;cmd_stdlib&#39;&gt;rm_eo&lt;/span&gt;&amp;nbsp;-&amp;nbsp;m[&lt;span class=&#39;cmd_number&#39;&gt;2&lt;/span&gt;].&lt;span class=&#39;cmd_stdlib&#39;&gt;rm_so&lt;/span&gt;);&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;&amp;nbsp;day&amp;nbsp;=&amp;nbsp;str2int(str+m[&lt;span class=&#39;cmd_number&#39;&gt;3&lt;/span&gt;].&lt;span class=&#39;cmd_stdlib&#39;&gt;rm_so&lt;/span&gt;,&amp;nbsp;m[&lt;span class=&#39;cmd_number&#39;&gt;3&lt;/span&gt;].&lt;span class=&#39;cmd_stdlib&#39;&gt;rm_eo&lt;/span&gt;&amp;nbsp;-&amp;nbsp;m[&lt;span class=&#39;cmd_number&#39;&gt;3&lt;/span&gt;].&lt;span class=&#39;cmd_stdlib&#39;&gt;rm_so&lt;/span&gt;);&lt;br&gt;&amp;nbsp;&amp;nbsp;}&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;regfree&lt;/span&gt;(&amp;amp;rx);&lt;br&gt;}
+  &lt;/div&gt;
+  &lt;div class=&#39;panel-footer&#39;&gt;
+    #include &amp;lt;regex.h&amp;gt;&lt;br&gt;
+int str2int(const char *str, int len) {&lt;br&gt;
+  int value = 0;&lt;br&gt;
+  char *tmp = strndup(str, len);&lt;br&gt;
+  value = strtol(tmp, (char **)NULL, 10);&lt;br&gt;
+  free(tmp);&lt;br&gt;
+  return value;&lt;br&gt;
+}
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;C++&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_stdlib&#39;&gt;string&lt;/span&gt;&amp;nbsp;str(&lt;span class=&#39;cmd_string&#39;&gt;&#34;2016-12-05&#34;&lt;/span&gt;);&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;regex&lt;/span&gt;&amp;nbsp;rx(&lt;span class=&#39;cmd_string&#39;&gt;&#34;(\\d{4})-(\\d{2})-(\\d{2})&#34;&lt;/span&gt;);&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;smatch&lt;/span&gt;&amp;nbsp;m;&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;if&lt;/span&gt;&amp;nbsp;(&lt;span class=&#39;cmd_stdlib&#39;&gt;regex_match&lt;/span&gt;(str,&amp;nbsp;m,&amp;nbsp;rx))&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;&amp;nbsp;year&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;stoi&lt;/span&gt;(m.&lt;span class=&#39;cmd_stdlib&#39;&gt;str&lt;/span&gt;(&lt;span class=&#39;cmd_number&#39;&gt;1&lt;/span&gt;));&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;&amp;nbsp;month&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;stoi&lt;/span&gt;(m.&lt;span class=&#39;cmd_stdlib&#39;&gt;str&lt;/span&gt;(&lt;span class=&#39;cmd_number&#39;&gt;2&lt;/span&gt;));&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;&amp;nbsp;day&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;stoi&lt;/span&gt;(m.&lt;span class=&#39;cmd_stdlib&#39;&gt;str&lt;/span&gt;(&lt;span class=&#39;cmd_number&#39;&gt;3&lt;/span&gt;));&lt;br&gt;}
+  &lt;/div&gt;
+  &lt;div class=&#39;panel-footer&#39;&gt;
+    #include &amp;lt;regex&amp;gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;CoffeeScript&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    str&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;2016-12-05&#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;if&lt;/span&gt;&amp;nbsp;/(\d{4})-(\d{2})-(\d{2})/.&lt;span class=&#39;cmd_stdlib&#39;&gt;test&lt;/span&gt;&amp;nbsp;str&lt;br&gt;&amp;nbsp;&amp;nbsp;year&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Number&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;RegExp&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;$1&lt;/span&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;month&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Number&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;RegExp&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;$2&lt;/span&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;day&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Number&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;RegExp&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;$3&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Java&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_stdlib&#39;&gt;String&lt;/span&gt;&amp;nbsp;str&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;2016-12-05&#34;&lt;/span&gt;;&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;Pattern&lt;/span&gt;&amp;nbsp;rx&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Pattern&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;compile&lt;/span&gt;(&lt;span class=&#39;cmd_string&#39;&gt;&#34;(\\d{4})-(\\d{2})-(\\d{2})&#34;&lt;/span&gt;);&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;Matcher&lt;/span&gt;&amp;nbsp;m&amp;nbsp;=&amp;nbsp;rx.&lt;span class=&#39;cmd_stdlib&#39;&gt;matcher&lt;/span&gt;(str);&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;if&lt;/span&gt;&amp;nbsp;(m.&lt;span class=&#39;cmd_stdlib&#39;&gt;matches&lt;/span&gt;())&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;&amp;nbsp;year&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Integer&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;parseInt&lt;/span&gt;(m.&lt;span class=&#39;cmd_stdlib&#39;&gt;group&lt;/span&gt;(&lt;span class=&#39;cmd_number&#39;&gt;1&lt;/span&gt;));&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;&amp;nbsp;month&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Integer&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;parseInt&lt;/span&gt;(m.&lt;span class=&#39;cmd_stdlib&#39;&gt;group&lt;/span&gt;(&lt;span class=&#39;cmd_number&#39;&gt;2&lt;/span&gt;));&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;&amp;nbsp;day&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Integer&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;parseInt&lt;/span&gt;(m.&lt;span class=&#39;cmd_stdlib&#39;&gt;group&lt;/span&gt;(&lt;span class=&#39;cmd_number&#39;&gt;3&lt;/span&gt;));&lt;br&gt;}
+  &lt;/div&gt;
+  &lt;div class=&#39;panel-footer&#39;&gt;
+    import java.util.regex.Matcher;&lt;br&gt;
+import java.util.regex.Pattern;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;JavaScript&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;var&lt;/span&gt;&amp;nbsp;str&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;2016-12-05&#39;&lt;/span&gt;;&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;if&lt;/span&gt;&amp;nbsp;(/(\d{4})-(\d{2})-(\d{2})/.&lt;span class=&#39;cmd_stdlib&#39;&gt;test&lt;/span&gt;(str))&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;var&lt;/span&gt;&amp;nbsp;year&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Number&lt;/span&gt;(&lt;span class=&#39;cmd_stdlib&#39;&gt;RegExp&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;$1&lt;/span&gt;);&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;var&lt;/span&gt;&amp;nbsp;month&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Number&lt;/span&gt;(&lt;span class=&#39;cmd_stdlib&#39;&gt;RegExp&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;$2&lt;/span&gt;);&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;var&lt;/span&gt;&amp;nbsp;day&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Number&lt;/span&gt;(&lt;span class=&#39;cmd_stdlib&#39;&gt;RegExp&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;$3&lt;/span&gt;);&lt;br&gt;}
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Kotlin&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;val&lt;/span&gt;&amp;nbsp;str&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;2016-12-05&#34;&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;val&lt;/span&gt;&amp;nbsp;rx&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;(\\d{4})-(\\d{2})-(\\d{2})&#34;&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;toRegex&lt;/span&gt;()&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;val&lt;/span&gt;&amp;nbsp;m&amp;nbsp;=&amp;nbsp;rx.&lt;span class=&#39;cmd_stdlib&#39;&gt;matchEntire&lt;/span&gt;(str)&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;if&lt;/span&gt;&amp;nbsp;(m!=null)&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;val&lt;/span&gt;&amp;nbsp;year&amp;nbsp;=&amp;nbsp;m.&lt;span class=&#39;cmd_stdlib&#39;&gt;groups&lt;/span&gt;[&lt;span class=&#39;cmd_number&#39;&gt;1&lt;/span&gt;]!!.&lt;span class=&#39;cmd_stdlib&#39;&gt;value&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;toInt&lt;/span&gt;()&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;val&lt;/span&gt;&amp;nbsp;month&amp;nbsp;=&amp;nbsp;m.&lt;span class=&#39;cmd_stdlib&#39;&gt;groups&lt;/span&gt;[&lt;span class=&#39;cmd_number&#39;&gt;2&lt;/span&gt;]!!.&lt;span class=&#39;cmd_stdlib&#39;&gt;value&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;toInt&lt;/span&gt;()&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;val&lt;/span&gt;&amp;nbsp;day&amp;nbsp;=&amp;nbsp;m.&lt;span class=&#39;cmd_stdlib&#39;&gt;groups&lt;/span&gt;[&lt;span class=&#39;cmd_number&#39;&gt;3&lt;/span&gt;]!!.&lt;span class=&#39;cmd_stdlib&#39;&gt;value&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;toInt&lt;/span&gt;()&lt;br&gt;}
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Lua&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    str&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;2016-12-05&#39;&lt;/span&gt;&lt;br&gt;rx&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;(%d%d%d%d)-(%d%d)-(%d%d)&#39;&lt;/span&gt;&lt;br&gt;year,&amp;nbsp;month,&amp;nbsp;day&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;string&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;match&lt;/span&gt;(str,&amp;nbsp;rx)&lt;br&gt;year&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;tonumber&lt;/span&gt;(year)&lt;br&gt;month&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;tonumber&lt;/span&gt;(month)&lt;br&gt;day&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;tonumber&lt;/span&gt;(day)
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Objective-C&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_stdlib&#39;&gt;NSString&lt;/span&gt;&amp;nbsp;*str&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;@&#34;2016-12-05&#34;&lt;/span&gt;;&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;NSRegularExpression&lt;/span&gt;&amp;nbsp;*rx&amp;nbsp;=&amp;nbsp;[&lt;span class=&#39;cmd_stdlib&#39;&gt;NSRegularExpression&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;regularExpressionWithPattern&lt;/span&gt;:&lt;span class=&#39;cmd_string&#39;&gt;@&#34;(\\d{4})-(\\d{2})-(\\d{2})&#34;&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;options&lt;/span&gt;:&lt;span class=&#39;cmd_number&#39;&gt;0&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;error&lt;/span&gt;:&lt;span class=&#39;cmd_keyword&#39;&gt;nil&lt;/span&gt;];&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;NSTextCheckingResult&lt;/span&gt;&amp;nbsp;*m&amp;nbsp;=&amp;nbsp;[rx&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;firstMatchInString&lt;/span&gt;:str&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;options&lt;/span&gt;:&lt;span class=&#39;cmd_number&#39;&gt;0&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;range&lt;/span&gt;:&lt;span class=&#39;cmd_stdlib&#39;&gt;NSMakeRange&lt;/span&gt;(&lt;span class=&#39;cmd_number&#39;&gt;0&lt;/span&gt;,&amp;nbsp;[str&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;length&lt;/span&gt;])];&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;if&lt;/span&gt;&amp;nbsp;(m!=&lt;span class=&#39;cmd_keyword&#39;&gt;nil&lt;/span&gt;)&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;NSInteger&lt;/span&gt;&amp;nbsp;year&amp;nbsp;=&amp;nbsp;[[str&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;substringWithRange&lt;/span&gt;:[m&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;rangeAtIndex&lt;/span&gt;:&lt;span class=&#39;cmd_number&#39;&gt;1&lt;/span&gt;]]&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;integerValue&lt;/span&gt;];&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;NSInteger&lt;/span&gt;&amp;nbsp;month&amp;nbsp;=&amp;nbsp;[[str&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;substringWithRange&lt;/span&gt;:[m&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;rangeAtIndex&lt;/span&gt;:&lt;span class=&#39;cmd_number&#39;&gt;2&lt;/span&gt;]]&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;integerValue&lt;/span&gt;];&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;NSInteger&lt;/span&gt;&amp;nbsp;day&amp;nbsp;=&amp;nbsp;[[str&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;substringWithRange&lt;/span&gt;:[m&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;rangeAtIndex&lt;/span&gt;:&lt;span class=&#39;cmd_number&#39;&gt;3&lt;/span&gt;]]&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;integerValue&lt;/span&gt;];&lt;br&gt;}
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Perl&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    $str&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;2016-12-05&#39;&lt;/span&gt;;&lt;br&gt;$rx&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;qr&lt;/span&gt;/(\d{4})-(\d{2})-(\d{2})/;&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;if&lt;/span&gt;&amp;nbsp;($str&amp;nbsp;=~&amp;nbsp;$rx)&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;($year,&amp;nbsp;$month,&amp;nbsp;$day)&amp;nbsp;=&amp;nbsp;(&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;&amp;nbsp;$1,&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;&amp;nbsp;$2,&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;&amp;nbsp;$3);&lt;br&gt;}
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;PHP&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    $str&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;2016-12-05&#39;&lt;/span&gt;;&lt;br&gt;$rx&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;/(\d{4})-(\d{2})-(\d{2})/&#39;&lt;/span&gt;;&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;if&lt;/span&gt;&amp;nbsp;(&lt;span class=&#39;cmd_stdlib&#39;&gt;preg_match&lt;/span&gt;($rx,&amp;nbsp;$str,&amp;nbsp;$m))&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;$year&amp;nbsp;=&amp;nbsp;(&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;)$m[&lt;span class=&#39;cmd_number&#39;&gt;1&lt;/span&gt;];&lt;br&gt;&amp;nbsp;&amp;nbsp;$month&amp;nbsp;=&amp;nbsp;(&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;)$m[&lt;span class=&#39;cmd_number&#39;&gt;2&lt;/span&gt;];&lt;br&gt;&amp;nbsp;&amp;nbsp;$day&amp;nbsp;=&amp;nbsp;(&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;)$m[&lt;span class=&#39;cmd_number&#39;&gt;3&lt;/span&gt;];&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;if&amp;nbsp;you&amp;nbsp;don&#39;t&amp;nbsp;need&amp;nbsp;integers&lt;/span&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;list&lt;/span&gt;($_,&amp;nbsp;$year,&amp;nbsp;$month,&amp;nbsp;$day)&amp;nbsp;=&amp;nbsp;$m;&lt;br&gt;}
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Python&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    str&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;2016-12-05&#39;&lt;/span&gt;&lt;br&gt;rx&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;(\\d{4})-(\\d{2})-(\\d{2})&#39;&lt;/span&gt;&lt;br&gt;m&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;re&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;search&lt;/span&gt;(rx,&amp;nbsp;str)&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;if&lt;/span&gt;&amp;nbsp;m:&lt;br&gt;&amp;nbsp;&amp;nbsp;year&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;int&lt;/span&gt;(m.&lt;span class=&#39;cmd_stdlib&#39;&gt;group&lt;/span&gt;(&lt;span class=&#39;cmd_number&#39;&gt;1&lt;/span&gt;))&lt;br&gt;&amp;nbsp;&amp;nbsp;month&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;int&lt;/span&gt;(m.&lt;span class=&#39;cmd_stdlib&#39;&gt;group&lt;/span&gt;(&lt;span class=&#39;cmd_number&#39;&gt;2&lt;/span&gt;))&lt;br&gt;&amp;nbsp;&amp;nbsp;day&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;int&lt;/span&gt;(m.&lt;span class=&#39;cmd_stdlib&#39;&gt;group&lt;/span&gt;(&lt;span class=&#39;cmd_number&#39;&gt;3&lt;/span&gt;))&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;if&amp;nbsp;you&amp;nbsp;don&#39;t&amp;nbsp;need&amp;nbsp;integers&lt;/span&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;year,&amp;nbsp;month,&amp;nbsp;day&amp;nbsp;=&amp;nbsp;m.&lt;span class=&#39;cmd_stdlib&#39;&gt;groups&lt;/span&gt;()
+  &lt;/div&gt;
+  &lt;div class=&#39;panel-footer&#39;&gt;
+    import re
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Ruby&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;using&amp;nbsp;method&lt;/span&gt;&lt;br&gt;str&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;2016-12-05&#39;&lt;/span&gt;&lt;br&gt;rx&amp;nbsp;=&amp;nbsp;/(\d{4})-(\d{2})-(\d{2})/&lt;br&gt;m&amp;nbsp;=&amp;nbsp;rx.&lt;span class=&#39;cmd_stdlib&#39;&gt;match&lt;/span&gt;(str)&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;if&lt;/span&gt;&amp;nbsp;m&lt;br&gt;&amp;nbsp;&amp;nbsp;year&amp;nbsp;=&amp;nbsp;m[&lt;span class=&#39;cmd_number&#39;&gt;1&lt;/span&gt;].&lt;span class=&#39;cmd_stdlib&#39;&gt;to_i&lt;/span&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;month&amp;nbsp;=&amp;nbsp;m[&lt;span class=&#39;cmd_number&#39;&gt;2&lt;/span&gt;].&lt;span class=&#39;cmd_stdlib&#39;&gt;to_i&lt;/span&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;day&amp;nbsp;=&amp;nbsp;m[&lt;span class=&#39;cmd_number&#39;&gt;3&lt;/span&gt;].&lt;span class=&#39;cmd_stdlib&#39;&gt;to_i&lt;/span&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;if&amp;nbsp;you&amp;nbsp;don&#39;t&amp;nbsp;need&amp;nbsp;integers&lt;/span&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;year,&amp;nbsp;month,&amp;nbsp;day&amp;nbsp;=&amp;nbsp;m[&lt;span class=&#39;cmd_number&#39;&gt;1&lt;/span&gt;..&lt;span class=&#39;cmd_number&#39;&gt;3&lt;/span&gt;]&lt;br&gt;end&lt;br&gt;&lt;span class=&#39;cmd_hr&#39;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;using&amp;nbsp;pattern-matching&amp;nbsp;operator&lt;/span&gt;&lt;br&gt;str&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;2016-12-05&#39;&lt;/span&gt;&lt;br&gt;rx&amp;nbsp;=&amp;nbsp;/(\d{4})-(\d{2})-(\d{2})/&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;if&lt;/span&gt;&amp;nbsp;rx&amp;nbsp;=~&amp;nbsp;str&lt;br&gt;&amp;nbsp;&amp;nbsp;year&amp;nbsp;=&amp;nbsp;$~[&lt;span class=&#39;cmd_number&#39;&gt;1&lt;/span&gt;].&lt;span class=&#39;cmd_stdlib&#39;&gt;to_i&lt;/span&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;month&amp;nbsp;=&amp;nbsp;$~[&lt;span class=&#39;cmd_number&#39;&gt;2&lt;/span&gt;].&lt;span class=&#39;cmd_stdlib&#39;&gt;to_i&lt;/span&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;day&amp;nbsp;=&amp;nbsp;$~[&lt;span class=&#39;cmd_number&#39;&gt;3&lt;/span&gt;].&lt;span class=&#39;cmd_stdlib&#39;&gt;to_i&lt;/span&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;if&amp;nbsp;you&amp;nbsp;don&#39;t&amp;nbsp;need&amp;nbsp;integers&lt;/span&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;year,&amp;nbsp;month,&amp;nbsp;day&amp;nbsp;=&amp;nbsp;$~[&lt;span class=&#39;cmd_number&#39;&gt;1&lt;/span&gt;..&lt;span class=&#39;cmd_number&#39;&gt;3&lt;/span&gt;]&lt;br&gt;end
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Swift&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;let&lt;/span&gt;&amp;nbsp;str&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;2016-12-05&#34;&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;let&lt;/span&gt;&amp;nbsp;rx&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;try!&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;NSRegularExpression&lt;/span&gt;(&lt;span class=&#39;cmd_stdlib&#39;&gt;pattern&lt;/span&gt;:&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;(\\d{4})-(\\d{2})-(\\d{2})&#34;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;options&lt;/span&gt;:&amp;nbsp;[])&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;if&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;let&lt;/span&gt;&amp;nbsp;m&amp;nbsp;=&amp;nbsp;rx.&lt;span class=&#39;cmd_stdlib&#39;&gt;firstMatch&lt;/span&gt;(&lt;span class=&#39;cmd_stdlib&#39;&gt;in&lt;/span&gt;:&amp;nbsp;str,&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;options&lt;/span&gt;:&amp;nbsp;[],&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;range&lt;/span&gt;:&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;NSRange&lt;/span&gt;(&lt;span class=&#39;cmd_stdlib&#39;&gt;location&lt;/span&gt;:&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;0&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;length&lt;/span&gt;:&amp;nbsp;(str&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;as&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;NSString&lt;/span&gt;).&lt;span class=&#39;cmd_stdlib&#39;&gt;length&lt;/span&gt;))&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;let&lt;/span&gt;&amp;nbsp;year&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Int&lt;/span&gt;((str&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;as&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;NSString&lt;/span&gt;).&lt;span class=&#39;cmd_stdlib&#39;&gt;substring&lt;/span&gt;(&lt;span class=&#39;cmd_stdlib&#39;&gt;with&lt;/span&gt;:&amp;nbsp;m.&lt;span class=&#39;cmd_stdlib&#39;&gt;rangeAt&lt;/span&gt;(&lt;span class=&#39;cmd_number&#39;&gt;1&lt;/span&gt;)))&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;let&lt;/span&gt;&amp;nbsp;month&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Int&lt;/span&gt;((str&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;as&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;NSString&lt;/span&gt;).&lt;span class=&#39;cmd_stdlib&#39;&gt;substring&lt;/span&gt;(&lt;span class=&#39;cmd_stdlib&#39;&gt;with&lt;/span&gt;:&amp;nbsp;m.&lt;span class=&#39;cmd_stdlib&#39;&gt;rangeAt&lt;/span&gt;(&lt;span class=&#39;cmd_number&#39;&gt;2&lt;/span&gt;)))&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;let&lt;/span&gt;&amp;nbsp;day&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Int&lt;/span&gt;((str&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;as&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;NSString&lt;/span&gt;).&lt;span class=&#39;cmd_stdlib&#39;&gt;substring&lt;/span&gt;(&lt;span class=&#39;cmd_stdlib&#39;&gt;with&lt;/span&gt;:&amp;nbsp;m.&lt;span class=&#39;cmd_stdlib&#39;&gt;rangeAt&lt;/span&gt;(&lt;span class=&#39;cmd_number&#39;&gt;3&lt;/span&gt;)))&lt;br&gt;}
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>언어 비교 - 변수 값 교환</title>
+      <link>http://sixmen.com/ko/tech/2016-12-12-1-language-comparison-variable-swap/</link>
+      <pubDate>Mon, 12 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/ko/tech/2016-12-12-1-language-comparison-variable-swap/</guid>
+      <description>&lt;div class=&#39;langsheet&#39;&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;C&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;basic&lt;/span&gt;&lt;br&gt;tmp&amp;nbsp;=&amp;nbsp;x;&lt;br&gt;x&amp;nbsp;=&amp;nbsp;y;&lt;br&gt;y&amp;nbsp;=&amp;nbsp;tmp;&lt;br&gt;&lt;span class=&#39;cmd_hr&#39;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;function&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;void&lt;/span&gt;&amp;nbsp;swap(&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;&amp;nbsp;*a,&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;&amp;nbsp;*b)&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;&amp;nbsp;tmp;&lt;br&gt;&amp;nbsp;&amp;nbsp;tmp&amp;nbsp;=&amp;nbsp;*b;&lt;br&gt;&amp;nbsp;&amp;nbsp;*b&amp;nbsp;=&amp;nbsp;*a;&lt;br&gt;&amp;nbsp;&amp;nbsp;*a&amp;nbsp;=&amp;nbsp;tmp;&lt;br&gt;}&lt;br&gt;swap(&amp;amp;x,&amp;nbsp;&amp;amp;y);&lt;br&gt;&lt;span class=&#39;cmd_hr&#39;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;no&amp;nbsp;temporary&amp;nbsp;variable&lt;/span&gt;&lt;br&gt;x&amp;nbsp;=&amp;nbsp;x&amp;nbsp;+&amp;nbsp;y;&lt;br&gt;y&amp;nbsp;=&amp;nbsp;x&amp;nbsp;-&amp;nbsp;y;&lt;br&gt;x&amp;nbsp;=&amp;nbsp;x&amp;nbsp;-&amp;nbsp;y;&lt;br&gt;&lt;span class=&#39;cmd_hr&#39;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;no&amp;nbsp;temporary&amp;nbsp;variable&amp;nbsp;2&lt;/span&gt;&lt;br&gt;x&amp;nbsp;=&amp;nbsp;x&amp;nbsp;^&amp;nbsp;y;&lt;br&gt;y&amp;nbsp;=&amp;nbsp;x&amp;nbsp;^&amp;nbsp;y;&lt;br&gt;x&amp;nbsp;=&amp;nbsp;x&amp;nbsp;^&amp;nbsp;y;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;C++&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_stdlib&#39;&gt;swap&lt;/span&gt;(x,&amp;nbsp;y);
+  &lt;/div&gt;
+  &lt;div class=&#39;panel-footer&#39;&gt;
+    #include &amp;lt;algorithm&amp;gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;CoffeeScript&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    [x,&amp;nbsp;y]&amp;nbsp;=&amp;nbsp;[y,&amp;nbsp;x]
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Java&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    tmp&amp;nbsp;=&amp;nbsp;x;&lt;br&gt;x&amp;nbsp;=&amp;nbsp;y;&lt;br&gt;y&amp;nbsp;=&amp;nbsp;tmp;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;JavaScript&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;basic&lt;/span&gt;&lt;br&gt;tmp&amp;nbsp;=&amp;nbsp;x;&lt;br&gt;x&amp;nbsp;=&amp;nbsp;y;&lt;br&gt;y&amp;nbsp;=&amp;nbsp;tmp;&lt;br&gt;&lt;span class=&#39;cmd_hr&#39;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;tricky&amp;nbsp;one-line&lt;/span&gt;&lt;br&gt;x&amp;nbsp;=&amp;nbsp;[y,&amp;nbsp;y&amp;nbsp;=&amp;nbsp;x][&lt;span class=&#39;cmd_number&#39;&gt;0&lt;/span&gt;];&lt;br&gt;&lt;span class=&#39;cmd_hr&#39;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;ES2015&amp;nbsp;(ES6)&lt;/span&gt;&lt;br&gt;[x,&amp;nbsp;y]&amp;nbsp;=&amp;nbsp;[y,&amp;nbsp;x]
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Kotlin&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    tmp&amp;nbsp;=&amp;nbsp;x&lt;br&gt;x&amp;nbsp;=&amp;nbsp;y&lt;br&gt;y&amp;nbsp;=&amp;nbsp;tmp
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Lua&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    x,&amp;nbsp;y&amp;nbsp;=&amp;nbsp;y,&amp;nbsp;x
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Objective-C&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    tmp&amp;nbsp;=&amp;nbsp;x;&lt;br&gt;x&amp;nbsp;=&amp;nbsp;y;&lt;br&gt;y&amp;nbsp;=&amp;nbsp;tmp;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Perl&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    ($x,&amp;nbsp;$y)&amp;nbsp;=&amp;nbsp;($y,&amp;nbsp;$x);
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;PHP&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;basic&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;list&lt;/span&gt;($x,&amp;nbsp;$y)&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;array&lt;/span&gt;($y,&amp;nbsp;$x);&lt;br&gt;&lt;span class=&#39;cmd_hr&#39;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;function&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;function&lt;/span&gt;&amp;nbsp;swap(&amp;amp;$x,&amp;nbsp;&amp;amp;$y)&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;$tmp&amp;nbsp;=&amp;nbsp;$x;&lt;br&gt;&amp;nbsp;&amp;nbsp;$x&amp;nbsp;=&amp;nbsp;$y;&lt;br&gt;&amp;nbsp;&amp;nbsp;$y&amp;nbsp;=&amp;nbsp;$tmp;&lt;br&gt;}
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Python&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    x,&amp;nbsp;y&amp;nbsp;=&amp;nbsp;y,&amp;nbsp;x
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Ruby&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    x,&amp;nbsp;y&amp;nbsp;=&amp;nbsp;y,&amp;nbsp;x
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Swift&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_stdlib&#39;&gt;swap&lt;/span&gt;(&amp;amp;x,&amp;nbsp;&amp;amp;y)
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>언어 비교 - 문자열 배열 합치기</title>
+      <link>http://sixmen.com/ko/tech/2016-12-09-1-language-comparison-string-join/</link>
+      <pubDate>Fri, 09 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/ko/tech/2016-12-09-1-language-comparison-string-join/</guid>
+      <description>&lt;div class=&#39;langsheet&#39;&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;C&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;const&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;char&lt;/span&gt;&amp;nbsp;*&lt;span class=&#39;cmd_keyword&#39;&gt;const&lt;/span&gt;&amp;nbsp;strs[]&amp;nbsp;=&amp;nbsp;{&lt;span class=&#39;cmd_string&#39;&gt;&#34;one&#34;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;two&#34;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;three&#34;&lt;/span&gt;};&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;&amp;nbsp;i&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;0&lt;/span&gt;;&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;int&lt;/span&gt;&amp;nbsp;size&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;0&lt;/span&gt;;&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;char&lt;/span&gt;&amp;nbsp;*out;&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;for&lt;/span&gt;&amp;nbsp;(i=&lt;span class=&#39;cmd_number&#39;&gt;0&lt;/span&gt;;i&amp;lt;&lt;span class=&#39;cmd_number&#39;&gt;3&lt;/span&gt;;i++)&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;size&amp;nbsp;+=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;strlen&lt;/span&gt;(strs[i])&amp;nbsp;+&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;1&lt;/span&gt;;&lt;br&gt;}&lt;br&gt;out&amp;nbsp;=&amp;nbsp;(&lt;span class=&#39;cmd_keyword&#39;&gt;char&lt;/span&gt;&amp;nbsp;*)&lt;span class=&#39;cmd_stdlib&#39;&gt;malloc&lt;/span&gt;(size);&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;strcpy&lt;/span&gt;(out,&amp;nbsp;strs[&lt;span class=&#39;cmd_number&#39;&gt;0&lt;/span&gt;]);&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;for&lt;/span&gt;&amp;nbsp;(i=&lt;span class=&#39;cmd_number&#39;&gt;1&lt;/span&gt;;i&amp;lt;&lt;span class=&#39;cmd_number&#39;&gt;3&lt;/span&gt;;i++)&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;strcat&lt;/span&gt;(out,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;,&#34;&lt;/span&gt;);&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;strcat&lt;/span&gt;(out,&amp;nbsp;strs[i]);&lt;br&gt;}
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;C++&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;one-liner&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;vector&lt;/span&gt;&amp;lt;&lt;span class=&#39;cmd_stdlib&#39;&gt;string&lt;/span&gt;&amp;gt;&amp;nbsp;strs&amp;nbsp;=&amp;nbsp;{&lt;span class=&#39;cmd_string&#39;&gt;&#34;one&#34;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;two&#34;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;three&#34;&lt;/span&gt;};&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;string&lt;/span&gt;&amp;nbsp;out&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;accumulate&lt;/span&gt;(&lt;span class=&#39;cmd_stdlib&#39;&gt;next&lt;/span&gt;(strs.&lt;span class=&#39;cmd_stdlib&#39;&gt;begin&lt;/span&gt;()),&amp;nbsp;strs.&lt;span class=&#39;cmd_stdlib&#39;&gt;end&lt;/span&gt;(),&amp;nbsp;strs[0],&lt;br&gt;&amp;nbsp;&amp;nbsp;[](&lt;span class=&#39;cmd_keyword&#39;&gt;const&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;string&lt;/span&gt;&amp;nbsp;&amp;amp;a,&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;const&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;string&lt;/span&gt;&amp;nbsp;&amp;amp;b)&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;return&lt;/span&gt;&amp;nbsp;a&amp;nbsp;+&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;,&#34;&lt;/span&gt;&amp;nbsp;+&amp;nbsp;b;&lt;br&gt;&amp;nbsp;&amp;nbsp;});&lt;br&gt;&lt;span class=&#39;cmd_hr&#39;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;prevent&amp;nbsp;reallocation&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;vector&lt;/span&gt;&amp;lt;&lt;span class=&#39;cmd_stdlib&#39;&gt;string&lt;/span&gt;&amp;gt;&amp;nbsp;strs&amp;nbsp;=&amp;nbsp;{&lt;span class=&#39;cmd_string&#39;&gt;&#34;one&#34;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;two&#34;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;three&#34;&lt;/span&gt;};&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;ostringstream&lt;/span&gt;&amp;nbsp;os;&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;copy&lt;/span&gt;(strs.&lt;span class=&#39;cmd_stdlib&#39;&gt;begin&lt;/span&gt;(),&amp;nbsp;strs.&lt;span class=&#39;cmd_stdlib&#39;&gt;end&lt;/span&gt;()-1,&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;ostream_iterator&lt;/span&gt;&amp;lt;&lt;span class=&#39;cmd_stdlib&#39;&gt;string&lt;/span&gt;&amp;gt;(os,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;,&#34;&lt;/span&gt;));&lt;br&gt;os&amp;nbsp;&amp;lt;&amp;lt;&amp;nbsp;*strs.&lt;span class=&#39;cmd_stdlib&#39;&gt;rbegin&lt;/span&gt;();&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;string&lt;/span&gt;&amp;nbsp;out&amp;nbsp;=&amp;nbsp;os.&lt;span class=&#39;cmd_stdlib&#39;&gt;str&lt;/span&gt;();
+  &lt;/div&gt;
+  &lt;div class=&#39;panel-footer&#39;&gt;
+    #include &amp;lt;algorithm&amp;gt; // copy&lt;br&gt;
+#include &amp;lt;iterator&amp;gt; // next, ostream_iterator&lt;br&gt;
+#include &amp;lt;numeric&amp;gt; // accumulate&lt;br&gt;
+#include &amp;lt;sstream&amp;gt; // ostringstream
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;CoffeeScript&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    strs&amp;nbsp;=&amp;nbsp;[&lt;span class=&#39;cmd_string&#39;&gt;&#39;one&#39;&lt;/span&gt;,&lt;span class=&#39;cmd_string&#39;&gt;&#39;two&#39;&lt;/span&gt;,&lt;span class=&#39;cmd_string&#39;&gt;&#39;three&#39;&lt;/span&gt;]&lt;br&gt;out&amp;nbsp;=&amp;nbsp;strs.&lt;span class=&#39;cmd_stdlib&#39;&gt;join&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;,&#39;&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Java&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;Java&amp;nbsp;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;List&lt;/span&gt;&amp;lt;&lt;span class=&#39;cmd_stdlib&#39;&gt;String&lt;/span&gt;&amp;gt;&amp;nbsp;strs&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Arrays&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;asList&lt;/span&gt;(&lt;span class=&#39;cmd_string&#39;&gt;&#34;one&#34;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;two&#34;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;three&#34;&lt;/span&gt;);&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;String&lt;/span&gt;&amp;nbsp;out&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;String&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;join&lt;/span&gt;(&lt;span class=&#39;cmd_string&#39;&gt;&#34;,&#34;&lt;/span&gt;,&amp;nbsp;strs);&lt;br&gt;&lt;span class=&#39;cmd_hr&#39;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;Java&amp;nbsp;7&amp;nbsp;and&amp;nbsp;below&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;String&lt;/span&gt;[]&amp;nbsp;strs&amp;nbsp;=&amp;nbsp;{&lt;span class=&#39;cmd_string&#39;&gt;&#34;one&#34;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;two&#34;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;three&#34;&lt;/span&gt;};&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;StringBuilder&lt;/span&gt;&amp;nbsp;sb&amp;nbsp;=&amp;nbsp;new&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;StringBuilder&lt;/span&gt;();&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;boolean&lt;/span&gt;&amp;nbsp;first&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;true&lt;/span&gt;;&lt;br&gt;for&amp;nbsp;(&lt;span class=&#39;cmd_stdlib&#39;&gt;String&lt;/span&gt;&amp;nbsp;str&amp;nbsp;:&amp;nbsp;strs)&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;if&lt;/span&gt;&amp;nbsp;(first)&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;first&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;false&lt;/span&gt;;&lt;br&gt;&amp;nbsp;&amp;nbsp;}&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;else&lt;/span&gt;&amp;nbsp;{&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;sb.&lt;span class=&#39;cmd_stdlib&#39;&gt;append&lt;/span&gt;(&lt;span class=&#39;cmd_string&#39;&gt;&#34;,&#34;&lt;/span&gt;);&lt;br&gt;&amp;nbsp;&amp;nbsp;}&lt;br&gt;&amp;nbsp;&amp;nbsp;sb.&lt;span class=&#39;cmd_stdlib&#39;&gt;append&lt;/span&gt;(str);&lt;br&gt;}&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;String&lt;/span&gt;&amp;nbsp;out&amp;nbsp;=&amp;nbsp;sb.&lt;span class=&#39;cmd_stdlib&#39;&gt;toString&lt;/span&gt;();
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;JavaScript&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;let&lt;/span&gt;&amp;nbsp;strs&amp;nbsp;=&amp;nbsp;[&lt;span class=&#39;cmd_string&#39;&gt;&#39;one&#39;&lt;/span&gt;,&lt;span class=&#39;cmd_string&#39;&gt;&#39;two&#39;&lt;/span&gt;,&lt;span class=&#39;cmd_string&#39;&gt;&#39;three&#39;&lt;/span&gt;]&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;let&lt;/span&gt;&amp;nbsp;out&amp;nbsp;=&amp;nbsp;strs.&lt;span class=&#39;cmd_stdlib&#39;&gt;join&lt;/span&gt;(&lt;span class=&#39;cmd_string&#39;&gt;&#39;,&#39;&lt;/span&gt;)
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Kotlin&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;val&lt;/span&gt;&amp;nbsp;strs&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;arrayOf&lt;/span&gt;(&lt;span class=&#39;cmd_string&#39;&gt;&#34;one&#34;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;two&#34;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;three&#34;&lt;/span&gt;)&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;val&lt;/span&gt;&amp;nbsp;out&amp;nbsp;=&amp;nbsp;strs.&lt;span class=&#39;cmd_stdlib&#39;&gt;joinToString&lt;/span&gt;(&lt;span class=&#39;cmd_string&#39;&gt;&#34;,&#34;&lt;/span&gt;)
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Lua&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    strs&amp;nbsp;=&amp;nbsp;{&lt;span class=&#39;cmd_string&#39;&gt;&#34;one&#34;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;two&#34;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;three&#34;&lt;/span&gt;}&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;table&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;concat&lt;/span&gt;(strs,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;,&#34;&lt;/span&gt;)
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Objective-C&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_stdlib&#39;&gt;NSArray&lt;/span&gt;&amp;nbsp;*strs&amp;nbsp;=&amp;nbsp;@[&lt;span class=&#39;cmd_string&#39;&gt;@&#34;one&#34;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;@&#34;two&#34;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;@&#34;three&#34;&lt;/span&gt;];&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;NSString&lt;/span&gt;&amp;nbsp;*out&amp;nbsp;=&amp;nbsp;[strs&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;componentsJoinedByString&lt;/span&gt;:&lt;span class=&#39;cmd_string&#39;&gt;@&#34;,&#34;&lt;/span&gt;];
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Perl&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    @strs&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;qw&lt;/span&gt;(&lt;span class=&#39;cmd_string&#39;&gt;one&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;two&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;three&lt;/span&gt;);&lt;br&gt;$out&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;join&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;,&#39;&lt;/span&gt;,&amp;nbsp;@strs;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;PHP&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    $strs&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;array&lt;/span&gt;(&lt;span class=&#39;cmd_string&#39;&gt;&#39;one&#39;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;two&#39;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;three&#39;&lt;/span&gt;);&lt;br&gt;$out&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;implode&lt;/span&gt;(&lt;span class=&#39;cmd_string&#39;&gt;&#39;,&#39;&lt;/span&gt;,&amp;nbsp;$strs);
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Python&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    strs&amp;nbsp;=&amp;nbsp;[&lt;span class=&#39;cmd_string&#39;&gt;&#39;one&#39;&lt;/span&gt;,&lt;span class=&#39;cmd_string&#39;&gt;&#39;two&#39;&lt;/span&gt;,&lt;span class=&#39;cmd_string&#39;&gt;&#39;three&#39;&lt;/span&gt;]&lt;br&gt;&lt;span class=&#39;cmd_string&#39;&gt;&#39;,&#39;&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;join&lt;/span&gt;(strs)
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Ruby&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    strs&amp;nbsp;=&amp;nbsp;%w(&lt;span class=&#39;cmd_string&#39;&gt;one&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;two&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;three&lt;/span&gt;)&lt;br&gt;out&amp;nbsp;=&amp;nbsp;strs.&lt;span class=&#39;cmd_stdlib&#39;&gt;join&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;,&#39;&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Swift&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;let&lt;/span&gt;&amp;nbsp;strs&amp;nbsp;=&amp;nbsp;[&lt;span class=&#39;cmd_string&#39;&gt;&#34;one&#34;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;two&#34;&lt;/span&gt;,&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;three&#34;&lt;/span&gt;]&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;let&lt;/span&gt;&amp;nbsp;out&amp;nbsp;=&amp;nbsp;strs.&lt;span class=&#39;cmd_stdlib&#39;&gt;joined&lt;/span&gt;(&lt;span class=&#39;cmd_stdlib&#39;&gt;separator&lt;/span&gt;:&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;,&#34;&lt;/span&gt;)
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>언어 비교 - 문자열 연결</title>
+      <link>http://sixmen.com/ko/tech/2016-12-07-1-language-comparison-string-concatenate/</link>
+      <pubDate>Wed, 07 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/ko/tech/2016-12-07-1-language-comparison-string-concatenate/</guid>
+      <description>&lt;div class=&#39;langsheet&#39;&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;C&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;const&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;char&lt;/span&gt;&amp;nbsp;*s1&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;hello&#34;&lt;/span&gt;;&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;const&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;char&lt;/span&gt;&amp;nbsp;*s2&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;&amp;nbsp;world&#34;&lt;/span&gt;;&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;char&lt;/span&gt;&amp;nbsp;*s3&amp;nbsp;=&amp;nbsp;(&lt;span class=&#39;cmd_keyword&#39;&gt;char&lt;/span&gt;&amp;nbsp;*)&lt;span class=&#39;cmd_stdlib&#39;&gt;malloc&lt;/span&gt;(&lt;span class=&#39;cmd_stdlib&#39;&gt;strlen&lt;/span&gt;(s1)+&lt;span class=&#39;cmd_stdlib&#39;&gt;strlen&lt;/span&gt;(s2)+&lt;span class=&#39;cmd_number&#39;&gt;1&lt;/span&gt;);&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;strcpy&lt;/span&gt;(s3,&amp;nbsp;s1);&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;strcat&lt;/span&gt;(s3,&amp;nbsp;s2);
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;C++&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;destructive&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;string&lt;/span&gt;&amp;nbsp;s1&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;hello&#34;&lt;/span&gt;;&lt;br&gt;s1&amp;nbsp;+=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;&amp;nbsp;world&#34;&lt;/span&gt;;&lt;br&gt;&lt;span class=&#39;cmd_hr&#39;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;non-destructive&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;string&lt;/span&gt;&amp;nbsp;s1&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;hello&#34;&lt;/span&gt;;&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;string&lt;/span&gt;&amp;nbsp;s2&amp;nbsp;=&amp;nbsp;s1&amp;nbsp;+&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;&amp;nbsp;world&#34;&lt;/span&gt;;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;CoffeeScript&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_string&#39;&gt;&#39;hello&#39;&lt;/span&gt;&amp;nbsp;+&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;&amp;nbsp;world&#39;&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Java&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_string&#39;&gt;&#34;hello&#34;&lt;/span&gt;&amp;nbsp;+&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;&amp;nbsp;world&#34;&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;JavaScript&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_string&#39;&gt;&#39;hello&#39;&lt;/span&gt;&amp;nbsp;+&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;&amp;nbsp;world&#39;&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Kotlin&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_string&#39;&gt;&#34;hello&#34;&lt;/span&gt;&amp;nbsp;+&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;&amp;nbsp;world&#34;&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Lua&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_string&#39;&gt;&#39;hello&#39;&lt;/span&gt;&amp;nbsp;..&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;&amp;nbsp;world&#39;&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Objective-C&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;destructive&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;NSMutableString&lt;/span&gt;&amp;nbsp;*s1&amp;nbsp;=&amp;nbsp;[&lt;span class=&#39;cmd_string&#39;&gt;@&#34;hello&#34;&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;mutableCopy&lt;/span&gt;];&lt;br&gt;[s1&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;appendString&lt;/span&gt;:&lt;span class=&#39;cmd_string&#39;&gt;@&#34;&amp;nbsp;world&#34;&lt;/span&gt;];&lt;br&gt;&lt;span class=&#39;cmd_hr&#39;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_comment&#39;&gt;//&amp;nbsp;non-destructive&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;NSString&lt;/span&gt;&amp;nbsp;*s1&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;@&#34;hello&#34;&lt;/span&gt;;&lt;br&gt;&lt;span class=&#39;cmd_stdlib&#39;&gt;NSString&lt;/span&gt;&amp;nbsp;*s2&amp;nbsp;=&amp;nbsp;[s1&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;stringByAppendingString&lt;/span&gt;:&lt;span class=&#39;cmd_string&#39;&gt;@&#34;&amp;nbsp;world&#34;&lt;/span&gt;];
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Perl&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_string&#39;&gt;&#39;hello&#39;&lt;/span&gt;&amp;nbsp;.&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;&amp;nbsp;world&#39;&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;PHP&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_string&#39;&gt;&#39;hello&#39;&lt;/span&gt;&amp;nbsp;.&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;&amp;nbsp;world&#39;&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Python&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_string&#39;&gt;&#39;hello&#39;&lt;/span&gt;&amp;nbsp;+&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;&amp;nbsp;world&#39;&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Ruby&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_string&#39;&gt;&#39;hello&#39;&lt;/span&gt;&amp;nbsp;+&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#39;&amp;nbsp;world&#39;&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Swift&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_string&#39;&gt;&#34;hello&#34;&lt;/span&gt;&amp;nbsp;+&amp;nbsp;&lt;span class=&#39;cmd_string&#39;&gt;&#34;&amp;nbsp;world&#34;&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

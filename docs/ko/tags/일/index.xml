@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>sixmen.com</title>
+    <link>http://sixmen.com/ko/tags/%EC%9D%BC/index.xml</link>
+    <description>Recent content on sixmen.com</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://sixmen.com/ko/tags/%EC%9D%BC/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>2012-04-26 개발일지</title>
+      <link>http://sixmen.com/ko/mylife/2012-04-26-1-2012-04-26-gaebalilji/</link>
+      <pubDate>Thu, 26 Apr 2012 01:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/ko/mylife/2012-04-26-1-2012-04-26-gaebalilji/</guid>
+      <description>회사 세운지 벌써 두달이 지났는데, 머리속 계획으로는 뭔가 눈에 보이는 것이 있어야 하건만, 역시나 현실은 이상을 따라가지는 못하는구만... 뭐 이 이유 중 하나는 원래 하려던 걸 안 하고 다른 걸 개발하고 있기 때문이기도 하지만.&lt;br/&gt;
+&lt;div style=&#34;position: relative;&#34;&gt;
+&lt;div&gt;&lt;br/&gt;
+처음부터 큰 거에 덤비면 시행착오도 많을 것 같아 작은 프로젝트를 놓고, 소스 서버, 이슈 관리, 코드 리뷰 등의 시스템을 정리해보자라는 의미도 있다. 다만 지금 개발자 두명이느상태에서 정한 시스템이 사람이 늘면 바꿔야 할 수 있다는 점과, 지금 하는 게 앱인데 원래 하려는 서비스 쪽은 또 시스템이 달라야 할 것 같은 불안함은 있지만..&lt;br/&gt;
+&lt;br/&gt;
+오래동안 하던 클라이언트 앱이라 시스템이 어느 정도 정리되면서 이제는 개발에 꽤 속도가 붙었다. 앱도 어느 정도 동작하면서 슬슬 자잘한 변경사항이 많아지고 있는데, 요 이슈들을 관리하는 게 제일 정리가 안 된다.&lt;br/&gt;
+&lt;br/&gt;
+이슈 이력을 전산 관리하는 좋을 것 같고, 이전 회사에서 JIRA를 쓰기도 했기에, 처음에는 Redmine을 설치해서 조금 써 봤다. 근데 다들 접속 자체를 잘 안 한다.&lt;br/&gt;
+&lt;br/&gt;
+그러면서 사장님이 엑셀에 이슈를 정리하고 있어서 다음은 그냥 엑셀로 정리를 해봤다. Redmine 보다는 잘 들여다 보게 되긴 하는데, 이거 일일이 수정하는 것도 만만치 않았다. 다른 사람들은 어떤지 모르겠는데, 내가 불편했던 건, 내가 이전번에 본 내용이후에 어떤 부분이 추가되어 다음에 작업할 부분인지 파악하기 어렵다는 점이였다.&lt;br/&gt;
+&lt;br/&gt;
+그러다가 최근에 봤던 스크럼 책을 생각하고, 어제 다음과 같이 아날로그 방식을 도입했다.
+&lt;div style=&#34;display:inline-block;&#34;&gt;&lt;img src=&#39;http://sixmen.com/evernote/08dbe346-f64e-4bf4-8887-71fd4b68a20e.jpg&#39;&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div&gt;&lt;span style=&#34;-evernote-last-insertion-point:true;&#34;/&gt;스크럼 프로세스 전체를 도입한 건 아니지만, 현 프로젝트에는 일단 이 정도면 되지 싶다. 아직 제대로 진행한 것도 아니고 그냥 붙여만 놔 본 건데도 엑셀보다 훨씬 맘에 든다. 개발은 이걸 바탕으로 하고, 엑셀은 한 사람이 정리만 하는게 훨씬 나을 듯 하다.&lt;br/&gt;
+&lt;br/&gt;
+그나저나, 이메일 세팅부터 시작하는 시스템 정립과, 각종 개발 팁등에 관한 블로그를 운영해보는게 현재의 큰 소망인데, 쉽지않네. 그전에 밀린 여행기부터 어떻게 좀 올려야...&lt;/div&gt;
+&lt;/div&gt;
+&lt;br/&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>일본 출장 여섯째날</title>
+      <link>http://sixmen.com/ko/mylife/2010-12-28-1-ilbon-chuljang-yeoseotjjaenal/</link>
+      <pubDate>Tue, 28 Dec 2010 01:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/ko/mylife/2010-12-28-1-ilbon-chuljang-yeoseotjjaenal/</guid>
+      <description>오늘도 동일한 아침&lt;br/&gt;
+&lt;div&gt;
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/5d2b4e19-88cc-47aa-90ec-b5813dcefa94.jpg&#39;&gt;&lt;/div&gt;
+인듯 하지만, 오늘은 무려 소시지가 있다!!! 학생들이 다 빠져나가서 그런가. 그리고 그제 사서 아직 먹지 않았던 피자까지!!&lt;br/&gt;
+&lt;br/&gt;
+이때까지만 해도 오늘 이 아침이 숙소에서의 마지막이라 믿었건만.. (내일 아침을 이걸로 먹을까, 다른 걸 먹을까 고민중)&lt;br/&gt;
+&lt;br/&gt;
+숙소를 오늘 저녁까지 잡아둔 상태기 때문에 1박 만큼을 취소해야 했다. 근데 정업선임님은 바로 취소가 됐는데, 내 카드는 취소가 안 된단다. 카드 회사에 따로 서류를 내는 등의 복잡한 작업이 필요한듯.. 에이 귀찮구만, 했는데 이게 전화위복이 되서, 저녁에 다시 돌아와서 정업선임님은 새로 1박 결제를 해야 했지만, 난 그냥 취소 서류를 돌려 받는 것으로 끝.&lt;br/&gt;
+&lt;br/&gt;
+이렇게 출근은 했는데 원래 목표는 11시에 회의를 하고 깔끔하게 나오는 거였지만, 이 사람들이 오전에는 회의가 어려울 것 같다고 했다. 좌절. 뭐 실제로 1시 반에 30분 회의, 3시 반에 30분 회의, 6시경 두시간 회의 이렇게 진행됐으니 애초에 오늘 돌아가고 싶다는 건 불가능한 일이였을지도.
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/781a5584-b7c1-4f7b-98c5-85544b12630f.jpg&#39;&gt;&lt;/div&gt;
+오늘의 점심은 치킨 스테이크(?) 라고 해야 하나, 에릭 스테이크에서 예전에 먹었던 녀석 비슷한 것인듯.&lt;br/&gt;
+&lt;br/&gt;
+8시에 회의를 끝내고 저녁을 먹으러 나가는데 다들 별로 먹고 싶은게 없나보다. 마쯔야 같은 체인점이 있었다면 잘 가지지 않았을까 싶지만, 이 시골에 그런 건 없다. 그렇게고 딱히 땡기게 먹을만한 가게도 없고. 방황하다가 간 곳은 대형 마트. 사실 도시락 자체는 편의점이 더 좋은 것 같지만, 뭐 그냥 이것저것 살겸 마트에서.
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/69e06c93-4217-44c0-87fc-b0706c036205.jpg&#39;&gt;&lt;/div&gt;
+마트에서 각자 음식을 사가지고 돌아가는 사람들.. 그렇게 사와서 같이 먹지도 않고 각자 숙소에서 먹는 걸로 됐다. 다음은 오늘 산 것.
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/8a8c6e45-9c44-478b-888e-8b00fa2d4e09.jpg&#39;&gt;&lt;/div&gt;
+라면은 먹을려는건 아니고 그냥 한국에 사가지고 갈만한게 없을까 하다가 그냥 고른것.&lt;br/&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+이걸로 오늘 일정은 끝이고, 내일은 이제 진짜 돌아갈 수 있을 것 같다.&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>일본 출장 다섯째날</title>
+      <link>http://sixmen.com/ko/mylife/2010-12-27-3-ilbon-chuljang-daseotjjaenal/</link>
+      <pubDate>Mon, 27 Dec 2010 03:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/ko/mylife/2010-12-27-3-ilbon-chuljang-daseotjjaenal/</guid>
+      <description>오늘은 뭐 특별한 건 없고, 그냥 세끼 잘 챙겨먹었다.&lt;br/&gt;
+&lt;div&gt;&lt;br/&gt;
+아침은 슬슬 지겨운 맨날 그거.
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/95fc6e83-d568-42a6-9c35-84dc347efe42.jpg&#39;&gt;&lt;/div&gt;
+점심은 미소 돈까스.
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/a580a462-8f5d-45be-845d-4418dcd2a17f.jpg&#39;&gt;&lt;/div&gt;
+저녁은 같은 덴소 식당에서 오늘의 추천메뉴라던 햄버그. 역시나 만화에서 맨날 보던대로 계란 후라이가 올려져있는 것이 포인트!!
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/e70eafe2-06e2-4131-8f94-911aa15c5753.jpg&#39;&gt;&lt;/div&gt;
+나름 추천 메뉴라고 세트구성이 화려하다. 가라아게 같은 경우는 밥하고 닭튀김만 달랑 놓고 먹던데(국이 하나 나오긴 하지만).&lt;br/&gt;
+&lt;br/&gt;
+저녁먹고 10시까지 일한 결과 목적으로 삼은 건 다 해서 보여줬다. 이제 이걸 실제로 쓸지는 모르겠지만, 엔진팀으로서 할 건 다 한듯. 나머지는 이제 실제로 적용하게 되면 더 자세한 설명을 해주고 문제가 생겼을 때 서포트해주는 일. 이건 뭐 하루이틀안에 되는 일은 아니니까.&lt;br/&gt;
+&lt;br/&gt;
+안실장님은 약간 더 설명이 필요하지 않겠냐라는 의견을 주셨지만, 일단 소스를 주고 검토를 하게 해야 다른 문제가 나올 것 같고, 굳이 내일 조금 더 있는다고 달라질 건 없을 것 같다고 하고, 내일 돌아가겠다고 했다.&lt;br/&gt;
+&lt;br/&gt;
+그래서 내일 비행기표만 별 문제 없으면 한국으로 돌아갈 수 있을 것 같다. 그렇게 되면 5박 6일 있게 되는 건가.. 2007년에 일본 왔을 때랑 같은 기간이군..&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>일본 출장 네째날 (2)</title>
+      <link>http://sixmen.com/ko/mylife/2010-12-27-2-ilbon-chuljang-nejjaenal-2/</link>
+      <pubDate>Mon, 27 Dec 2010 02:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/ko/mylife/2010-12-27-2-ilbon-chuljang-nejjaenal-2/</guid>
+      <description>일단 숙소에서 휴식을 취하면서 다시 검색해보고, 4시경 다시 길을 나섰다.&lt;br/&gt;
+&lt;div&gt;
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/0465cedb-5586-4d18-ba72-25a0d20fc170.jpg&#39;&gt;&lt;/div&gt;
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/ccb880ff-e241-414d-a9ba-6a1b5f002760.jpg&#39;&gt;&lt;/div&gt;
+그 사이에 있는 건물들이 이런 느낌이니 거길 지나가면 다시 상점가가 있을지 생각을 못하고 돌아왔지.. 한 30여분을 걸어간 끝에 목적지에 도착했다.
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/0261dcc7-4edb-4f8f-ac49-ee6fc211c5a2.jpg&#39;&gt;&lt;/div&gt;
+안에서 한시간정도 구경을 했는데 결국 뭘 사지는 않았다. 뭐 새로운 작품을 발굴할 생각은 없고, 그렇다고 한국에 나오고 있는 걸 일본판으로 살 생각도 없고(거기다 중고니 한국에 나오지 않은 새책은 보통 없고) 여기서 살 만한 건 유명하지만 한국에 안 나올 만한 것들일텐데, 그런 건 주로 성인용.. 굳이 그런 걸 사서 볼 생각은 없고.. 뭐 그래도 구경은 잘 했다.&lt;br/&gt;
+&lt;br/&gt;
+그렇게 보고 나오니 이미 한밤중
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/e8260e22-efcd-4f93-bfcd-be84c287c83b.jpg&#39;&gt;&lt;/div&gt;
+열심히 간길을 거슬러 와 숙소 근처까지 왔다. 이제 저녁을 먹어야 하는데 낮에는 편의점 도시락으로 떼울 생각이였는데 마트에도 뭔가 있을 것 같아 마트를 들렀다.
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/630c07a1-36a9-42b2-9b71-36a33cde1d00.jpg&#39;&gt;&lt;/div&gt;
+마트는 카드가 되지 않을까 해서 보니 역시 VISA라고 써 있다. 아싸 하고 이것저것 많이 샀다.
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/c03f4038-6355-4de5-9a10-6deaec19ae7f.jpg&#39;&gt;&lt;/div&gt;
+결국 배불러서 다 못 먹었고, 과자는 오늘 대충 먹었는데, 피자 조각은 아직도 그대로 있다. 내일 아침에 먹던지 해야겠다..&lt;br/&gt;
+&lt;br/&gt;
+마트의 이층에는 음반가게가 있었는데, 전면에 떡하니 소녀시대 간판이 있다.
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/eed7212f-f83d-4815-a2fb-15be78dc9157.jpg&#39;&gt;&lt;/div&gt;
+카라는 없나 잠깐 기웃거려봤는데 딱히 눈에 띄지는 않았다. 뭐 살것도 아니고 손에는 음식이 들려있어서 들어가보진 않았다. 그래도 그 옆의 서점은 땡겨서 들어갔다 나왔다.&lt;br/&gt;
+&lt;br/&gt;
+일본까지 왔는데 그냥 가긴 그렇고 뭐가 하나 살까 하다가 요츠바랑 10권을 샀다. 다행히 아직 한국에 번역본은 발매되지 않은 것 같다. 안 보고 내팽개치지는 않겠군.
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/d6be824b-115d-4db8-83f6-b2bb0dc97a36.jpg&#39;&gt;&lt;/div&gt;
+요츠바랑이 나름 베스트셀러인지 서점 밖에 전시도 되어 있었다.
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/ca466f77-0de9-4d2d-8744-04d061ddd15b.jpg&#39;&gt;&lt;/div&gt;
+담보로 보이는 상자도 있다.. ㅎㅎ&lt;br/&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+이렇게 구경하고 돌아오니 이미 7시. 꽤 많이 걸어다녔다. Book-Off에서도 계속 서 있었고. 저녁 먹고는 숙소에서 쉬었다.&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>일본 출장 네째날 (1)</title>
+      <link>http://sixmen.com/ko/mylife/2010-12-27-1-ilbon-chuljang-nejjaenal-1/</link>
+      <pubDate>Mon, 27 Dec 2010 01:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/ko/mylife/2010-12-27-1-ilbon-chuljang-nejjaenal-1/</guid>
+      <description>어제는 일요일로 각자 쉬기로 했다. 한사람은 감기로 방에서 쉬었고, 세사람은 근처의 이누야마성이란곳에 가기로 했다. 나는 딱히 관광지에 흥미도 없고 해서 따라가지 않았다.&lt;br/&gt;
+&lt;div&gt;&lt;br/&gt;
+일단 아침에 밖이 시끄러워서 조금 일찍 일어났다. 나가보니 왠 학생들이 엘리베이터를 기다리면 시끄럽게 있었다. 막상 타보려니 왜 그렇게 오래 떠드는지 알겠던데, 각층마다 학생들이 엘리베이터를 타려고 기다리고 있었다. 운동하는 학생들이 뭔가 경기가 있어서 숙소에 단체로 묵고 있는 것으로 보였다.
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/2000d145-b105-43bd-b127-90431107e829.jpg&#39;&gt;&lt;/div&gt;
+오늘도 아침은 똑같다. 변함이 없구만.. 엘리베이터에 보면 아침으로 한식과 양식을 준다고 해서 나름 기대를 했던 식사인데, 이런 느낌.. 근데 잘 보면 엘리베이터에 있는 사진 그대로 잘 나오고 있다. ㅎㅎ
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/86c32053-3f6a-4987-98ef-2fa7006a0c4f.jpg&#39;&gt;&lt;/div&gt;
+딱히 정해놓은 일정이 없다보니 아침먹고는 방에서 그냥 계속 컴퓨터 하면서 있었다. 그러다가 한시쯤 되니 슬슬 배도 고파지고 해서 나왔다. 그냥 도시락 사들고 다시 숙소로 들어오는 것도 생각해봤지만.. 그건 좀 아닌 것 같아서 일단 돌아다니가로 했다.&lt;br/&gt;
+&lt;br/&gt;
+돈이 5000엔밖에 남지 않아서 좀 모자를듯 해서 돈을 찾으려고 편의점 ATM에 카드를 넣어봤는데 안되서 포기했다. VISA라고 잘 써있는데.. 되는 기계도 있고, 안 되는 기계도 있다는 듯 한데, 그냥 한번 잘 나눠서 써보기로 하고 그만뒀다.&lt;br/&gt;
+&lt;br/&gt;
+일단 지금까지 지나갔던 길에는 딱히 내키는게 없어서 다른 방향으로 걸어가봤다. 근데 딱히 보이는게 없다. 그렇게 한참 가고 있는데 앞에 가던 사람이 맥도날드 로고가 있는 비닐봉지를 들고 있다. 근처에 맥도날드가 있는가 해서 반대쪽으로 가보니 대형마트에 맥도날드가 있었다.
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/828628b6-2632-49d1-a1ea-ebb4e79de939.jpg&#39;&gt;&lt;/div&gt;
+저 앞의 간판에 M 자 로고가 보인다. 일본내의 햄버거 프랜차이즈인 모스버거 였으면 더 좋았을 것 같지만.. 건물에 들어가보니 이것저것 가게들은 많은데(회전초밥집도 있고) 딱히 먹기 쉬워보이는게 없어서(잘 주문하기가 약간 귀찮을 듯 한 메뉴들) 결국 햄버거로 결정. 돈이 없는데 싼 것도 한 몫했다고 할 수 있다. 원래는 빅맥세트를 생각했는데 잘보니 빅맥 하나를 싸게 판다고 써 있었다. 세트는 500엔이 넘는데, 빅맥은 200엔. 보통은 세트가 각자 주문하는 것보다 싸서 세트를 먹게 되는데, 이번에 차이가 좀 많이 나서 옆의 마트에서 음료수만 사가지고 들어가서 빅맥과 먹었다.
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/ad2508b1-f643-410b-912c-4a0c32245f9b.jpg&#39;&gt;&lt;/div&gt;
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/385a15e6-c233-4111-9d11-d6e19c2c38da.jpg&#39;&gt;&lt;/div&gt;
+한국과 달리 포장이 종이 상자인데, 받을때 보기 좋아보였는데 막상 먹으려니까 그냥 종이에 쌓여있는게 조금만 벗겨서 먹기가 더 좋은 것 같다. 저렇게 되어있으니 들으면 내용물이 자꾸 나와서.&lt;br/&gt;
+&lt;br/&gt;
+뭐 같이 먹을게 있나 해서 음료수 살때 마트를 좀 돌아다녀봤는데 딱히 땡기는 것 없었다. 중간에 반찬가게가 있었는데 김치가 가장 크게 차지하고 있던게 좀 특이해보였다.
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/40582d17-23f7-41e5-8092-259b4767f832.jpg&#39;&gt;&lt;/div&gt;
+이렇게 점심을 먹고 목적지로 삼은 Book-Off를 향해 걸어가기 시작했다. 구글 지도에서 대충만 보고 갔는데 아무리 걸어가도 그럴듯한 곳이 안 보인다. 목적지 근처에 우체국이 있었다는 기억이 있어, 숙소에서 가져온 근처 지도를 보니 우체국이 하나 있다. 근데 지도랑 맞춰 보니 오히려 너무 멀리 갔다. 그래서 되돌아왔다.&lt;br/&gt;
+&lt;br/&gt;
+조금 해맨후에 지도가 나타내는 곳을 찾을 수 있었다. 우체국도 찾았고.. 근데 되게 쪼그매서 지도를 보고 간게 아니라면 그냥 지나갔을 지도.
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/432b6886-0f82-47ac-94e5-8ce950c38cc1.jpg&#39;&gt;&lt;/div&gt;
+돈을 찾으려면 우체국이 가장 확실하다고 하는데, 일요일이라 열지 않아서 찾지는 못했다.&lt;br/&gt;
+&lt;br/&gt;
+여하튼 우체국 근처에서 열심히 돌아다녀 봐도 그럴 듯한 곳이 없다. 괜히 삐끼들이 말거는 곳만 지나가고.. 정확히 뭐하는 곳이였을지는 모르겠다. 술먹기는 조금 이른 2시경이였는데..&lt;br/&gt;
+&lt;br/&gt;
+결국 그렇게 거의 2시간 걸어다닌 끝에(마트 안에서도 꽤 돌아나녔다) 포기하고 일단 숙소로 돌아왔다.&lt;br/&gt;
+&lt;br/&gt;
+이게 그렇게 걸어 다닌 경로.
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/1f94f1d3-9c33-4aa9-960e-026d41d5d346.jpg&#39;&gt;&lt;/div&gt;
+1-&amp;gt;2-&amp;gt;3 형태로 걸어다녔는데(1번이 점심먹기위해 걸은 곳, 2번으로 가다가 돌아오기로 결정하고 3번 처럼 해맸다) 막상 목적지는 훨씬 먼 B 였다. 더 걸어갔어야 하는데... 지도옆에 보이는 우체국이 요 위 사진의 거기라고 생각했다.&lt;br/&gt;
+&lt;br/&gt;
+참고로 282번 길의 오른쪽에 있는데 일하러 다니는 덴소 건물.&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>일본 출장 셋째날</title>
+      <link>http://sixmen.com/ko/mylife/2010-12-25-1-ilbon-chuljang-setjjaenal/</link>
+      <pubDate>Sat, 25 Dec 2010 01:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/ko/mylife/2010-12-25-1-ilbon-chuljang-setjjaenal/</guid>
+      <description>오늘은 어제보다도 바람이 더 쎄서 추웠던 것 같다. 그래봐야 서울하고는 비교할 수 없을 것 같지만. 어제 회의 하시고 오늘 돌아가신 이종석 팀장님이 돌아가셔서는 엄청 춥다는 메시지를 보내오셨다.&lt;br/&gt;
+&lt;div&gt;&lt;br/&gt;
+오늘은 그래도 크리스마스라고 좀 여유롭게 점심 먹고 가기로 했다. 아침을 먹고 싶었는데 9시 반에 일어나서 먹지 못했다. 덕분에 점심까지 배가 좀 고팠다.&lt;br/&gt;
+&lt;br/&gt;
+점심은 근처 대형마트에 있다는 푸드 코트에서 먹기로 했다. 우리나라 푸드 코드를 생각하고 기대했으나 가게가 달랑 세개뿐. 그중 하나는 타코야키나 오코노미야키 같은 걸 파는 집이라 점심으로 먹기도 좀 애매한 곳이였고. 라멘류와 돈까스류중 돈까스를 골랐다.
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/0652b1cf-3cf1-492b-868c-b3b037e0af61.jpg&#39;&gt;&lt;/div&gt;
+이런 걸 받고 기다린 끝에 나온 키츠네우동+미니가츠동 세트.
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/53059471-42b7-40e5-b905-98feb7c72a72.jpg&#39;&gt;&lt;/div&gt;
+점심을 시켜서 먹고 있는데 12시 비행기로 가신다던 이종석팀장님이 오셨다. 바람이 세서 비행기가 못 떴다고 하셨다. 숙소에서 쉬시다고 오후에 다시 가셨다.&lt;br/&gt;
+&lt;br/&gt;
+내가 들어가서 해야 했던 건 대충 6시경 끝나서 일찍 나올 수 있을라나 했는데, 다른 이슈 얘기가 시작됐는데, 이게 한 이슈로 이야기를 하다보면 한 5가지쯤의 얘기를 하느라 항상 시간이 오래걸린다. 구조상 들어간 사람들은 무조건 같이 나와야 하는 시스템이라 먼저 나갈 수도 없고.&lt;br/&gt;
+&lt;br/&gt;
+결국 오늘도 9시 넘어서 나왔다. 일단 짐을 숙도에 두고, 날도 추우니 찌개류를 먹기로 했다. 그렇게 간 집은 삼겹살도 팔고, 김치찌개 같은 것도 있는 약간 한국식 같은 집이였다.
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/a32e7d5b-9dc2-4724-819b-60daf9f1c8a2.jpg&#39;&gt;&lt;/div&gt;
+삼겹살 맛있게 먹는 법.. 다 먹고 난 후엔 볶아준단다. 고기 자체는 1000엔으로, 뭐 아주 비싼 편은 아니라는 생각이 들었는데, 밥 볶는데 500엔은 조금 비싼게 아닐까 싶었다.&lt;br/&gt;
+&lt;br/&gt;
+그건 그렇고 그냥 찌개를 시킬까 하다가 따로 크게 메뉴가 있는 다음과 같은 전골을 시켰다.
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/2be15bda-516d-4f95-854d-809d931238ed.jpg&#39;&gt;&lt;/div&gt;
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/aa071064-a2b8-41ef-8219-9891de9c1db2.jpg&#39;&gt;&lt;/div&gt;
+재료만 보면 나쁘지 않을 것 같은데, 문제는 국물이 새까맸다는 점.
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/9d4e43e1-1ed8-4a1a-9cba-a9129b4008da.jpg&#39;&gt;&lt;/div&gt;
+사진으로도 실제로도 그다지 먹고 싶다는 생각이 안 드는 색깔. 나중엔 좀 괜찮아졌지만 처음엔 진짜 국물맛이 이상했다. 나중에 다시 보니 메뉴판에 잘 써있었건만.. 메뉴판 보면 미용에 좋고, 다이어트에 좋고.. 뭐 이상한 말이 잔뜩 써 있는 그런 음식이였다.&lt;br/&gt;
+&lt;br/&gt;
+같은 재료로 매콤한 국물이였으면 더 잘 먹을 수 있었을 것 같은데, 뭔가 느끼해서 많이 먹기가 어려웠다. 과연 그래서 다이어트 음식인건가..&lt;br/&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+그렇게 저녁을 먹고 숙소로 돌아왔다. 내일은 자유롭게 돌아다니기로 했다.&lt;br/&gt;
+박정업 선임님은 보드를 타러 가고 싶어했었는데 교통편이 불편하고 두시간 정도 걸려 직접 가는 버스편은 예약이 꽉 차서 포기했다. 대신 안민호 실장님과 무슨 동물원 같은 곳을 가려는 듯 하다. 다른 사람들은 뭐 특별한 것 없고.&lt;br/&gt;
+&lt;br/&gt;
+나도 딱히 멀리 가고 싶은 생각은 없고(돈도 없고), 주변에 있다는 북오프나 가볼까 싶다. 내키면 나고야까지 가서 만다라케나 애니메이트를 갔다 올지도. 뭐 그 후에도 좀 돌아다니고 싶으면 노래방 정도? 만화방은 딱히 보고 싶은 건 없고. 전에 혼자 일본 갔을 때는 인터넷때문에라도 만화방을 갔는데, 이번엔 숙소에서 할 수 있으니까.&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>일본 출장 둘째날</title>
+      <link>http://sixmen.com/ko/mylife/2010-12-24-2-ilbon-chuljang-duljjaenal/</link>
+      <pubDate>Fri, 24 Dec 2010 02:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/ko/mylife/2010-12-24-2-ilbon-chuljang-duljjaenal/</guid>
+      <description>뭐 출근해서 열심히(?) 일한게 다라 특별한 일은 없었다. 다만 세끼 먹은 식사만이 있을 뿐..&lt;br/&gt;
+&lt;div&gt;한국은 엄청 추웠다는 얘기를 이곳저곳에서 듣긴 했지만, 여긴 그렇게까지 춥진 않았다. 그래도 바람은 엄청 불어서 많이 썰렁했다.&lt;br/&gt;
+&lt;br/&gt;
+숙소에서 먹은 아침밥은 예전에 와이프랑 왔을 때 묵은 호텔에서 먹은 조식을 생각하며 나름 기대했지만, 역시나 가격에 맞게 그냥 배만 채울 정도의 음식들이 였다. 그냥 주먹밥과 빵뿐. 대충 먹었다.
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/aa959fe4-3ec2-4a1d-9308-a8983f96cc14.jpg&#39;&gt;&lt;/div&gt;
+점심은 DENSO 안에 있는 식당에서 먹었다. 규모를 생각하면 다른 식당도 있을 법한데, 일단 동료들은 여기밖에 모른다는 것 같다. 보통 사내식당이면 셀프 서비스일 것 같은데 여기는 직접 와서 주문받고 가져다 주는 곳이였다.
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/ca8e0129-6a60-49a8-87dd-835724072921.jpg&#39;&gt;&lt;/div&gt;
+오늘은 특별한 일이 없어서 7시 좀 넘어서 퇴근을 바로 했다. 오늘 계약 관계로 오신 이종석 팀장님까지 6명이서 술집에서 가서 무제한 맥주(두시간 한정)를 마시면서 한 두어시간 얘기를 나눴다. 저녁겸 해서 안주를 이것저것 시켜 먹었다.
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/aaff40f7-f8f0-4d01-9910-c3cbeea4021c.jpg&#39;&gt;&lt;/div&gt;
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/47650fba-c44d-418b-987d-cfc08d30d56f.jpg&#39;&gt;&lt;/div&gt;
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/b8dd74ea-10b6-44f2-94d4-7edb0a2a3c00.jpg&#39;&gt;&lt;/div&gt;
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/9cc196ba-26a5-43bf-8e8d-cb1ca89971dc.jpg&#39;&gt;&lt;/div&gt;
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/d9b1ef97-617c-4e6e-bf57-5bad67761fcf.jpg&#39;&gt;&lt;/div&gt;
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/fe7cdb46-7e0b-4d13-afd7-af5267c26f69.jpg&#39;&gt;&lt;/div&gt;
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/7b2b7a2a-892a-45de-ad1d-b439aefd51ba.jpg&#39;&gt;&lt;/div&gt;
+(안 찍은 것도 몇개 있다)&lt;br/&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+내일은 점심 먹고 슬슬 나가기로 했다. 약간 여유로워진 느낌.&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>일본 출장 첫날</title>
+      <link>http://sixmen.com/ko/mylife/2010-12-24-1-ilbon-chuljang-cheotnal/</link>
+      <pubDate>Fri, 24 Dec 2010 01:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/ko/mylife/2010-12-24-1-ilbon-chuljang-cheotnal/</guid>
+      <description>어제 늦게까지 송년회 관람하고 집에 와서 이것저것 준비하느라 12시 넘게 잠들었다. 그 와중에 5시에 일어날려니 정말 힘들었다. 겨우 일어나 씻고 나와 목표했던 5시 45분 차를 탈 수 있었다. 마침 안민호 실장님이 그 버스를 타고 계셨다.&lt;br/&gt;
+&lt;div&gt;&lt;br/&gt;
+공항에 도착해 환전을 했다. 오래 있지 않겠다라는 마음가짐으로 15,000엔만 했는데 설마 모자르지 않겠지. 적용 환율은 1427원. 언제 이렇게 또 올랐냐...&lt;br/&gt;
+다른 사람들은 면세점 들르느라 바뻐 보였는데 나는 딱히 살 것도 없어 대강 한바퀴 돌고 나서 그냥 탑승구에서 기다렸다.&lt;br/&gt;
+&lt;br/&gt;
+9시 10분에 비행기가 출발하고 아침이 나왔는데, 그럴 듯하게 나올 줄 알았는데 그냥 샌드위치 -_-;; 그냥 공항에서 뭐 좀 먹고 차라리 비행기 타자 마자 잘 걸.. 졸려운거 참고 기다렸더니만은..
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/3351f35f-2edd-4347-8ff7-e7cb3a60e8b3.jpg&#39;&gt;&lt;/div&gt;
+비행기는 뭐 한시간 반만에 도착했다. 엄청 가깝구만... 목적지(카리야)로 가는 버스 시간이 정해져 있고 아무래도 안 맞을 것 같다고 그냥 점심을 공항에서 먹자고 했었는데 혹시나 해서 버스 정류장을 가봤더니 아직 버스가 있어서 일단 목적지로 가기로 하고 탔다.
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/518c2142-ca4f-49a7-93f2-4fa499528696.jpg&#39;&gt;&lt;/div&gt;
+한 40여분 걸려 도착하고 일단 숙소로 향했다. 그전에 왔을 때 묵었던 곳이라는데 가보니 다른 날은 괜찮은데 25일은 예약이 꽉 찼다고 했다.&lt;br/&gt;
+&lt;br/&gt;
+할 수 없이 DENSO 사람들에게 다른 곳을 알아봐 달라고 한 후 점심을 먹으러 가기로 했다. 그냥 쭉 둘러보다가 그냥 라멘을 먹기로 했다.
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/2c11bfbd-ca7c-4b60-b9b1-49c899fc0223.jpg&#39;&gt;&lt;/div&gt;
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/6d3f710c-2ae7-41a5-bf66-bf3e02badf46.jpg&#39;&gt;&lt;/div&gt;
+(가게 사진은 저녁에 지나가면서 찍은 것) 챠슈멘을 먹었는데 그냥 일반 라멘을 먹을 걸 그랬다. 약간 느끼한 고기 다 먹느라 힘들었다.&lt;br/&gt;
+&lt;br/&gt;
+먹는 동안 알아본 새 숙소로 이동. 역하고 바로 붙어있는 곳이였는데 오히려 가격도 싸고 자리도 비어있었다. 흡연실만 남아있긴 했지만 뭐 딱히 불편한 건 없었다.
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/b4fee642-8b3c-440c-b895-1b38647892df.jpg&#39;&gt;&lt;/div&gt;
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/d6b9e5c9-e3d7-465c-87f3-2398362af6ca.jpg&#39;&gt;&lt;/div&gt;
+뭐 일본 답게 엄청 좁긴 했지만, 그래도 3년전 &lt;a href=&#34;http://sixmen.egloos.com/1707702&#34; target=&#34;_blank&#34;&gt;오사카에서 묵었던 곳&lt;/a&gt;보다 거의 세배가까이 되는 가격이라고 개별 화장실과 욕실이 있었다. TV도 좀더 좋고, 인터넷도 꽁짜고.&lt;br/&gt;
+&lt;br/&gt;
+여기서 조금 쉬다가 3시 반경 나와서 목적지인 DENSO로 향했다.
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/98421e4d-12df-4f23-87bb-c9a33df7791a.jpg&#39;&gt;&lt;/div&gt;
+그 뒤는... 음.. 별로 얘기하고 싶은 생각이 안 든다 -_-.. 한 5시 반쯤 부터 얘기좀 나누다가 7시 부터 정식으로 모여 회의를 했는데 이 사람들은 저녁도 안 먹은 상태로 10시까지 잘도 버틴다. 들어보니 원래 그렇단다.&lt;br/&gt;
+&lt;br/&gt;
+여하튼 그래도 회의는 잘 된 편인 것 같다. 이인호씨가 열심히 통역을 해줘서 ScriptAPI 설명도 잘 끝냈고, 이해를 아주 잘 했는지 제대로 된 의견만 말한다. 다른데서는 괜히 잘 알지도 못하면서 이상한 얘기를 하는 경우도 많았는데.&lt;br/&gt;
+&lt;br/&gt;
+길고 길었던 회의를 마치고 본격적인 작업은 내일 하기로 하고, 10시경 나왔다. 그 시간엔 저녁 식사를 할 만한 곳이 없기 때문에 술집으로 고고.. 맥주 한잔에 이것저것 시켜서 먹고 숙소로 돌아왔다.
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/ddecf909-0428-40da-8cd3-aa44a76b014a.jpg&#39;&gt;&lt;/div&gt;
+&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/90032b76-5883-4a8b-8ffc-c4d4f997ecf1.jpg&#39;&gt;&lt;/div&gt;
+으.. 내일은 9시까지 나가기로 했다. 한국에 있을 때보다 엄청 뻑뻑한 일정.. 아구 귀찮아라.. 그 와중에 분당에선 다른 이슈 있다고 연락오고..&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>오늘의 꼬부랑말</title>
+      <link>http://sixmen.com/ko/mylife/2010-02-22-1-oneului-kkoburangmal/</link>
+      <pubDate>Mon, 22 Feb 2010 01:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/ko/mylife/2010-02-22-1-oneului-kkoburangmal/</guid>
+      <description>&lt;a href=&#34;http://hi.wikipedia.org/wiki/%E0%A4%A6%E0%A5%87%E0%A4%B5%E0%A4%A8%E0%A4%BE%E0%A4%97%E0%A4%B0%E0%A5%80&#34; target=&#34;_blank&#34;&gt;देवनागरी&lt;/a&gt;&lt;br/&gt;
+&lt;div&gt;&lt;br/&gt;
+&lt;br/&gt;
+아랍어, 태국어에 이어 이번엔 인도말.. 이런 글자들을 어떻게들 읽고 쓰는 건지..&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>sixmen.com</title>
+    <link>http://sixmen.com/en/index.xml</link>
+    <description>Recent content on sixmen.com</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://sixmen.com/en/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Welcome</title>
+      <link>http://sixmen.com/en/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/en/</guid>
+      <description>&lt;div class=&#39;row&#39; style=&#39;margin: 30px 0px;&#39;&gt;
+  &lt;div class=&#39;col-xs-12&#39;&gt;
+    Hello. I&#39;m a common Korean developer.
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;row&#39;&gt;
+
+&lt;div class=&#39;col-md-4&#39;&gt;
+  &lt;div class=&#39;panel panel-default&#39;&gt;
+    &lt;div class=&#39;panel-heading&#39;&gt;
+      Profile
+    &lt;/div&gt;
+    &lt;div class=&#39;panel-body&#39;&gt;
+      &lt;table class=&#39;table table-condensed&#39;&gt;
+        &lt;tr&gt;&lt;td&gt;Name&lt;/td&gt;&lt;td&gt;Sangmin Yoon&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;Live in&lt;/td&gt;&lt;td&gt;Korea&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;Languages&lt;/td&gt;&lt;td&gt;Korean, English, Japanese, C, C++, JavaScript, Python, Java, Objective-C, Swift, ...&lt;/td&gt;&lt;/tr&gt;
+      &lt;/table&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;col-md-4&#39;&gt;
+  &lt;div class=&#39;panel panel-default&#39;&gt;
+    &lt;div class=&#39;panel-heading&#39;&gt;
+      Brief History
+    &lt;/div&gt;
+    &lt;div class=&#39;panel-body&#39;&gt;
+      &lt;table class=&#39;table table-condensed&#39;&gt;
+        &lt;tr&gt;&lt;td&gt;2012.02 ~&lt;/td&gt;&lt;td&gt;croquis.com CTO&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;2003.08 ~ 2012.01&lt;/td&gt;&lt;td&gt;DigitalAria engineer&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;~ 2003.08&lt;/td&gt;&lt;td&gt;KAIST Master of Science in Computer Science&lt;/td&gt;&lt;/tr&gt;
+      &lt;/table&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;col-md-4&#39;&gt;
+  &lt;div class=&#39;panel panel-default&#39;&gt;
+    &lt;div class=&#39;panel-heading&#39;&gt;
+      SNS
+    &lt;/div&gt;
+    &lt;div class=&#39;panel-body&#39;&gt;
+      &lt;table class=&#39;table table-condensed&#39;&gt;
+        &lt;tr&gt;&lt;td&gt;Twitter&lt;/td&gt;&lt;td&gt;&lt;a href=&#39;https://twitter.com/sixmen97&#39;&gt;https://twitter.com/sixmen97&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;Facebook&lt;/td&gt;&lt;td&gt;&lt;a href=&#39;https://www.facebook.com/sixmen97&#39;&gt;https://www.facebook.com/sixmen97&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;LinkedIn&lt;/td&gt;&lt;td&gt;&lt;a href=&#39;http://www.linkedin.com/in/sixmen&#39;&gt;http://www.linkedin.com/in/sixmen&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
+      &lt;/table&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;div class=&#39;row&#39;&gt;
+
+&lt;div class=&#39;col-md-6&#39;&gt;
+  &lt;div class=&#39;panel panel-default&#39;&gt;
+    &lt;div class=&#39;panel-heading&#39;&gt;
+      Commercial Projects
+    &lt;/div&gt;
+    &lt;div class=&#39;panel-body&#39;&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&#39;http://zigzag.kr/&#39;&gt;ZigZag&lt;/a&gt; - Online women shops aggregation service&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#39;http://getbiscuit.com/&#39;&gt;Biscuit&lt;/a&gt; - app &amp;amp; service for language learning&lt;/li&gt;
+        &lt;li&gt;Mobile Flash - Adobe Flash compatible engine for mobile&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;col-md-6&#39;&gt;
+  &lt;div class=&#39;panel panel-default&#39;&gt;
+    &lt;div class=&#39;panel-heading&#39;&gt;
+      Open Source Projects
+    &lt;/div&gt;
+    &lt;div class=&#39;panel-body&#39;&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&#39;http://croquiscom.github.io/cormo/&#39;&gt;CORMO&lt;/a&gt; - ORM framework for Node.js&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#39;http://croquiscom.github.io/crojsdoc/&#39;&gt;CroJSDoc&lt;/a&gt; - Documentation generator for JavaScript/CoffeeScript&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#39;http://sixmen.github.io/langsheet/&#39;&gt;Language Sheet&lt;/a&gt; - Language syntax comparison sheet&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
