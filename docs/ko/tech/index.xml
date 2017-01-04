@@ -5,8 +5,130 @@
     <link>http://sixmen.com/ko/tech/index.xml</link>
     <description>Recent content in Tech-rsses on sixmen.com</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 28 Dec 2016 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 04 Jan 2017 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://sixmen.com/ko/tech/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>언어 비교 - 현재 유닉스 시간</title>
+      <link>http://sixmen.com/ko/tech/2017-01-04-1-language-comparison-date-current-unix-time/</link>
+      <pubDate>Wed, 04 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/ko/tech/2017-01-04-1-language-comparison-date-current-unix-time/</guid>
+      <description>&lt;div class=&#39;alert alert-success&#39;&gt;
+  유닉스 시간은 유닉스 Epoch(1970-01-01 00:00:00 +0000 (UTC))로 부터 지난 초 단위 시간을 말합니다.
+&lt;/div&gt;
+
+&lt;div class=&#39;langsheet&#39;&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;C&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_stdlib&#39;&gt;time_t&lt;/span&gt;&amp;nbsp;now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;time&lt;/span&gt;(&lt;span class=&#39;cmd_keyword&#39;&gt;NULL&lt;/span&gt;);
+  &lt;/div&gt;
+  &lt;div class=&#39;panel-footer&#39;&gt;
+    #include &amp;lt;time.h&amp;gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;C++&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_stdlib&#39;&gt;time_t&lt;/span&gt;&amp;nbsp;now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;time&lt;/span&gt;(&lt;span class=&#39;cmd_keyword&#39;&gt;nullptr&lt;/span&gt;);
+  &lt;/div&gt;
+  &lt;div class=&#39;panel-footer&#39;&gt;
+    #include &amp;lt;ctime&amp;gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;CoffeeScript&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Date&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;now&lt;/span&gt;()&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;1000&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_hr&#39;&gt;&lt;/span&gt;&lt;br&gt;now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;new&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Date&lt;/span&gt;().&lt;span class=&#39;cmd_stdlib&#39;&gt;getTime&lt;/span&gt;()&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;1000&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Java&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;long&lt;/span&gt;&amp;nbsp;now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;System&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;currentTimeMillis&lt;/span&gt;()&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;1000&lt;/span&gt;;&lt;br&gt;&lt;span class=&#39;cmd_hr&#39;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;long&lt;/span&gt;&amp;nbsp;now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;new&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Date&lt;/span&gt;().&lt;span class=&#39;cmd_stdlib&#39;&gt;getTime&lt;/span&gt;()&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;1000&lt;/span&gt;;
+  &lt;/div&gt;
+  &lt;div class=&#39;panel-footer&#39;&gt;
+    import java.util.Date;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;JavaScript&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Date&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;now&lt;/span&gt;()&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;1000&lt;/span&gt;;&lt;br&gt;&lt;span class=&#39;cmd_hr&#39;&gt;&lt;/span&gt;&lt;br&gt;now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;new&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Date&lt;/span&gt;().&lt;span class=&#39;cmd_stdlib&#39;&gt;getTime&lt;/span&gt;()&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;1000&lt;/span&gt;;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Kotlin&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;val&lt;/span&gt;&amp;nbsp;now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;System&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;currentTimeMillis&lt;/span&gt;()&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;1000&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_hr&#39;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;val&lt;/span&gt;&amp;nbsp;now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Date&lt;/span&gt;().&lt;span class=&#39;cmd_stdlib&#39;&gt;getTime&lt;/span&gt;()/&lt;span class=&#39;cmd_number&#39;&gt;1000&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&#39;panel-footer&#39;&gt;
+    import java.util.Date
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Lua&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;os&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;time&lt;/span&gt;()
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Objective-C&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_stdlib&#39;&gt;NSTimeInterval&lt;/span&gt;&amp;nbsp;now&amp;nbsp;=&amp;nbsp;[[&lt;span class=&#39;cmd_stdlib&#39;&gt;NSDate&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;date&lt;/span&gt;]&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;timeIntervalSince1970&lt;/span&gt;];
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Perl&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    $now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;time&lt;/span&gt;;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;PHP&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    $now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;time&lt;/span&gt;();
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Python&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_stdib&#39;&gt;time&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;time&lt;/span&gt;()
+  &lt;/div&gt;
+  &lt;div class=&#39;panel-footer&#39;&gt;
+    import time
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Ruby&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Time&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;now&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;to_i&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Swift&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;let&lt;/span&gt;&amp;nbsp;now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Date&lt;/span&gt;().&lt;span class=&#39;cmd_stdlib&#39;&gt;timeIntervalSince1970&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>우부투에 JDK 설치하기</title>
@@ -1229,69 +1351,6 @@ awk가 좀 오래된 도구다 보니 열린 파일 수 제한이 낮은 듯 합
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;http://stackoverflow.com/questions/11713978/how-to-split-existing-apache-logfile-by-month/11714105#11714105&#34;&gt;How to split existing apache logfile by month?&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>서버 어플리케이션에 logrotate를 적용하기</title>
-      <link>http://sixmen.com/ko/tech/2014-04-18-1-logrotate/</link>
-      <pubDate>Fri, 18 Apr 2014 00:00:00 +0000</pubDate>
-      
-      <guid>http://sixmen.com/ko/tech/2014-04-18-1-logrotate/</guid>
-      <description>&lt;div class=&#39;alert alert-info&#39;&gt;
-요약: logrotate를 통해 로그를 분할하기 위해서는, 서버 어플리케이션이 적당한
-시그널(주로 SIGUSR1을 사용. Node.js에서는 디버그 모드 진입용으로 사용하고 있으니 SIGUSR2 사용)을
-받았을때 로그 파일을 다시 열도록 하면 됩니다.
-&lt;/div&gt;
-
-&lt;p&gt;회사에서 서비스를 하는 중에 로그 파일이 너무 커져서, 적당한 크기에서 나눌 방법이 필요해졌습니다.
-이런 경우 리눅스에서 주로 쓰는 방법은 logrotate입니다.
-그리고 이를 서비스에 적용하기 위해 필요한 것을 찾아봤습니다.&lt;/p&gt;
-
-&lt;p&gt;logrotate 설정에 나눌 로그 파일을 추가하면 설정된 상황(매일 또는 매주, 무조건 또는
-주어진 크기를 넘었을 때등)에서 로그 파일을 나눕니다.
-이때 하는 동작은 기존 로그 파일의 이름을 변경하고, 같은 이름으로 새 로그 파일을 만드는 것입니다.&lt;/p&gt;
-
-&lt;p&gt;만약 잠깐 실행되고 마는 프로그램이면 이것으로 잘 동작합니다.
-매번 실행할 때마다 주어진 이름의 로그 파일을 새로 열어서 쓰니까요.
-하지만 프로그램이 계속 떠 있는 경우 새 로그 파일에 쓰지 않고 계속 기존 로그 파일에 데이터가 쌓입니다.&lt;/p&gt;
-
-&lt;p&gt;간단하게 이 동작을 확인할 수 있습니다.
-shell에서 &lt;code&gt;node -e &amp;quot;setInterval(function () { console.log(&#39;hello&#39;); }, 1000)&amp;quot; &amp;gt; log&lt;/code&gt;를 실행한 후
-다른 창에서 log 파일의 이름을 변경하고 새로 생성해도 계속 기존 파일에 로그가 추가됩니다.
-이것은 한번 파일을 열면 그 파일의 이름이 아닌 descriptor에 의해서 접근하기 때문입니다.&lt;/p&gt;
-
-&lt;p&gt;이 문제를 해결하기 위해 logrotate는 copytruncate라는 옵션을 제공합니다.
-이 옵션을 사용하면 파일의 이름을 변경하는 대신 새 파일로 내용을 복사하고
-기존 파일의 크기를 0으로 만들어버립니다.
-하지만 이 경우 복사하는 동안 추가된 로그가 사라지는 문제가 있습니다.&lt;/p&gt;
-
-&lt;p&gt;다른 방법으로는 logrotate가 파일 이름을 변경한 후에 프로그램이 로그 파일을 새로 열도록 하는 것이 있습니다.
-이미 떠 있는 프로그램에 명령을 내리기 위해서는 주로 시그널을 사용합니다.
-예를 들어 &lt;a href=&#34;http://nginx.org/&#34;&gt;nginx&lt;/a&gt;는 SIGUSR1을 받으면 로그 파일을 다시 열도록 되어 있습니다.
-(&lt;a href=&#34;http://wiki.nginx.org/CommandLine#Stopping_or_Restarting_Nginx&#34;&gt;Stopping or Restarting Nginx&lt;/a&gt;)
-logrotate에서는 postrotate 옵션으로 이를 표현합니다. 다음은 Ubuntu에 적용된 nginx를 위한 logrotate 설정입니다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;postrotate
-  [ ! -f /run/nginx.pid ] || kill -USR1 `cat /run/nginx.pid`
-endscript
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;다음은 이 방법이 적용된 서버 코드입니다. Node.js를 사용하고 CoffeeScript로 작성되어 있습니다.&lt;/p&gt;
-
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-coffeescript&#34; data-lang=&#34;coffeescript&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;logstream = &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;undefined&lt;/span&gt;
-&lt;span class=&#34;nv&#34;&gt;openLogFile = &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;-&amp;gt;&lt;/span&gt;
-  &lt;span class=&#34;nx&#34;&gt;logstream&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;close&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;logstream&lt;/span&gt;
-  &lt;span class=&#34;nv&#34;&gt;logstream = &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;fs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;createWriteStream&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;log&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;flags: &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#39;a+&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;mode: &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#39;0644&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;encoding: &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#39;utf8&amp;#39;&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;openLogFile&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
-
-&lt;span class=&#34;c1&#34;&gt;# 시그널을 받으면 로그 파일을 다시 연다&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;process&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;on&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#39;SIGUSR2&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;-&amp;gt;&lt;/span&gt;
-  &lt;span class=&#34;nx&#34;&gt;openLogFile&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;SIGUSR1은 Node.js가 디버그 모드 진입용으로 사용하고 있습니다. 그래서 대신 SIGUSR2를 사용했습니다.&lt;/p&gt;
 </description>
     </item>
     

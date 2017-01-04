@@ -1,0 +1,119 @@
+---
+title: 언어 비교 - 현재 유닉스 시간
+tags: ['언어비교']
+date: 2017-01-04
+---
+
+<div class='alert alert-success'>
+  유닉스 시간은 유닉스 Epoch(1970-01-01 00:00:00 +0000 (UTC))로 부터 지난 초 단위 시간을 말합니다.
+</div>
+
+<div class='langsheet'>
+
+<div class='panel panel-info'>
+  <div class='panel-heading'>C</div>
+  <div class='panel-body'>
+    <span class='cmd_stdlib'>time_t</span>&nbsp;now&nbsp;=&nbsp;<span class='cmd_stdlib'>time</span>(<span class='cmd_keyword'>NULL</span>);
+  </div>
+  <div class='panel-footer'>
+    #include &lt;time.h&gt;
+  </div>
+</div>
+
+<div class='panel panel-info'>
+  <div class='panel-heading'>C++</div>
+  <div class='panel-body'>
+    <span class='cmd_stdlib'>time_t</span>&nbsp;now&nbsp;=&nbsp;<span class='cmd_stdlib'>time</span>(<span class='cmd_keyword'>nullptr</span>);
+  </div>
+  <div class='panel-footer'>
+    #include &lt;ctime&gt;
+  </div>
+</div>
+
+<div class='panel panel-info'>
+  <div class='panel-heading'>CoffeeScript</div>
+  <div class='panel-body'>
+    now&nbsp;=&nbsp;<span class='cmd_stdlib'>Date</span>.<span class='cmd_stdlib'>now</span>()&nbsp;/&nbsp;<span class='cmd_number'>1000</span><br><span class='cmd_hr'></span><br>now&nbsp;=&nbsp;<span class='cmd_keyword'>new</span>&nbsp;<span class='cmd_stdlib'>Date</span>().<span class='cmd_stdlib'>getTime</span>()&nbsp;/&nbsp;<span class='cmd_number'>1000</span>
+  </div>
+</div>
+
+<div class='panel panel-info'>
+  <div class='panel-heading'>Java</div>
+  <div class='panel-body'>
+    <span class='cmd_keyword'>long</span>&nbsp;now&nbsp;=&nbsp;<span class='cmd_stdlib'>System</span>.<span class='cmd_stdlib'>currentTimeMillis</span>()&nbsp;/&nbsp;<span class='cmd_number'>1000</span>;<br><span class='cmd_hr'></span><br><span class='cmd_keyword'>long</span>&nbsp;now&nbsp;=&nbsp;<span class='cmd_keyword'>new</span>&nbsp;<span class='cmd_stdlib'>Date</span>().<span class='cmd_stdlib'>getTime</span>()&nbsp;/&nbsp;<span class='cmd_number'>1000</span>;
+  </div>
+  <div class='panel-footer'>
+    import java.util.Date;
+  </div>
+</div>
+
+<div class='panel panel-info'>
+  <div class='panel-heading'>JavaScript</div>
+  <div class='panel-body'>
+    now&nbsp;=&nbsp;<span class='cmd_stdlib'>Date</span>.<span class='cmd_stdlib'>now</span>()&nbsp;/&nbsp;<span class='cmd_number'>1000</span>;<br><span class='cmd_hr'></span><br>now&nbsp;=&nbsp;<span class='cmd_keyword'>new</span>&nbsp;<span class='cmd_stdlib'>Date</span>().<span class='cmd_stdlib'>getTime</span>()&nbsp;/&nbsp;<span class='cmd_number'>1000</span>;
+  </div>
+</div>
+
+<div class='panel panel-info'>
+  <div class='panel-heading'>Kotlin</div>
+  <div class='panel-body'>
+    <span class='cmd_keyword'>val</span>&nbsp;now&nbsp;=&nbsp;<span class='cmd_stdlib'>System</span>.<span class='cmd_stdlib'>currentTimeMillis</span>()&nbsp;/&nbsp;<span class='cmd_number'>1000</span><br><span class='cmd_hr'></span><br><span class='cmd_keyword'>val</span>&nbsp;now&nbsp;=&nbsp;<span class='cmd_stdlib'>Date</span>().<span class='cmd_stdlib'>getTime</span>()/<span class='cmd_number'>1000</span>
+  </div>
+  <div class='panel-footer'>
+    import java.util.Date
+  </div>
+</div>
+
+<div class='panel panel-info'>
+  <div class='panel-heading'>Lua</div>
+  <div class='panel-body'>
+    now&nbsp;=&nbsp;<span class='cmd_stdlib'>os</span>.<span class='cmd_stdlib'>time</span>()
+  </div>
+</div>
+
+<div class='panel panel-info'>
+  <div class='panel-heading'>Objective-C</div>
+  <div class='panel-body'>
+    <span class='cmd_stdlib'>NSTimeInterval</span>&nbsp;now&nbsp;=&nbsp;[[<span class='cmd_stdlib'>NSDate</span>&nbsp;<span class='cmd_stdlib'>date</span>]&nbsp;<span class='cmd_stdlib'>timeIntervalSince1970</span>];
+  </div>
+</div>
+
+<div class='panel panel-info'>
+  <div class='panel-heading'>Perl</div>
+  <div class='panel-body'>
+    $now&nbsp;=&nbsp;<span class='cmd_stdlib'>time</span>;
+  </div>
+</div>
+
+<div class='panel panel-info'>
+  <div class='panel-heading'>PHP</div>
+  <div class='panel-body'>
+    $now&nbsp;=&nbsp;<span class='cmd_stdlib'>time</span>();
+  </div>
+</div>
+
+<div class='panel panel-info'>
+  <div class='panel-heading'>Python</div>
+  <div class='panel-body'>
+    <span class='cmd_stdib'>time</span>.<span class='cmd_stdlib'>time</span>()
+  </div>
+  <div class='panel-footer'>
+    import time
+  </div>
+</div>
+
+<div class='panel panel-info'>
+  <div class='panel-heading'>Ruby</div>
+  <div class='panel-body'>
+    now&nbsp;=&nbsp;<span class='cmd_stdlib'>Time</span>.<span class='cmd_stdlib'>now</span>.<span class='cmd_stdlib'>to_i</span>
+  </div>
+</div>
+
+<div class='panel panel-info'>
+  <div class='panel-heading'>Swift</div>
+  <div class='panel-body'>
+    <span class='cmd_keyword'>let</span>&nbsp;now&nbsp;=&nbsp;<span class='cmd_stdlib'>Date</span>().<span class='cmd_stdlib'>timeIntervalSince1970</span>
+  </div>
+</div>
+
+</div>

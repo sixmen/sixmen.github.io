@@ -8,6 +8,128 @@
     <atom:link href="http://sixmen.com/ko/tags/%EC%96%B8%EC%96%B4%EB%B9%84%EA%B5%90/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>언어 비교 - 현재 유닉스 시간</title>
+      <link>http://sixmen.com/ko/tech/2017-01-04-1-language-comparison-date-current-unix-time/</link>
+      <pubDate>Wed, 04 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/ko/tech/2017-01-04-1-language-comparison-date-current-unix-time/</guid>
+      <description>&lt;div class=&#39;alert alert-success&#39;&gt;
+  유닉스 시간은 유닉스 Epoch(1970-01-01 00:00:00 +0000 (UTC))로 부터 지난 초 단위 시간을 말합니다.
+&lt;/div&gt;
+
+&lt;div class=&#39;langsheet&#39;&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;C&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_stdlib&#39;&gt;time_t&lt;/span&gt;&amp;nbsp;now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;time&lt;/span&gt;(&lt;span class=&#39;cmd_keyword&#39;&gt;NULL&lt;/span&gt;);
+  &lt;/div&gt;
+  &lt;div class=&#39;panel-footer&#39;&gt;
+    #include &amp;lt;time.h&amp;gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;C++&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_stdlib&#39;&gt;time_t&lt;/span&gt;&amp;nbsp;now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;time&lt;/span&gt;(&lt;span class=&#39;cmd_keyword&#39;&gt;nullptr&lt;/span&gt;);
+  &lt;/div&gt;
+  &lt;div class=&#39;panel-footer&#39;&gt;
+    #include &amp;lt;ctime&amp;gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;CoffeeScript&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Date&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;now&lt;/span&gt;()&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;1000&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_hr&#39;&gt;&lt;/span&gt;&lt;br&gt;now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;new&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Date&lt;/span&gt;().&lt;span class=&#39;cmd_stdlib&#39;&gt;getTime&lt;/span&gt;()&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;1000&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Java&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;long&lt;/span&gt;&amp;nbsp;now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;System&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;currentTimeMillis&lt;/span&gt;()&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;1000&lt;/span&gt;;&lt;br&gt;&lt;span class=&#39;cmd_hr&#39;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;long&lt;/span&gt;&amp;nbsp;now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;new&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Date&lt;/span&gt;().&lt;span class=&#39;cmd_stdlib&#39;&gt;getTime&lt;/span&gt;()&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;1000&lt;/span&gt;;
+  &lt;/div&gt;
+  &lt;div class=&#39;panel-footer&#39;&gt;
+    import java.util.Date;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;JavaScript&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Date&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;now&lt;/span&gt;()&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;1000&lt;/span&gt;;&lt;br&gt;&lt;span class=&#39;cmd_hr&#39;&gt;&lt;/span&gt;&lt;br&gt;now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;new&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Date&lt;/span&gt;().&lt;span class=&#39;cmd_stdlib&#39;&gt;getTime&lt;/span&gt;()&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;1000&lt;/span&gt;;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Kotlin&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;val&lt;/span&gt;&amp;nbsp;now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;System&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;currentTimeMillis&lt;/span&gt;()&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;1000&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_hr&#39;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;val&lt;/span&gt;&amp;nbsp;now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Date&lt;/span&gt;().&lt;span class=&#39;cmd_stdlib&#39;&gt;getTime&lt;/span&gt;()/&lt;span class=&#39;cmd_number&#39;&gt;1000&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&#39;panel-footer&#39;&gt;
+    import java.util.Date
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Lua&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;os&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;time&lt;/span&gt;()
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Objective-C&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_stdlib&#39;&gt;NSTimeInterval&lt;/span&gt;&amp;nbsp;now&amp;nbsp;=&amp;nbsp;[[&lt;span class=&#39;cmd_stdlib&#39;&gt;NSDate&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;date&lt;/span&gt;]&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;timeIntervalSince1970&lt;/span&gt;];
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Perl&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    $now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;time&lt;/span&gt;;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;PHP&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    $now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;time&lt;/span&gt;();
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Python&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_stdib&#39;&gt;time&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;time&lt;/span&gt;()
+  &lt;/div&gt;
+  &lt;div class=&#39;panel-footer&#39;&gt;
+    import time
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Ruby&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Time&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;now&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;to_i&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Swift&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;let&lt;/span&gt;&amp;nbsp;now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Date&lt;/span&gt;().&lt;span class=&#39;cmd_stdlib&#39;&gt;timeIntervalSince1970&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
       <title>언어 비교 - 함수 매개 변수에 기본값 지정</title>
       <link>http://sixmen.com/ko/tech/2016-12-19-1-language-comparison-function-default-argument/</link>
       <pubDate>Mon, 19 Dec 2016 00:00:00 +0000</pubDate>

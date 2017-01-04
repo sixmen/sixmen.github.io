@@ -5,8 +5,130 @@
     <link>http://sixmen.com/ko/index.xml</link>
     <description>Recent content on sixmen.com</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 28 Dec 2016 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 04 Jan 2017 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://sixmen.com/ko/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>언어 비교 - 현재 유닉스 시간</title>
+      <link>http://sixmen.com/ko/tech/2017-01-04-1-language-comparison-date-current-unix-time/</link>
+      <pubDate>Wed, 04 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/ko/tech/2017-01-04-1-language-comparison-date-current-unix-time/</guid>
+      <description>&lt;div class=&#39;alert alert-success&#39;&gt;
+  유닉스 시간은 유닉스 Epoch(1970-01-01 00:00:00 +0000 (UTC))로 부터 지난 초 단위 시간을 말합니다.
+&lt;/div&gt;
+
+&lt;div class=&#39;langsheet&#39;&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;C&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_stdlib&#39;&gt;time_t&lt;/span&gt;&amp;nbsp;now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;time&lt;/span&gt;(&lt;span class=&#39;cmd_keyword&#39;&gt;NULL&lt;/span&gt;);
+  &lt;/div&gt;
+  &lt;div class=&#39;panel-footer&#39;&gt;
+    #include &amp;lt;time.h&amp;gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;C++&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_stdlib&#39;&gt;time_t&lt;/span&gt;&amp;nbsp;now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;time&lt;/span&gt;(&lt;span class=&#39;cmd_keyword&#39;&gt;nullptr&lt;/span&gt;);
+  &lt;/div&gt;
+  &lt;div class=&#39;panel-footer&#39;&gt;
+    #include &amp;lt;ctime&amp;gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;CoffeeScript&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Date&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;now&lt;/span&gt;()&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;1000&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_hr&#39;&gt;&lt;/span&gt;&lt;br&gt;now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;new&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Date&lt;/span&gt;().&lt;span class=&#39;cmd_stdlib&#39;&gt;getTime&lt;/span&gt;()&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;1000&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Java&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;long&lt;/span&gt;&amp;nbsp;now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;System&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;currentTimeMillis&lt;/span&gt;()&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;1000&lt;/span&gt;;&lt;br&gt;&lt;span class=&#39;cmd_hr&#39;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;long&lt;/span&gt;&amp;nbsp;now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;new&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Date&lt;/span&gt;().&lt;span class=&#39;cmd_stdlib&#39;&gt;getTime&lt;/span&gt;()&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;1000&lt;/span&gt;;
+  &lt;/div&gt;
+  &lt;div class=&#39;panel-footer&#39;&gt;
+    import java.util.Date;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;JavaScript&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Date&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;now&lt;/span&gt;()&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;1000&lt;/span&gt;;&lt;br&gt;&lt;span class=&#39;cmd_hr&#39;&gt;&lt;/span&gt;&lt;br&gt;now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_keyword&#39;&gt;new&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Date&lt;/span&gt;().&lt;span class=&#39;cmd_stdlib&#39;&gt;getTime&lt;/span&gt;()&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;1000&lt;/span&gt;;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Kotlin&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;val&lt;/span&gt;&amp;nbsp;now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;System&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;currentTimeMillis&lt;/span&gt;()&amp;nbsp;/&amp;nbsp;&lt;span class=&#39;cmd_number&#39;&gt;1000&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_hr&#39;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#39;cmd_keyword&#39;&gt;val&lt;/span&gt;&amp;nbsp;now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Date&lt;/span&gt;().&lt;span class=&#39;cmd_stdlib&#39;&gt;getTime&lt;/span&gt;()/&lt;span class=&#39;cmd_number&#39;&gt;1000&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&#39;panel-footer&#39;&gt;
+    import java.util.Date
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Lua&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;os&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;time&lt;/span&gt;()
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Objective-C&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_stdlib&#39;&gt;NSTimeInterval&lt;/span&gt;&amp;nbsp;now&amp;nbsp;=&amp;nbsp;[[&lt;span class=&#39;cmd_stdlib&#39;&gt;NSDate&lt;/span&gt;&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;date&lt;/span&gt;]&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;timeIntervalSince1970&lt;/span&gt;];
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Perl&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    $now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;time&lt;/span&gt;;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;PHP&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    $now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;time&lt;/span&gt;();
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Python&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_stdib&#39;&gt;time&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;time&lt;/span&gt;()
+  &lt;/div&gt;
+  &lt;div class=&#39;panel-footer&#39;&gt;
+    import time
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Ruby&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Time&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;now&lt;/span&gt;.&lt;span class=&#39;cmd_stdlib&#39;&gt;to_i&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;panel panel-info&#39;&gt;
+  &lt;div class=&#39;panel-heading&#39;&gt;Swift&lt;/div&gt;
+  &lt;div class=&#39;panel-body&#39;&gt;
+    &lt;span class=&#39;cmd_keyword&#39;&gt;let&lt;/span&gt;&amp;nbsp;now&amp;nbsp;=&amp;nbsp;&lt;span class=&#39;cmd_stdlib&#39;&gt;Date&lt;/span&gt;().&lt;span class=&#39;cmd_stdlib&#39;&gt;timeIntervalSince1970&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>우부투에 JDK 설치하기</title>
@@ -1219,56 +1341,6 @@ iPhone 6 / 6 Plus의 확대됨 모드에서는 약 16%~17%가 더 크게 표시�
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;http://blog.pagebakers.nl/2009/01/29/git-ignoring-changes-in-tracked-files/&#34;&gt;GIT: ignoring changes in tracked files « Pagebakers&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>쉘에서 Nginx(Apache) 로그를 시간별로 분리하기</title>
-      <link>http://sixmen.com/ko/tech/2014-09-25-1-split-nginx-log/</link>
-      <pubDate>Thu, 25 Sep 2014 00:00:00 +0000</pubDate>
-      
-      <guid>http://sixmen.com/ko/tech/2014-09-25-1-split-nginx-log/</guid>
-      <description>
-
-&lt;p&gt;Nginx 로그 분석을 위해 시간별로 나누고 싶었습니다.
-스크립트를 짜도 오래 걸리는 일은 아니겠지만, 쉘에서 하는 방법을 한번 찾아봤습니다.&lt;/p&gt;
-
-&lt;p&gt;Nginx 로그는 다음과 같은 형태를 가집니다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;xx.xx.xx.xx - - [25/Sep/2014:06:54:29 +0000] &amp;quot;GET /blahblah HTTP/1.1&amp;quot; 200 130 &amp;quot;-&amp;quot; &amp;quot;User-Agent&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;다음 명령은 공백으로 나눠진 토큰 중 4번째, 즉 시간을 표시합니다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;awk &#39;{ print $4 }&#39; access.log
-awk &#39;{ print substr($4,2) }&#39; access.log # 앞의 [ 제거
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;여기에 split 함수를 써서 날짜와 시간을 얻을 수 있습니다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;awk &#39;{ split(substr($4,2),array,&amp;quot;[/:]&amp;quot;); print array[1], array[4] }&#39; access.log
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;필요한 정보를 알았으니 각 줄을 적절한 파일에 쓰도록 하면 됩니다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;awk &#39;{ split(substr($4,2),array,&amp;quot;[/:]&amp;quot;); print &amp;gt; (array[1] &amp;quot;-&amp;quot; array[4] &amp;quot;.log&amp;quot;) }&#39; access.log
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;갱신:&lt;/p&gt;
-
-&lt;p&gt;좀 더 큰 데이터에 해보니 too many open files 에러가 발생합니다.
-awk가 좀 오래된 도구다 보니 열린 파일 수 제한이 낮은 듯 합니다. (MacOSX 기준으로 채 20개를 넘지 못하네요.)&lt;/p&gt;
-
-&lt;p&gt;이 경우 파일을 계속 닫아주면 됩니다. 대신 &#39;&amp;gt;&amp;gt;&#39;를 써줘야 정상적으로 추출됩니다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;awk &#39;{ split(substr($4,2),array,&amp;quot;[/:]&amp;quot;); fn = array[1] &amp;quot;-&amp;quot; array[4] &amp;quot;.log&amp;quot;; print &amp;gt;&amp;gt; fn; close(fn) }&#39; access.log
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;참고&#34;&gt;참고&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://stackoverflow.com/questions/11713978/how-to-split-existing-apache-logfile-by-month/11714105#11714105&#34;&gt;How to split existing apache logfile by month?&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>
