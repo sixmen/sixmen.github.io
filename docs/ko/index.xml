@@ -5,8 +5,128 @@
     <link>http://sixmen.com/ko/index.xml</link>
     <description>Recent content on sixmen.com</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 04 Jan 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 05 Jan 2017 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://sixmen.com/ko/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>GitHub 위키 이벤트를 슬랙으로 받기 - 1. AWS Lambda 설정</title>
+      <link>http://sixmen.com/ko/tech/2017-01-05-1-github-wiki-to-slack-setting-aws-lambda/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/ko/tech/2017-01-05-1-github-wiki-to-slack-setting-aws-lambda/</guid>
+      <description>&lt;p&gt;크로키닷컴에서는 GitHub 이벤트(이슈 수정, PR등)를 슬랙으로 확인하고 있습니다.
+그런데 아쉽게도 기본 GitHub 슬랙 앱은 GitHub 위키 이벤트는 처리하지 못합니다.
+그래서 이를 자체적으로 구현하기로 했습니다.&lt;/p&gt;
+
+&lt;p&gt;우선 이번글에서는 AWS Lambda를 통해 슬랙으로 메시지 보내는 방법에 대해서 설명합니다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;외부에서 슬랙에 메시지를 보내기 위해서는 Incoming WebHooks을 설정해야 합니다.
+슬랙에서 &#39;Apps &amp;amp; integrations&#39; 메뉴를 선택하면, App Directory 화면을 볼 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://sixmen.com/img/ko/tech/2017-01-05-1-01.jpg&#34; alt=&#34;App Directory&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;여기서 Incoming WebHooks을 검색하면 선택하면 설정화면이 표시됩니다.
+Add Configuration을 눌러서 새로운 설정을 추가합니다.&lt;/p&gt;
+
+&lt;p&gt;메시지를 받을 채널을 선택하고 Add Incoming WebHooks integration을 누르면
+설정이 생성됩니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://sixmen.com/img/ko/tech/2017-01-05-1-02.jpg&#34; alt=&#34;Add Incoming WebHooks integration&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;설정을 생성한 후에 몇가지 수정을 할 수 있지만, 여기서는 그냥 넘어가겠습니다.
+생성된 설정에서 중요한 것은 Webhook URL 입니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://sixmen.com/img/ko/tech/2017-01-05-1-03.jpg&#34; alt=&#34;Webhook URL&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;밑에 친절하게 예제가 있습니다. 한번 테스트 해보세요.&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span&gt;&lt;/span&gt;$ curl -X POST --data-urlencode &lt;span class=&#34;s1&#34;&gt;&amp;#39;payload={&amp;quot;channel&amp;quot;: &amp;quot;#auto-github&amp;quot;, &amp;quot;username&amp;quot;: &amp;quot;webhookbot&amp;quot;, &amp;quot;text&amp;quot;: &amp;quot;This is posted to #auto-github and comes from a bot named webhookbot.&amp;quot;, &amp;quot;icon_emoji&amp;quot;: &amp;quot;:ghost:&amp;quot;}&amp;#39;&lt;/span&gt; https://hooks.slack.com/services/&amp;lt;my-webhook-url&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;hr /&gt;
+
+&lt;p&gt;위 요청을 Node.js로 작성하면 다음과 같습니다.&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;use strict&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+
+&lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;url&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;require&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;url&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;https&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;require&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;https&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;let&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;hookUrl&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;https://hooks.slack.com/services/&amp;lt;my-webhook-url&amp;gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;sendMessage&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;message&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;body&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;JSON&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;stringify&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;message&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+  &lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;options&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;parse&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;hookUrl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;options&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;method&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;POST&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;options&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;headers&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;s1&#34;&gt;&amp;#39;Content-Type&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;application/json&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s1&#34;&gt;&amp;#39;Content-Length&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Buffer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;byteLength&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;body&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;Promise&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;resolve&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;req&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;https&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;request&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;options&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;res&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+      &lt;span class=&#34;nx&#34;&gt;res&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;on&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;end&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;nx&#34;&gt;resolve&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;({&lt;/span&gt;
+          &lt;span class=&#34;nx&#34;&gt;statusCode&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;res&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;statusCode&lt;/span&gt;
+        &lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
+      &lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;req&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;write&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;body&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;req&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;end&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;message&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;channel&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;#auto-github&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;text&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;This is a test message&amp;#39;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;sendMessage&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;message&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;then&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;response&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;console&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;response&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;hr /&gt;
+
+&lt;p&gt;위의 코드를 바탕으로 AWS Lambda 함수를 하나 만들면 됩니다.&lt;/p&gt;
+
+&lt;p&gt;&#39;Select blueprint&#39; 단계에서 Blank Function을 선택합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://sixmen.com/img/ko/tech/2017-01-05-1-04.jpg&#34; alt=&#34;Select blueprint&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&#39;Configure triggers&#39; 단계는 특별히 필요하지 않습니다.&lt;/p&gt;
+
+&lt;p&gt;&#39;Configure function&#39; 단계에서 함수 이름을 입력하고, 위의 코드를 입력합니다.
+다만 &lt;code&gt;exports.handler&lt;/code&gt; 메소드에서 메시지를 보내도록 수정합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;exports&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;handler&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;event&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;context&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;callback&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;message&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;channel&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;#auto-github&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;text&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;This is a test message&amp;#39;&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;sendMessage&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;message&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;then&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;response&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;callback&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;response&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://sixmen.com/img/ko/tech/2017-01-05-1-05.jpg&#34; alt=&#34;Configuration function 1&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;기타 다른 설정은 건드리지 않아도 되지만 Role은 설정해줘야 합니다.
+적절한 Role이 없는 경우 템플릿을 통해 생성할 수 있습니다.
+&#39;KMS decryption permissions&#39;을 선택해서 Role을 생성합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://sixmen.com/img/ko/tech/2017-01-05-1-06.jpg&#34; alt=&#34;Select role&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&#39;Next&#39; -&amp;gt; &#39;Create function&#39;을 선택하면 Lambda 함수가 만들어집니다.
+&#39;Test&#39; 버튼을 눌러 테스트를 하면 설정한 슬랙 채널에 메시지가 오는 것을 볼 수 있습니다.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>언어 비교 - 현재 유닉스 시간</title>
@@ -1302,46 +1422,6 @@ iPhone 6 / 6 Plus의 확대됨 모드에서는 약 16%~17%가 더 크게 표시�
 &lt;li&gt;&lt;a href=&#34;http://www.theverge.com/2012/4/9/2937265/the-4-inch-iphone-5&#34;&gt;http://www.theverge.com/2012/4/9/2937265/the-4-inch-iphone-5&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://stackoverflow.com/questions/25756087/detecting-iphone-6-6-screen-sizes-in-point-values&#34;&gt;http://stackoverflow.com/questions/25756087/detecting-iphone-6-6-screen-sizes-in-point-values&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Git에서 변경된 내용 무시하기</title>
-      <link>http://sixmen.com/ko/tech/2014-11-12-1-git-ignore-changes/</link>
-      <pubDate>Wed, 12 Nov 2014 00:00:00 +0000</pubDate>
-      
-      <guid>http://sixmen.com/ko/tech/2014-11-12-1-git-ignore-changes/</guid>
-      <description>
-
-&lt;p&gt;개발을 하다보면 몇몇 설정 파일을 수정한 채로 개발을 하는 경우가 있습니다.
-예를 들면 서버 주소를 개발용 서버로 변경해서 작업을 할 수 있겠죠.
-만약 개발용 서버가 명확히 정해져 있다면, 디버그 모드와 출시 모드를 구분하는 식으로 고정된 설정 파일을 만들 수 있겠지만,
-개발용 서버가 개발자 개인 컴퓨터인 경우는 이것도 쉽지 않습니다.&lt;/p&gt;
-
-&lt;p&gt;이런 용도로 변경된 파일들은 당연히 주 저장소에 올라가면 안 되겠죠.
-(하지만 이 파일 자체는 주 저장소에 포함되어야 하기에 .gitignore를 쓸 수는 없습니다)
-저 같이 &#39;git commit -a&#39;을 실행하는데 익숙한 사람은 매번 커밋시 이 파일이 포함되지 않도록 신경써주는것이 꽤 큰 비용입니다.&lt;/p&gt;
-
-&lt;p&gt;다행히 git는 이를 위한 해결책이 있습니다. 다음 명령을 실행하면 해당 파일에 대한 변경을 무시합니다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;git update-index --assume-unchanged &amp;lt;file&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;다시 변경된 내역을 표시하려면 다음 명령을 실행합니다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;git update-index --no-assume-unchanged &amp;lt;file&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;변경이 무시되고 있는 파일 목록은 다음 명령으로 확인할 수 있습니다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;git ls-files -v | grep &#39;^h&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;참고&#34;&gt;참고&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://blog.pagebakers.nl/2009/01/29/git-ignoring-changes-in-tracked-files/&#34;&gt;GIT: ignoring changes in tracked files « Pagebakers&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
 </description>
     </item>
     
