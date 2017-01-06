@@ -1,6 +1,6 @@
 ---
 title: GitHub 위키 이벤트를 슬랙으로 받기 - 3. AWS API Gateway 생성하기
-tags: ['GitHub','Slack','AWS','AWS API Gateway']
+tags: ['GitHub','Slack','AWS','AWS Lambda','AWS API Gateway']
 date: 2017-01-06T02:00:00
 ---
 

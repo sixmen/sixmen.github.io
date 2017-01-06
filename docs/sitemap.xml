@@ -2,14 +2,14 @@
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 	
 	<sitemap>
-	   	<loc>http://sixmen.com/en/sitemap.xml</loc>
+	   	<loc>http://sixmen.com/ko/sitemap.xml</loc>
+		
+	   	<lastmod>2017-01-06T03:00:00+00:00</lastmod>
 		
 	</sitemap>
 	
 	<sitemap>
-	   	<loc>http://sixmen.com/ko/sitemap.xml</loc>
-		
-	   	<lastmod>2017-01-06T02:00:00+00:00</lastmod>
+	   	<loc>http://sixmen.com/en/sitemap.xml</loc>
 		
 	</sitemap>
 	
