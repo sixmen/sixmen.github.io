@@ -5,8 +5,111 @@
     <link>http://sixmen.com/ko/index.xml</link>
     <description>Recent content on sixmen.com</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 05 Jan 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 06 Jan 2017 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://sixmen.com/ko/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>GitHub 위키 이벤트를 슬랙으로 받기 - 2. AWS KMS를 이용해 키 보호</title>
+      <link>http://sixmen.com/ko/tech/2017-01-06-1-github-wiki-to-slack-protect-secret-using-kms/</link>
+      <pubDate>Fri, 06 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/ko/tech/2017-01-06-1-github-wiki-to-slack-protect-secret-using-kms/</guid>
+      <description>&lt;p&gt;&lt;a href=&#39;No page found with path or logical name &#34;tech/2017-01-05-1-github-wiki-to-slack-setting-aws-lambda&#34;.
+&#39;&gt;이전 글&lt;/a&gt;에서는
+AWS Lambda 함수를 생성해서 슬랙에 메시지를 보내는데 성공했습니다.
+그런데 이때 사용하는 훅 URL이 그대로 코드에 들어가 있는게 마음에 걸립니다.
+이 URL을 알면 외부에서 우리 슬랙 채널에 스팸을 보낼 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;이번 글에서는 AWS KMS(Key Management Service)를 이용해서 이 URL을 보호하는 방법에 대해서 얘기합니다.&lt;/p&gt;
+
+&lt;p&gt;AWS Lambda 생성시 blueprint에 slack-echo-command를 선택하면 이미 URL을 보호하는 절차에 대해서 설명하고 있습니다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;To encrypt your secrets use the following steps:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Create or use an existing KMS Key - &lt;a href=&#34;http://docs.aws.amazon.com/kms/latest/developerguide/create-keys.html&#34;&gt;http://docs.aws.amazon.com/kms/latest/developerguide/create-keys.html&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Click the &amp;quot;Enable Encryption Helpers&amp;quot; checkbox&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Paste &lt;COMMAND_TOKEN&gt; into the kmsEncryptedToken environment variable and click encrypt&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;하나씩 따라해 봅시다.&lt;/p&gt;
+
+&lt;p&gt;AWS IAM 화면에 들어가면 Encryption keys 메뉴가 있습니다.
+다른 메뉴와는 달리 여기는 지역 선택이 필터 부분에 있습니다. 여기서 원하는 지역을 선택하고 &#39;Create Key&#39;를 선택합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://sixmen.com/img/ko/tech/2017-01-06-1-01.jpg&#34; alt=&#34;Create key&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Alias만 입력하고 나머지는 특별히 선택하지 않아도 됩니다.&lt;/p&gt;
+
+&lt;p&gt;키가 생성되면 생성한 Lambda 함수로 이동합니다.
+코드 섹션 밑에 보면 &#39;Enable encryption helpers&#39; 체크박스가 있습니다.
+활성화하고 &#39;Encryption key&#39;에 생성한 키를 설정합니다.&lt;/p&gt;
+
+&lt;p&gt;&#39;Environment variables&#39;에 훅 URL을 넣고 &#39;Encrypt&#39;를 누르면 URL이 암호화됩니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://sixmen.com/img/ko/tech/2017-01-06-1-02.jpg&#34; alt=&#34;Before encrypt&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://sixmen.com/img/ko/tech/2017-01-06-1-03.jpg&#34; alt=&#34;After encrypt&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;변경사항을 저장하면 암호화된 URL이 표시됩니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://sixmen.com/img/ko/tech/2017-01-06-1-04.jpg&#34; alt=&#34;Encrypted URL&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이제 이 값을 이용하도록 Lambda 코드를 수정합니다.&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;use strict&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+
+&lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;AWS&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;require&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;aws-sdk&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;url&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;require&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;url&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;https&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;require&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;https&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;let&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;hookUrl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;sendMessage&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;message&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;c1&#34;&gt;// ... 이전과 같음&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;decryptHookUrl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;hookUrl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;Promise&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;resolve&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;hookUrl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;kms&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;AWS&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;KMS&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;Promise&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;resolve&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;reject&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+      &lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;blob&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Buffer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;process&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;env&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;encryptedHookUrl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;base64&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+      &lt;span class=&#34;nx&#34;&gt;kms&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;decrypt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;({&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;CiphertextBlob&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;blob&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;},&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;error&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;error&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+          &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;reject&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;error&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;nx&#34;&gt;hookUrl&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Plaintext&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;toString&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;ascii&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;nx&#34;&gt;resolve&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;hookUrl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+      &lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;nx&#34;&gt;exports&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;handler&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;event&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;context&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;callback&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;decryptHookUrl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;then&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;message&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+      &lt;span class=&#34;nx&#34;&gt;channel&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;#auto-github&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+      &lt;span class=&#34;nx&#34;&gt;text&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;This is a test message&amp;#39;&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;sendMessage&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;message&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;then&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;response&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+      &lt;span class=&#34;nx&#34;&gt;callback&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;response&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;저장하고 테스트를 실행하면 이전과 같이 슬랙 채널에서 메시지를 볼 수 있습니다.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>GitHub 위키 이벤트를 슬랙으로 받기 - 1. AWS Lambda 설정</title>
@@ -1360,68 +1463,6 @@ import java.util.regex.Pattern;
 &lt;div&gt;&lt;br/&gt;&lt;/div&gt;
 &lt;div&gt;(참고로 요 몇년 계속 MacOSX를 쓰고 있지만, 내가 좋아하는 Command Line Tool이 약해서 개발하는데 못 써서 그렇지, 일반 작업을 위한 GUI 쪽은 Windows 7이 훨씬 편하다)&lt;/div&gt;
 &lt;div&gt;&lt;br/&gt;&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>iPhone PPI와 논리 픽셀에 대응하는 물리 크기</title>
-      <link>http://sixmen.com/ko/tech/2014-12-23-1-iphone-ppi/</link>
-      <pubDate>Tue, 23 Dec 2014 00:00:00 +0000</pubDate>
-      
-      <guid>http://sixmen.com/ko/tech/2014-12-23-1-iphone-ppi/</guid>
-      <description>&lt;p&gt;앱을 iPhone 6 / 6 Plus에 맞추는 작업을 하던 중에 PPI에 혼란이 와서 직접 계산해 봤습니다.&lt;/p&gt;
-
-&lt;p&gt;우선 오리지널 iPhone의 물리적 스크린 크기는 가로 1.94 인치(4.93cm), 세로 2.91 인치(7.4cm)입니다.&lt;sup&gt;1&lt;/sup&gt;
-해상도(resolution)는 320x480이므로 PPI는 약 163입니다.
-(위 수치로 계산하면 165가 되는데 대부분 163으로 표시해서 이를 기준으로 합니다.)
-PPI가 163라는 것은 64x64 픽셀의 이미지가 물리적으로 0.4인치 x 0.4인치 = 1cm x 1cm 정도의
-크기가 된다는 것을 의미합니다. (64/163=0.39in=1cm)&lt;/p&gt;
-
-&lt;p&gt;iPhone 4로 넘어오면서 물리적인 크기는 유지하면서 해상도를 두배(640x960)로 만들었습니다.
-따라서 PPI는 약 326(계산으로는 330)이 되었습니다.
-iPhone 4에서 1cm x 1cm로 이미지를 표현하려면 128x128 픽셀이 필요합니다. (1/2.54*326=128)
-하지만 프로그래밍시에는 scale factor를 도입해서(UIScreen의 scale 속성)
-논리적인 좌표는 오리지널 iPhone과 동일하게 64x64를 갖도록 해서
-iPhone 4를 지원하기 위해 별도의 작업이 필요없도록 했습니다.
-(대신 hairline을 표현하기가 까다로워 졌습니다.)&lt;/p&gt;
-
-&lt;p&gt;iPhone 5에서는 해상도가 640x1152(논리적 해상도 320x568)로 켜졌지만, 물리적 크기도 1.94 인치 x 3.49 인치로 늘어서
-PPI는 iPhone 4와 동일하게 326입니다.&lt;/p&gt;
-
-&lt;p&gt;이제 iPhone 6를 보겠습니다.
-iPhone 6의 물리적 스크린 크기는 가로 2.3 인치(5.8cm), 세로 4.1 인치(10.4cm)이고,
-해상도는 750x1334(논리적 해상도 375x667)입니다.&lt;sup&gt;2&lt;/sup&gt;
-PPI를 계산해보면 326으로 iPhone 4, iPhone 5와 동일합니다.
-즉, iPhone 4, iPhone 5에서와 동일한 논리적 픽셀 값을 사용하면 사용자에게 같은 크기로 보인다는 얘기입니다.
-대신 스크린 크기가 커졌으므로 더 많은 1cm x 1cm 이미지를 표시할 수 있겠죠.&lt;/p&gt;
-
-&lt;p&gt;그런데 여기서 하나 새로운 개념이 추가됩니다. 디스플레이 확대/축소(Display Zoome)에서 확대됨(Zoomed)를 설정하면
-이미지, 글씨등이 크게 표시됩니다. 기술적으로는 논리적 해상도로 375x667 대신 320x568을 기준으로 작업함을 의미합니다.
-이 상태에서 iPhone 4와 동일하게 64x64 픽셀로 이미지를 위치시키면 물리적 크기가 1.17cm x 1.17cm가 됩니다.&lt;/p&gt;
-
-&lt;p&gt;마지막으로 iPhone 6 Plus는 가로 2.7 인치(6.8cm), 세로 4.8 인치(12.2cm), 해상도 1080x1920을 갖습니다.
-PPI는 400이 되겠네요. 그런데 iPhone 6 Plus는 특이하게 414x736의 논리적 해상도를 갖습니다.
-(scale factor는 3으로 1242x2208 캔버스에 그려집니다.)
-실 해상도와 정수로 대응하지 않습니다. 왜 이렇게 했을까요?&lt;/p&gt;
-
-&lt;p&gt;만약 논리적 해상도를 360x640으로 했다면, iPhone 4에 맞춰 64x64로 작업한 이미지는 1.2cmx1.2cm로 표시됩니다.
-반면 414x736인 경우 1.05cmx1.05cm로 나머지 기종에서 기대하는 크기와 비슷합니다.
-(어짜피 물리적 해상도와 다른데 정확히 맞추지 않은 이유는 모르겠습니다.)&lt;/p&gt;
-
-&lt;p&gt;마지막으로 iPhone 6 Plus에서 확대됨을 선택하면 iPhone 6의 논리적 해상도인 375x667로 동작합니다.
-이 경우 64x64로 작업한 이미지(scale factor는 3x이므로 192x192 픽셀의 이미지가 필요)는 1.16cm x 1.16cm로
-iPhone 6의 확대됨 모드와 비슷한 크기로 표시됩니다.&lt;/p&gt;
-
-&lt;p&gt;요약하면 코드 작성시 같은 픽셀 크기로 작업하면 iPhone 종류와 상관없이 같은 물리적 크기로 표시됩니다.
-다만 한 화면에서 표시되는 양만 달라집니다.
-iPhone 6 / 6 Plus의 확대됨 모드에서는 약 16%~17%가 더 크게 표시됩니다.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.theverge.com/2012/4/9/2937265/the-4-inch-iphone-5&#34;&gt;http://www.theverge.com/2012/4/9/2937265/the-4-inch-iphone-5&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://stackoverflow.com/questions/25756087/detecting-iphone-6-6-screen-sizes-in-point-values&#34;&gt;http://stackoverflow.com/questions/25756087/detecting-iphone-6-6-screen-sizes-in-point-values&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
 </description>
     </item>
     
