@@ -1,6 +1,6 @@
 ---
 title: GitHub 위키 이벤트를 슬랙으로 받기 - 1. AWS Lambda 설정
-tags: ['GitHub','Slack','AWS','Lambda']
+tags: ['GitHub','Slack','AWS','AWS Lambda']
 date: 2017-01-05
 ---
 
@@ -101,6 +101,8 @@ exports.handler = (event, context, callback) => {
   sendMessage(message)
   .then((response) => {
     callback(null, response);
+  }).catch((error) => {
+    callback(error);
   });
 };
 {{< /highlight >}}

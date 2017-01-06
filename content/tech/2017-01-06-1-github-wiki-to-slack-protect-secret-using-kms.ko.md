@@ -1,10 +1,10 @@
 ---
 title: GitHub 위키 이벤트를 슬랙으로 받기 - 2. AWS KMS를 이용해 키 보호
-tags: ['GitHub','Slack','AWS','Lambda','KMS']
+tags: ['GitHub','Slack','AWS','AWS Lambda','AWS KMS']
 date: 2017-01-06
 ---
 
-<a href='{{< relref "tech/2017-01-05-1-github-wiki-to-slack-setting-aws-lambda" >}}'>이전 글</a>에서는
+<a href='{{< relref "tech/2017-01-05-1-github-wiki-to-slack-setting-aws-lambda.ko.md" >}}'>이전 글</a>에서는
 AWS Lambda 함수를 생성해서 슬랙에 메시지를 보내는데 성공했습니다.
 그런데 이때 사용하는 훅 URL이 그대로 코드에 들어가 있는게 마음에 걸립니다.
 이 URL을 알면 외부에서 우리 슬랙 채널에 스팸을 보낼 수 있습니다.
@@ -88,6 +88,8 @@ exports.handler = (event, context, callback) => {
     .then((response) => {
       callback(null, response);
     });
+  }).catch((error) => {
+    callback(error);
   });
 };
 {{< /highlight >}}
