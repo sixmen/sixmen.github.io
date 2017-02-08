@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>sixmen.com</title>
+    <title>미니로그 on sixmen.com</title>
     <link>http://sixmen.com/ko/tags/%EB%AF%B8%EB%8B%88%EB%A1%9C%EA%B7%B8/index.xml</link>
-    <description>Recent content on sixmen.com</description>
+    <description>Recent content in 미니로그 on sixmen.com</description>
     <generator>Hugo -- gohugo.io</generator>
     <atom:link href="http://sixmen.com/ko/tags/%EB%AF%B8%EB%8B%88%EB%A1%9C%EA%B7%B8/index.xml" rel="self" type="application/rss+xml" />
     

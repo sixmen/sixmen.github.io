@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tech-rsses on sixmen.com</title>
+    <title>Teches on sixmen.com</title>
     <link>http://sixmen.com/ko/tech/index.xml</link>
-    <description>Recent content in Tech-rsses on sixmen.com</description>
+    <description>Recent content in Teches on sixmen.com</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Sun, 15 Jan 2017 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://sixmen.com/ko/tech/index.xml" rel="self" type="application/rss+xml" />
