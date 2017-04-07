@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://sixmen.com/ko/tech/2017-04-07-croquis-stack-mithril/</loc>
+    <lastmod>2017-04-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://sixmen.com/ko/tech/2017-02-08-1-why-croquis-selects-nodejs/</loc>
     <lastmod>2017-02-08T00:00:00+00:00</lastmod>
   </url>
@@ -1543,7 +1548,7 @@
   
   <url>
     <loc>http://sixmen.com/ko/tags/croquis/</loc>
-    <lastmod>2017-02-08T00:00:00+00:00</lastmod>
+    <lastmod>2017-04-07T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1556,6 +1561,12 @@
   <url>
     <loc>http://sixmen.com/ko/tags/iphone6/</loc>
     <lastmod>2014-09-10T01:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://sixmen.com/ko/tags/mithril/</loc>
+    <lastmod>2017-04-07T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1578,13 +1589,19 @@
   </url>
   
   <url>
+    <loc>http://sixmen.com/ko/tags/stack/</loc>
+    <lastmod>2017-04-07T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>http://sixmen.com/ko/tags/</loc>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://sixmen.com/ko/tech/</loc>
-    <lastmod>2017-02-08T00:00:00+00:00</lastmod>
+    <lastmod>2017-04-07T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1600,7 +1617,7 @@
   
   <url>
     <loc>http://sixmen.com/ko/</loc>
-    <lastmod>2017-02-08T00:00:00+00:00</lastmod>
+    <lastmod>2017-04-07T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
