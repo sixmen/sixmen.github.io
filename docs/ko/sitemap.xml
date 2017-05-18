@@ -102,7 +102,7 @@
   </url>
   
   <url>
-    <loc>http://sixmen.com/ko/mylife/2015-02-28-1-iOSwa-andeuroideuui-gaebal-nanidoe-daehan-dansang/</loc>
+    <loc>http://sixmen.com/ko/mylife/2015-02-28-1-ioswa-andeuroideuui-gaebal-nanidoe-daehan-dansang/</loc>
     <lastmod>2015-02-28T01:00:00+00:00</lastmod>
   </url>
   
@@ -122,7 +122,7 @@
   </url>
   
   <url>
-    <loc>http://sixmen.com/ko/mylife/2014-09-10-1-aepeul-2014nyeon-9wol-haengsa-gamsang-iPhone6-Apple-Watch/</loc>
+    <loc>http://sixmen.com/ko/mylife/2014-09-10-1-aepeul-2014nyeon-9wol-haengsa-gamsang-iphone6-apple-watch/</loc>
     <lastmod>2014-09-10T01:00:00+00:00</lastmod>
   </url>
   
@@ -287,7 +287,7 @@
   </url>
   
   <url>
-    <loc>http://sixmen.com/ko/travel/2013-02-01-3-201302-silrikon-baelri-bangmun-cheotjjaenal131-2-NBA-gwanram/</loc>
+    <loc>http://sixmen.com/ko/travel/2013-02-01-3-201302-silrikon-baelri-bangmun-cheotjjaenal131-2-nba-gwanram/</loc>
     <lastmod>2013-02-01T03:00:00+00:00</lastmod>
   </url>
   
@@ -392,7 +392,7 @@
   </url>
   
   <url>
-    <loc>http://sixmen.com/ko/travel/2012-09-15-4-201102-hotkaido-yeohaeng-duljjaenal-5-jinggiseukan-and-White-Illumination/</loc>
+    <loc>http://sixmen.com/ko/travel/2012-09-15-4-201102-hotkaido-yeohaeng-duljjaenal-5-jinggiseukan-and-white-illumination/</loc>
     <lastmod>2012-09-15T04:00:00+00:00</lastmod>
   </url>
   
@@ -682,7 +682,7 @@
   </url>
   
   <url>
-    <loc>http://sixmen.com/ko/mylife/2011-08-08-1-CivWorld-geim-jongryo/</loc>
+    <loc>http://sixmen.com/ko/mylife/2011-08-08-1-civworld-geim-jongryo/</loc>
     <lastmod>2011-08-08T01:00:00+00:00</lastmod>
   </url>
   
@@ -852,7 +852,7 @@
   </url>
   
   <url>
-    <loc>http://sixmen.com/ko/travel/2011-03-06-1-201102-hotkaido-yeohaeng-cheotnal-4-White-Illumination-and-jeonyeok/</loc>
+    <loc>http://sixmen.com/ko/travel/2011-03-06-1-201102-hotkaido-yeohaeng-cheotnal-4-white-illumination-and-jeonyeok/</loc>
     <lastmod>2011-03-06T01:00:00+00:00</lastmod>
   </url>
   
@@ -912,7 +912,7 @@
   </url>
   
   <url>
-    <loc>http://sixmen.com/ko/mylife/2011-02-10-2-HTPC-hyeon-sanghwang/</loc>
+    <loc>http://sixmen.com/ko/mylife/2011-02-10-2-htpc-hyeon-sanghwang/</loc>
     <lastmod>2011-02-10T02:00:00+00:00</lastmod>
   </url>
   
@@ -922,7 +922,7 @@
   </url>
   
   <url>
-    <loc>http://sixmen.com/ko/mylife/2011-02-09-1-HTPC-jangman/</loc>
+    <loc>http://sixmen.com/ko/mylife/2011-02-09-1-htpc-jangman/</loc>
     <lastmod>2011-02-09T01:00:00+00:00</lastmod>
   </url>
   
@@ -1082,7 +1082,7 @@
   </url>
   
   <url>
-    <loc>http://sixmen.com/ko/mylife/2010-10-03-2-maekbuke-segaeui-unyeongchejeMacOSX-Windows-Linux-seolchihagi/</loc>
+    <loc>http://sixmen.com/ko/mylife/2010-10-03-2-maekbuke-segaeui-unyeongchejemacosx-windows-linux-seolchihagi/</loc>
     <lastmod>2010-10-03T02:00:00+00:00</lastmod>
   </url>
   
@@ -1242,7 +1242,7 @@
   </url>
   
   <url>
-    <loc>http://sixmen.com/ko/mylife/2010-06-18-1-woldeukeop-3D-gamsang/</loc>
+    <loc>http://sixmen.com/ko/mylife/2010-06-18-1-woldeukeop-3d-gamsang/</loc>
     <lastmod>2010-06-18T01:00:00+00:00</lastmod>
   </url>
   
@@ -1552,6 +1552,11 @@
   </url>
   
   <url>
+    <loc>http://sixmen.com/ko/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>http://sixmen.com/ko/tags/croquis/</loc>
     <lastmod>2017-04-07T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -1601,6 +1606,7 @@
   
   <url>
     <loc>http://sixmen.com/ko/tags/</loc>
+    <lastmod>2014-09-10T01:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

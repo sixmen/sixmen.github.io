@@ -2,10 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>기타 on sixmen.com</title>
-    <link>http://sixmen.com/ko/tags/%EA%B8%B0%ED%83%80/index.xml</link>
+    <link>http://sixmen.com/ko/tags/%EA%B8%B0%ED%83%80/</link>
     <description>Recent content in 기타 on sixmen.com</description>
     <generator>Hugo -- gohugo.io</generator>
-    <atom:link href="http://sixmen.com/ko/tags/%EA%B8%B0%ED%83%80/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 26 Feb 2014 01:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://sixmen.com/ko/tags/%EA%B8%B0%ED%83%80/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>sixmen.com 구입</title>
@@ -13,20 +16,7 @@
       <pubDate>Wed, 26 Feb 2014 01:00:00 +0000</pubDate>
       
       <guid>http://sixmen.com/ko/mylife/2014-02-26-1-sixmencom-guip/</guid>
-      <description>대학교 들어와서 처음 계정을 생성할 때 sixmen이라고 지은 이후로 계속 ID를 sixmen을 쓰고 있다. sixmen 이란 ID 확보 비율을 대략 반반 정도인듯. Gmail은 확보했고, Twitter, Facebook은 실패.
-&lt;div&gt;&lt;br/&gt;&lt;/div&gt;
-&lt;div&gt;이 sixmen을 개인 홈페이지 도메인에도 넣는데, 당연히 sixmen.com은 무리였고, 대신 선택한 것이 sixmen.pe.kr이였다. .org, .co.kr 다 좀 이상한 것 같고, pe.kr 개인 도메인용이라고 해서 구입한 건데, 그렇게 일반적으로 쓰이는 것 같진 않다.&lt;/div&gt;
-&lt;div&gt;&lt;br/&gt;&lt;/div&gt;
-&lt;div&gt;여하튼 그렇게 오랫동안 sixmen.pe.kr을 사용하면서 간간히 sixmen.com을 들어가 보곤 하는데, 최근 이 도메인이 경매에 나온 것을 알게 되었다.&lt;/div&gt;
-&lt;div&gt;&lt;br/&gt;&lt;/div&gt;
-&lt;div&gt;그후로 세달 정도 경매 상태를 지켜봤는데, 아무도 입찰하지 않는 것을 보고 슬슬 욕심이 생겼다. 바라기는 아예 도메인이 포기해서 기본 값에 구매하는 것이였는데, 세달로 설정된 경매 기간이 끝나자, 다시 연장되는 것을 보고 그렇게는 안 될 것 같아서 경매에 넣어봤다.&lt;/div&gt;
-&lt;div&gt;&lt;br/&gt;&lt;/div&gt;
-&lt;div&gt;최저 입찰 금액인 $100으로 조건을 넣어봤더니 $500으로 역 제의가 왔다. 가능한 가격이긴 한데 그래도 비싸게 느껴져서 $200으로 다시 제의를 했더니 마지막이라면서 $400에 답이 왔다. 잠시 고민하다가 구매결정.&lt;/div&gt;
-&lt;div&gt;&lt;br/&gt;&lt;/div&gt;
-&lt;div&gt;구입해놓고 오래 방치해놓기도 그렇고 해서, Postach.io로 옮겼던 블로그만 이쪽으로 다시 옮겨서 일단 개장했다.&lt;/div&gt;
-&lt;div&gt;&lt;br/&gt;&lt;/div&gt;
-&lt;div&gt;이제 정말 고정된 주소가 생겼으니 잘 운영해봐야지...&lt;/div&gt;
-</description>
+      <description>대학교 들어와서 처음 계정을 생성할 때 sixmen이라고 지은 이후로 계속 ID를 sixmen을 쓰고 있다. sixmen 이란 ID 확보 비율을 대략 반반 정도인듯. Gmail</description>
     </item>
     
     <item>
@@ -35,23 +25,7 @@
       <pubDate>Thu, 12 Apr 2012 01:00:00 +0000</pubDate>
       
       <guid>http://sixmen.com/ko/mylife/2012-04-12-1-japsang/</guid>
-      <description>&lt;span style=&#34;-evernote-last-insertion-point:true;&#34;/&gt;선거 결과를 보며 여러가지 생각이 드는데..&lt;br/&gt;
-&lt;div style=&#34;position: relative;&#34;&gt;
-&lt;div&gt;&lt;br/&gt;
-1. 지난 대선때 이명박말고 차라리 박근혜가 됐으면 싶었는데.. 왜냐면 적어도 박근혜는 정치인으로서 사람들 눈치는 볼 것 같아서.. 새누리당에서 대통령이 나와도 지금보다는 낫지 않을까라는 최소한의 기대만 갖고 있다. 아니면 대선을 위해서 현 대통령과 거리를 두려고 할 수도 있을 거고...&lt;br/&gt;
-&lt;br/&gt;
-2. 한수한수 신중하게 해도 모자랄판해 야당은 실수를 엄청했으니 당연한 결과일지도.. 물론 여당도 그만큼 실수가 많았지만, 언론이 제대로 보도도 안 했고, 많은 지지자들은 그런 거에 상관도 안 하는 사람들이고...&lt;br/&gt;
-&lt;br/&gt;
-3. 가끔 보면 야당을 찍고 싶어도 인물이 시원찮아서 못 뽑아주겠다는 사람들이 있다. 당만 보고 뽑는 사람도 있지만, 인물 보고 뽑는 사람들도 많을텐데(이 동네도 결국 한글과 컴퓨터 전 대표 전하진씨가 됐다), 인물이란게 어찌보면 TV에서 많이 보이는 사람이란 뜻인데(물론 단순히 많이 보이는게 아니라 이미지도 좋아야겠지만), 기본적으로 그런 사람들은 여당이 될 확률이 높지 않을까 싶다. 예를 들어 대구같은 경우 그 동네에서 뛰어난 인물은 당연히 여당에 들어가지 않았을까 싶다.&lt;br/&gt;
-&lt;br/&gt;
-4. 박근혜씨를 보고 당을 선택하는 사람이 여전히 엄청 많은데, 그분 돌아가시면 어떻게 되려나 궁금하다. 아직 멀어보이지만..&lt;br/&gt;
-&lt;br/&gt;
-5. 언론 파업은 어떻게 되려나.. 효과를 봤으니 대선까지 무조건 버티려고 할텐데.. 항복해야 하나...&lt;br/&gt;
-&lt;br/&gt;
-6. 온라인은 온라인일뿐.. 사람들간의 정보 격차가 벌어져만간다.. 스마트폰이 대세인 요즘인데 방법은 없는 걸까..&lt;/div&gt;
-&lt;/div&gt;
-&lt;br/&gt;
-</description>
+      <description>선거 결과를 보며 여러가지 생각이 드는데.. 1. 지난 대선때 이명박말고 차라리 박근혜가 됐으면 싶었는데.. 왜냐면 적어도 박근혜는 정치인으로서 사람들 눈치는 볼 것</description>
     </item>
     
   </channel>

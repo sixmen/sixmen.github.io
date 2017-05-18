@@ -2,10 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>지원 on sixmen.com</title>
-    <link>http://sixmen.com/ko/tags/%EC%A7%80%EC%9B%90/index.xml</link>
+    <link>http://sixmen.com/ko/tags/%EC%A7%80%EC%9B%90/</link>
     <description>Recent content in 지원 on sixmen.com</description>
     <generator>Hugo -- gohugo.io</generator>
-    <atom:link href="http://sixmen.com/ko/tags/%EC%A7%80%EC%9B%90/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 29 Jun 2014 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://sixmen.com/ko/tags/%EC%A7%80%EC%9B%90/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>지원이 첫 걸음마</title>
@@ -13,14 +16,7 @@
       <pubDate>Sun, 29 Jun 2014 00:00:00 +0000</pubDate>
       
       <guid>http://sixmen.com/ko/mylife/2014-06-29-1-jiwon-1st-step/</guid>
-      <description>
-  &lt;iframe width=&#39;560&#39; height=&#39;420&#39; src=&#39;//www.youtube.com/embed/-daSfigx0cM&#39; frameborder=&#39;0&#39; allowfullscreen=&#39;allowfullscreen&#39;&gt;&amp;nbsp;&lt;/iframe&gt;
-
-
-
-&lt;p&gt;그제 첫 걸음마를 떼었다. 아직은 기는 걸 더 좋아하지만 가끔 신나서 섰다 앉았다 한다.
-근데 대신 앵겨서 놀아달라고 떼쓰는 일이 늘었다.&lt;/p&gt;
-</description>
+      <description>&amp;nbsp; 그제 첫 걸음마를 떼었다. 아직은 기는 걸 더 좋아하지만 가끔 신나서 섰다 앉았다 한다. 근데 대신 앵겨서 놀아달라고 떼쓰는 일이 늘었다.</description>
     </item>
     
     <item>
@@ -29,19 +25,7 @@
       <pubDate>Mon, 26 May 2014 00:00:00 +0000</pubDate>
       
       <guid>http://sixmen.com/ko/mylife/2014-05-26-1-jiwon-1st-birthday-movie/</guid>
-      <description>
-  &lt;iframe width=&#39;560&#39; height=&#39;420&#39; src=&#39;//www.youtube.com/embed/iXRuOAKzjzY&#39; frameborder=&#39;0&#39; allowfullscreen=&#39;allowfullscreen&#39;&gt;&amp;nbsp;&lt;/iframe&gt;
-
-
-
-&lt;p&gt;몇분 안 되는 동영상인데 사진 고르고 하는데 몇일 걸렸다.
-사진, 동영상 많이 찍었다고 생각했는데 막상 고르려니 셋이서 같이 찍은 것도 별로 없고, 죄다 세로 사진.&lt;/p&gt;
-
-&lt;p&gt;노래 녹음할 때는 지원이 재워놓고 노래 녹음하는데 깨는 바람에 재녹음 하는 등 우여곡절 끝에 완성.
-삑사리가 좀 났지만 귀찮아서 그냥 패스.&lt;/p&gt;
-
-&lt;p&gt;만들때는 못 느꼈는데 막상 돌잔치 날 틀어놨더니 너무 길었던 것 같다.&lt;/p&gt;
-</description>
+      <description>&amp;nbsp; 몇분 안 되는 동영상인데 사진 고르고 하는데 몇일 걸렸다. 사진, 동영상 많이 찍었다고 생각했는데 막상 고르려니 셋이서 같이 찍은 것도 별로 없고, 죄다 세로 사진. 노</description>
     </item>
     
     <item>
@@ -50,13 +34,7 @@
       <pubDate>Thu, 27 Feb 2014 00:00:00 +0000</pubDate>
       
       <guid>http://sixmen.com/ko/mylife/2014-02-27-1-today-jiwon/</guid>
-      <description>&lt;p&gt;엉덩이를 들썩들썩 했었긴 한데, 느닷없이 혼자서 앉아 버리는 지원~ 엄마, 아빠 깜짝 놀랐어요~~&lt;/p&gt;
-
-
-  &lt;iframe width=&#39;560&#39; height=&#39;420&#39; src=&#39;//www.youtube.com/embed/wm6zTderpgE&#39; frameborder=&#39;0&#39; allowfullscreen=&#39;allowfullscreen&#39;&gt;&amp;nbsp;&lt;/iframe&gt;
-
-
-</description>
+      <description>엉덩이를 들썩들썩 했었긴 한데, 느닷없이 혼자서 앉아 버리는 지원~ 엄마, 아빠 깜짝 놀랐어요~~ &amp;nbsp;</description>
     </item>
     
     <item>
@@ -65,7 +43,7 @@
       <pubDate>Mon, 03 Feb 2014 01:00:00 +0000</pubDate>
       
       <guid>http://sixmen.com/ko/mylife/2014-02-03-1-oneului-jiwon/</guid>
-      <description>&lt;div&gt;&lt;img src=&#39;http://sixmen.com/evernote/8cf001a9-9291-4a92-b219-8afad1fb4791.jpg&#39;&gt;&lt;/div&gt;&lt;div&gt;&amp;#51648;&amp;#49692;&amp;#51060;&amp;#46972; &amp;#48520;&amp;#47084;&amp;#51452;&amp;#49464;&amp;#50836;~~&lt;/div&gt;</description>
+      <description>&amp;#51648;&amp;#49692;&amp;#51060;&amp;#46972; &amp;#48520;&amp;#47084;&amp;#51452;&amp;#49464;&amp;#50836;~~</description>
     </item>
     
   </channel>
