@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>sixmen.com</title>
+    <title>Welcome on sixmen.com</title>
     <link>http://sixmen.com/ko/</link>
-    <description>Recent content on sixmen.com</description>
+    <description>Recent content in Welcome on sixmen.com</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Tue, 11 Apr 2017 00:00:00 +0000</lastBuildDate>
     
@@ -2869,15 +2869,6 @@ NSString&amp;nbsp;*s2&amp;nbsp;=&amp;nbsp;[s1&amp;nbsp;stringByAppendingString:@
       
       <guid>http://sixmen.com/ko/mylife/2008-12-07-1-gwasokseukaendeul/</guid>
       <description>(미투데이에 간단히 쓰려다 조금 길어질 듯 해서) 광고가 나오기 시작한지 한달쯤 된 듯 한데 광고는 정말 0점인 것 같다. 광고를 보고 판단하면 박보영이 딸인지 스토커인</description>
-    </item>
-    
-    <item>
-      <title>Welcome</title>
-      <link>http://sixmen.com/ko/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://sixmen.com/ko/</guid>
-      <description>안녕하세요. 60 넘어서도 계속 개발을 하고 싶어하는 평범한 한국의 한 개발자의 홈페이지입니다. Profile 이름윤상민 서식지분당, 클리앙 사용 언어한국어, 영어, 일본어</description>
     </item>
     
   </channel>

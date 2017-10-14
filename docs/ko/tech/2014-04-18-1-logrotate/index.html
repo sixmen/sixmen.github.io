@@ -88,17 +88,16 @@ endscript
 
 <p>다음은 이 방법이 적용된 서버 코드입니다. Node.js를 사용하고 CoffeeScript로 작성되어 있습니다.</p>
 
-<div class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span></span><span class="nv">logstream = </span><span class="kc">undefined</span>
-<span class="nv">openLogFile = </span><span class="nf">-&gt;</span>
-  <span class="nx">logstream</span><span class="p">.</span><span class="nx">close</span><span class="p">()</span> <span class="k">if</span> <span class="nx">logstream</span>
-  <span class="nv">logstream = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">createWriteStream</span> <span class="s">&quot;log&quot;</span><span class="p">,</span> <span class="nv">flags: </span><span class="s">&#39;a+&#39;</span><span class="p">,</span> <span class="nv">mode: </span><span class="s">&#39;0644&#39;</span><span class="p">,</span> <span class="nv">encoding: </span><span class="s">&#39;utf8&#39;</span>
-<span class="nx">openLogFile</span><span class="p">()</span>
-
-<span class="c1"># 시그널을 받으면 로그 파일을 다시 연다</span>
-<span class="nx">process</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;SIGUSR2&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
-  <span class="nx">openLogFile</span><span class="p">()</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-coffeescript" data-lang="coffeescript"><span class="s7d0">logstream = </span><span class="s3e8">undefined</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s7d0">openLogFile = </span><span class="s7d9">-&gt;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">logstream</span><span class="s1388">.</span><span class="s7df">close</span><span class="s1388">()</span><span class="s1f40"> </span><span class="s3e8">if</span><span class="s1f40"> </span><span class="s7df">logstream</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7d0">logstream = </span><span class="s7df">fs</span><span class="s1388">.</span><span class="s7df">createWriteStream</span><span class="s1f40"> </span><span class="sc1c">&#34;log&#34;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7d0">flags: </span><span class="sc1c">&#39;a+&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7d0">mode: </span><span class="sc1c">&#39;0644&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7d0">encoding: </span><span class="sc1c">&#39;utf8&#39;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s7df">openLogFile</span><span class="s1388">()</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># 시그널을 받으면 로그 파일을 다시 연다
+</span><span class="s1770"></span><span class="s7df">process</span><span class="s1388">.</span><span class="s3e8">on</span><span class="s1f40"> </span><span class="sc1c">&#39;SIGUSR2&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7d9">-&gt;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">openLogFile</span><span class="s1388">()</span></code></pre>
+</div>
 
 <p>SIGUSR1은 Node.js가 디버그 모드 진입용으로 사용하고 있습니다. 그래서 대신 SIGUSR2를 사용했습니다.</p>
 
@@ -129,20 +128,25 @@ endscript
     <hr>
     <div class='text-center'>
       <div id="disqus_thread"></div>
-<script type="text/javascript">
-    var disqus_shortname = 'sixmen-blog';
-    var disqus_identifier = 'http:\/\/sixmen.com\/ko\/tech\/2014-04-18-1-logrotate\/';
-    var disqus_title = '서버 어플리케이션에 logrotate를 적용하기';
-    var disqus_url = 'http:\/\/sixmen.com\/ko\/tech\/2014-04-18-1-logrotate\/';
-
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
     (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "sixmen-blog" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
     })();
 </script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
     </div>
   </div>
 </div>

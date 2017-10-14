@@ -1,22 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>sixmen.com</title>
+    <title>Welcome on sixmen.com</title>
     <link>http://sixmen.com/en/</link>
-    <description>Recent content on sixmen.com</description>
+    <description>Recent content in Welcome on sixmen.com</description>
     <generator>Hugo -- gohugo.io</generator>
     
 	<atom:link href="http://sixmen.com/en/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Welcome</title>
-      <link>http://sixmen.com/en/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://sixmen.com/en/</guid>
-      <description>Hello. I&#39;m a common Korean developer.   Profile  NameSangmin Yoon Live inKorea LanguagesKorean, English, Japanese, C, C++, JavaScript, Python, Java, Objective-C, Swift, ...     Brief History  2012.02 ~croquis.com CTO 2003.08 ~ 2012.01DigitalAria engineer ~ 2003.08KAIST Master of Science in Computer Science     SNS  Twitterhttps://twitter.com/sixmen97 Facebookhttps://www.facebook.com/sixmen97 LinkedInhttp://www.linkedin.com/in/sixmen      Commercial Projects   ZigZag - Online women shops aggregation service Biscuit - app &amp;amp; service for language learning Mobile Flash - Adobe Flash compatible engine for mobile     Open Source Projects   CORMO - ORM framework for Node.</description>
-    </item>
     
   </channel>
 </rss>

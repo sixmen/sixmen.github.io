@@ -98,17 +98,16 @@
 
 <p>우선 <strong>클라이언트</strong>에서 개인 열쇠를 생성합니다.</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>$ ssh-keygen -t rsa -C <span class="s2">&quot;comment to key&quot;</span>
-Generating public/private rsa key pair.
-Enter file in which to save the key <span class="o">(</span>/home/user/.ssh/id_rsa<span class="o">)</span>:
-Enter passphrase <span class="o">(</span>empty <span class="k">for</span> no passphrase<span class="o">)</span>:
-Enter same passphrase again:
-Your identification has been saved in /home/user/.ssh/id_rsa.
-Your public key has been saved in /home/user/.ssh/id_rsa.pub.
-The key fingerprint is:
-50:a5:15:0b:4b:b5:2e:2e:fb:97:6d:f8:b1:c0:48:a6 comment to key
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="s1f40">$ ssh-keygen -t rsa -C </span><span class="sc1c">&#34;comment to key&#34;</span><span class="s1f40">
+</span><span class="s1f40">Generating public/private rsa key pair.
+</span><span class="s1f40">Enter file in which to save the key </span><span class="sfa0">(</span><span class="s1f40">/home/user/.ssh/id_rsa</span><span class="sfa0">)</span><span class="s1f40">:
+</span><span class="s1f40">Enter passphrase </span><span class="sfa0">(</span><span class="s1f40">empty </span><span class="s3e8">for</span><span class="s1f40"> no passphrase</span><span class="sfa0">)</span><span class="s1f40">:
+</span><span class="s1f40">Enter same passphrase again:
+</span><span class="s1f40">Your identification has been saved in /home/user/.ssh/id_rsa.
+</span><span class="s1f40">Your public key has been saved in /home/user/.ssh/id_rsa.pub.
+</span><span class="s1f40">The key fingerprint is:
+</span><span class="s1f40"></span><span class="sc80">50</span><span class="s1f40">:a5:15:0b:4b:b5:2e:2e:fb:97:6d:f8:b1:c0:48:a6 comment to key</span></code></pre>
+</div>
 
 <p>-C 뒤에 주는 것은 개인 열쇠에 대한 설명입니다. 보통 간단하게 이메일 형식을 사용합니다. 저의 경우 'sangmin.yoon@컴퓨터명'을 사용합니다.</p>
 
@@ -122,11 +121,10 @@ The key fingerprint is:
 <p>위와 같이 하면 .ssh 디렉토리에 id_rsa와 id_rsa.pub 파일이 생기는데 각각 개인 열쇠와 공공 열쇠입니다.
 파일 권한을 살펴보시면 id_rsa 파일이 더 한정된 권한을 갖는 것을 볼 수 있습니다.</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>$ ls -l
--rw------- <span class="m">1</span> user user <span class="m">1675</span> Jun <span class="m">18</span> 16:19 id_rsa
--rw-r--r-- <span class="m">1</span> user user  <span class="m">396</span> Jun <span class="m">18</span> 16:11 id_rsa.pub
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="s1f40">$ ls -l
+</span><span class="s1f40">-rw------- </span><span class="sc80">1</span><span class="s1f40"> user user </span><span class="sc80">1675</span><span class="s1f40"> Jun </span><span class="sc80">18</span><span class="s1f40"> </span><span class="sc80">16</span><span class="s1f40">:19 id_rsa
+</span><span class="s1f40">-rw-r--r-- </span><span class="sc80">1</span><span class="s1f40"> user user  </span><span class="sc80">396</span><span class="s1f40"> Jun </span><span class="sc80">18</span><span class="s1f40"> </span><span class="sc80">16</span><span class="s1f40">:11 id_rsa.pub</span></code></pre>
+</div>
 
 <h2 id="공공-열쇠-등록">공공 열쇠 등록</h2>
 
@@ -138,24 +136,22 @@ The key fingerprint is:
 
 <p>제 서버 설정 예입니다.</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>$ cat .ssh/authorized_keys 
-ssh-rsa AAAA....OXIj sangmin.yoon@iMac
-ssh-rsa AAAA....Ew<span class="o">==</span> sangmin.yoon@wiki
-ssh-rsa AAAA....xgrT sangmin.yoon@git
-$ ls -l .ssh/authorized_keys
--rw------- <span class="m">1</span> user user <span class="m">1585</span> Jun  <span class="m">8</span> 09:09 .ssh/authorized_keys
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="s1f40">$ cat .ssh/authorized_keys 
+</span><span class="s1f40">ssh-rsa AAAA....OXIj sangmin.yoon@iMac
+</span><span class="s1f40">ssh-rsa AAAA....Ew</span><span class="sfa0">==</span><span class="s1f40"> sangmin.yoon@wiki
+</span><span class="s1f40">ssh-rsa AAAA....xgrT sangmin.yoon@git
+</span><span class="s1f40">$ ls -l .ssh/authorized_keys
+</span><span class="s1f40">-rw------- </span><span class="sc80">1</span><span class="s1f40"> user user </span><span class="sc80">1585</span><span class="s1f40"> Jun  </span><span class="sc80">8</span><span class="s1f40"> </span><span class="sc80">09</span><span class="s1f40">:09 .ssh/authorized_keys</span></code></pre>
+</div>
 
 <h2 id="접속-확인">접속 확인</h2>
 
 <p>다시 <strong>클라이언트</strong>로 돌아와 SSH 접속을 시도했을 때 암호 없이 접속되었다면 성공한 것입니다.</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>$ ssh sangmin.yoon@git.croquis.com
-Last login: Mon Jun <span class="m">18</span> 16:09:20 <span class="m">2012</span> from 192.168.23.7
-sangmin.yoon@git:~$ 
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="s1f40">$ ssh sangmin.yoon@git.croquis.com
+</span><span class="s1f40">Last login: Mon Jun </span><span class="sc80">18</span><span class="s1f40"> </span><span class="sc80">16</span><span class="s1f40">:09:20 </span><span class="sc80">2012</span><span class="s1f40"> from </span><span class="sc80">192</span><span class="s1f40">.168.23.7
+</span><span class="s1f40">sangmin.yoon@git:~$ </span></code></pre>
+</div>
 
     </div>
   </div>

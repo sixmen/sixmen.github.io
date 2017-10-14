@@ -10,7 +10,7 @@ googleAnalytics: UA-48366784-1
 
 paginate: 3
 
-pygmentsuseclasses: true
+pygmentsUseClasses: true
 
 disqusShortname: sixmen-blog
 

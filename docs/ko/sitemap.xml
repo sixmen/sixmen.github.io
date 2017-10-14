@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
     <loc>http://sixmen.com/ko/tech/2017-04-11-1-webpack-setup-tutorial-with-typescript-and-mithril/</loc>
@@ -1554,6 +1555,16 @@
   <url>
     <loc>http://sixmen.com/ko/categories/</loc>
     <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://sixmen.com/en/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ko"
+                href="http://sixmen.com/ko/categories/"
+                />
   </url>
   
   <url>
@@ -1608,6 +1619,16 @@
     <loc>http://sixmen.com/ko/tags/</loc>
     <lastmod>2014-09-10T01:00:00+00:00</lastmod>
     <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://sixmen.com/en/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ko"
+                href="http://sixmen.com/ko/tags/"
+                />
   </url>
   
   <url>
@@ -1636,12 +1657,17 @@
   
   <url>
     <loc>http://sixmen.com/ko/</loc>
-  </url>
-  
-  <url>
-    <loc>http://sixmen.com/ko/</loc>
     <lastmod>2017-04-11T00:00:00+00:00</lastmod>
-    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://sixmen.com/en/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ko"
+                href="http://sixmen.com/ko/"
+                />
   </url>
   
   <url>
