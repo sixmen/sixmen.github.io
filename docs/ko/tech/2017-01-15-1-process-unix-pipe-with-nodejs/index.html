@@ -55,17 +55,15 @@ gzip으로 압축해서 저장하고 있습니다.
 
 <p>예를 들면</p>
 
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="s1388">{</span><span class="sc1c">&#34;date&#34;</span><span class="sfa0">:</span><span class="sc1c">&#34;Fri Jan 15 2016 00:00:01 GMT+0000 (UTC)&#34;</span><span class="s1388">,</span><span class="sc1c">&#34;path&#34;</span><span class="sfa0">:</span><span class="sc1c">&#34;/foobar&#34;</span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">{</span><span class="sc1c">&#34;date&#34;</span><span class="sfa0">:</span><span class="sc1c">&#34;Fri Jan 15 2016 00:00:03 GMT+0000 (UTC)&#34;</span><span class="s1388">,</span><span class="sc1c">&#34;path&#34;</span><span class="sfa0">:</span><span class="sc1c">&#34;/croquis&#34;</span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">{</span><span class="sc1c">&#34;date&#34;</span><span class="sfa0">:</span><span class="sc1c">&#34;Fri Jan 15 2016 00:00:10 GMT+0000 (UTC)&#34;</span><span class="s1388">,</span><span class="sc1c">&#34;path&#34;</span><span class="sfa0">:</span><span class="sc1c">&#34;/awesome&#34;</span><span class="s1388">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="p">{</span><span class="s2">&#34;date&#34;</span><span class="o">:</span><span class="s2">&#34;Fri Jan 15 2016 00:00:01 GMT+0000 (UTC)&#34;</span><span class="p">,</span><span class="s2">&#34;path&#34;</span><span class="o">:</span><span class="s2">&#34;/foobar&#34;</span><span class="p">}</span>
+<span class="p">{</span><span class="s2">&#34;date&#34;</span><span class="o">:</span><span class="s2">&#34;Fri Jan 15 2016 00:00:03 GMT+0000 (UTC)&#34;</span><span class="p">,</span><span class="s2">&#34;path&#34;</span><span class="o">:</span><span class="s2">&#34;/croquis&#34;</span><span class="p">}</span>
+<span class="p">{</span><span class="s2">&#34;date&#34;</span><span class="o">:</span><span class="s2">&#34;Fri Jan 15 2016 00:00:10 GMT+0000 (UTC)&#34;</span><span class="p">,</span><span class="s2">&#34;path&#34;</span><span class="o">:</span><span class="s2">&#34;/awesome&#34;</span><span class="p">}</span></code></pre></div>
 
 <p>였던 데이터를</p>
 
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="s1388">{</span><span class="sc1c">&#34;date&#34;</span><span class="sfa0">:</span><span class="sc1c">&#34;2016-01-15T00:00:01.000Z&#34;</span><span class="s1388">,</span><span class="sc1c">&#34;path&#34;</span><span class="sfa0">:</span><span class="sc1c">&#34;/foobar&#34;</span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">{</span><span class="sc1c">&#34;date&#34;</span><span class="sfa0">:</span><span class="sc1c">&#34;2016-01-15T00:00:03.000Z&#34;</span><span class="s1388">,</span><span class="sc1c">&#34;path&#34;</span><span class="sfa0">:</span><span class="sc1c">&#34;/croquis&#34;</span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">{</span><span class="sc1c">&#34;date&#34;</span><span class="sfa0">:</span><span class="sc1c">&#34;2016-01-15T00:00:10.000Z&#34;</span><span class="s1388">,</span><span class="sc1c">&#34;path&#34;</span><span class="sfa0">:</span><span class="sc1c">&#34;/awesome&#34;</span><span class="s1388">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="p">{</span><span class="s2">&#34;date&#34;</span><span class="o">:</span><span class="s2">&#34;2016-01-15T00:00:01.000Z&#34;</span><span class="p">,</span><span class="s2">&#34;path&#34;</span><span class="o">:</span><span class="s2">&#34;/foobar&#34;</span><span class="p">}</span>
+<span class="p">{</span><span class="s2">&#34;date&#34;</span><span class="o">:</span><span class="s2">&#34;2016-01-15T00:00:03.000Z&#34;</span><span class="p">,</span><span class="s2">&#34;path&#34;</span><span class="o">:</span><span class="s2">&#34;/croquis&#34;</span><span class="p">}</span>
+<span class="p">{</span><span class="s2">&#34;date&#34;</span><span class="o">:</span><span class="s2">&#34;2016-01-15T00:00:10.000Z&#34;</span><span class="p">,</span><span class="s2">&#34;path&#34;</span><span class="o">:</span><span class="s2">&#34;/awesome&#34;</span><span class="p">}</span></code></pre></div>
 
 <p>처럼 바꿔야 했습니다.</p>
 
@@ -76,57 +74,53 @@ gzip으로 압축해서 저장하고 있습니다.
 
 <p>위의 작업을 하는 Node.js 프로그램은 다음과 같습니다.</p>
 
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">byline</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">require</span><span class="s1388">(</span><span class="sc1c">&#39;byline&#39;</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">stream</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">byline</span><span class="s1388">(</span><span class="s7df">process</span><span class="s1388">.</span><span class="s7df">stdin</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7df">stream</span><span class="s1388">.</span><span class="s7df">on</span><span class="s1388">(</span><span class="sc1c">&#39;data&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s3e8">function</span><span class="s1f40"> </span><span class="s1388">(</span><span class="s7df">line</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">data</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">JSON</span><span class="s1388">.</span><span class="s7df">parse</span><span class="s1388">(</span><span class="s7df">line</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">data</span><span class="s1388">.</span><span class="s7df">date</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">Date</span><span class="s1388">(</span><span class="s7df">data</span><span class="s1388">.</span><span class="s7df">date</span><span class="s1388">).</span><span class="s7df">toISOString</span><span class="s1388">();</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">console</span><span class="s1388">.</span><span class="s7df">log</span><span class="s1388">(</span><span class="s7df">JSON</span><span class="s1388">.</span><span class="s7df">stringify</span><span class="s1388">(</span><span class="s7df">data</span><span class="s1388">));</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">});</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">const</span> <span class="nx">byline</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;byline&#39;</span><span class="p">);</span>
+<span class="k">const</span> <span class="nx">stream</span> <span class="o">=</span> <span class="nx">byline</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">stdin</span><span class="p">);</span>
+<span class="nx">stream</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">line</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">line</span><span class="p">);</span>
+  <span class="nx">data</span><span class="p">.</span><span class="nx">date</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">date</span><span class="p">).</span><span class="nx">toISOString</span><span class="p">();</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
+<span class="p">});</span></code></pre></div>
 
 <p><a href="https://github.com/jahewson/node-byline">byline</a>은 스트림을 줄별로 처리할 수 있게 해주는 모듈입니다.
 줄별로 들어온 JSON 문자열을 파싱하고 원하는 처리를 한 후 다시 쓰기만 하는 단순한 코드입니다.
 이 프로그램을 유닉스 파이프라인에 넣으면 원하는 결과를 얻을 수 있습니다.</p>
 
-<p><div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="s1f40">$ gunzip -c original/01.data.gz </span><span class="s1388">|</span><span class="s1f40"> node convert.js </span><span class="s1388">|</span><span class="s1f40"> gzip &gt; converted/01.data.gz</span></code></pre>
-</div></p>
+<p><div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ gunzip -c original/01.data.gz <span class="p">|</span> node convert.js <span class="p">|</span> gzip &gt; converted/01.data.gz</code></pre></div></p>
 
 <h3 id="보너스">보너스</h3>
 
 <p>이 작업을 순수히 Node.js만 가지고도 할 수 있습니다.</p>
 
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">fs</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">require</span><span class="s1388">(</span><span class="sc1c">&#39;fs&#39;</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">stream</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">require</span><span class="s1388">(</span><span class="sc1c">&#39;stream&#39;</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">zlib</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">require</span><span class="s1388">(</span><span class="sc1c">&#39;zlib&#39;</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">byline</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">require</span><span class="s1388">(</span><span class="sc1c">&#39;byline&#39;</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7df">Convert</span><span class="s1f40"> </span><span class="s3e8">extends</span><span class="s1f40"> </span><span class="s7df">stream</span><span class="s1388">.</span><span class="s7df">Transform</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">constructor</span><span class="s1388">(</span><span class="s7df">options</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">super</span><span class="s1388">(</span><span class="s7df">options</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">_transform</span><span class="s1388">(</span><span class="s7df">line</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">encoding</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">callback</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">data</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">JSON</span><span class="s1388">.</span><span class="s7df">parse</span><span class="s1388">(</span><span class="s7df">line</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">data</span><span class="s1388">.</span><span class="s7df">date</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">Date</span><span class="s1388">(</span><span class="s7df">data</span><span class="s1388">.</span><span class="s7df">date</span><span class="s1388">).</span><span class="s7df">toISOString</span><span class="s1388">();</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">callback</span><span class="s1388">(</span><span class="s3e8">null</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">JSON</span><span class="s1388">.</span><span class="s7df">stringify</span><span class="s1388">(</span><span class="s7df">data</span><span class="s1388">)</span><span class="sfa0">+</span><span class="sc1c">&#39;\n&#39;</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7df">fs</span><span class="s1388">.</span><span class="s7df">createReadStream</span><span class="s1388">(</span><span class="sc1c">&#39;original/01.data.gz&#39;</span><span class="s1388">)</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">.</span><span class="s7df">pipe</span><span class="s1388">(</span><span class="s7df">zlib</span><span class="s1388">.</span><span class="s7df">createGunzip</span><span class="s1388">())</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">.</span><span class="s7df">pipe</span><span class="s1388">(</span><span class="s7df">byline</span><span class="s1388">())</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">.</span><span class="s7df">pipe</span><span class="s1388">(</span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7df">Convert</span><span class="s1388">())</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">.</span><span class="s7df">pipe</span><span class="s1388">(</span><span class="s7df">zlib</span><span class="s1388">.</span><span class="s7df">createGzip</span><span class="s1388">())</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">.</span><span class="s7df">pipe</span><span class="s1388">(</span><span class="s7df">fs</span><span class="s1388">.</span><span class="s7df">createWriteStream</span><span class="s1388">(</span><span class="sc1c">&#39;converted/01.data.gz&#39;</span><span class="s1388">));</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">);</span>
+<span class="k">const</span> <span class="nx">stream</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;stream&#39;</span><span class="p">);</span>
+<span class="k">const</span> <span class="nx">zlib</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;zlib&#39;</span><span class="p">);</span>
+<span class="k">const</span> <span class="nx">byline</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;byline&#39;</span><span class="p">);</span>
+
+<span class="k">class</span> <span class="nx">Convert</span> <span class="k">extends</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">Transform</span> <span class="p">{</span>
+  <span class="nx">constructor</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">options</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="nx">_transform</span><span class="p">(</span><span class="nx">line</span><span class="p">,</span> <span class="nx">encoding</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">line</span><span class="p">);</span>
+    <span class="nx">data</span><span class="p">.</span><span class="nx">date</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">date</span><span class="p">).</span><span class="nx">toISOString</span><span class="p">();</span>
+    <span class="nx">callback</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;\n&#39;</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">fs</span><span class="p">.</span><span class="nx">createReadStream</span><span class="p">(</span><span class="s1">&#39;original/01.data.gz&#39;</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">zlib</span><span class="p">.</span><span class="nx">createGunzip</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">byline</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="k">new</span> <span class="nx">Convert</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">zlib</span><span class="p">.</span><span class="nx">createGzip</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">fs</span><span class="p">.</span><span class="nx">createWriteStream</span><span class="p">(</span><span class="s1">&#39;converted/01.data.gz&#39;</span><span class="p">));</span></code></pre></div>
 
 <p>하지만 파이프의 특성상 하나의 프로그램이 하나의 작업만
 할 수록 응용하기가 편해집니다.
 예를 들어 파일이 로컬에 있는게 아니고 S3에 있다면
 유닉스 파이프로는 다음과 같이 바꾸면 됩니다.</p>
 
-<p><div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="s1f40">$ aws s3 cp s3://mybucket/stream.txt - </span><span class="s1388">|</span><span class="s1f40"> gunzip </span><span class="s1388">|</span><span class="s1f40"> node convert.js </span><span class="s1388">|</span><span class="s1f40"> gzip &gt; converted/01.data.gz</span></code></pre>
-</div></p>
+<p><div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ aws s3 cp s3://mybucket/stream.txt - <span class="p">|</span> gunzip <span class="p">|</span> node convert.js <span class="p">|</span> gzip &gt; converted/01.data.gz</code></pre></div></p>
 
 <p>Node.js로도 작성할 수 있지만 훨씬 많은 코드를 작성해야겠죠.</p>
 

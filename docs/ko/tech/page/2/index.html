@@ -183,17 +183,15 @@ gzip으로 압축해서 저장하고 있습니다.
 
 <p>예를 들면</p>
 
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="s1388">{</span><span class="sc1c">&#34;date&#34;</span><span class="sfa0">:</span><span class="sc1c">&#34;Fri Jan 15 2016 00:00:01 GMT+0000 (UTC)&#34;</span><span class="s1388">,</span><span class="sc1c">&#34;path&#34;</span><span class="sfa0">:</span><span class="sc1c">&#34;/foobar&#34;</span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">{</span><span class="sc1c">&#34;date&#34;</span><span class="sfa0">:</span><span class="sc1c">&#34;Fri Jan 15 2016 00:00:03 GMT+0000 (UTC)&#34;</span><span class="s1388">,</span><span class="sc1c">&#34;path&#34;</span><span class="sfa0">:</span><span class="sc1c">&#34;/croquis&#34;</span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">{</span><span class="sc1c">&#34;date&#34;</span><span class="sfa0">:</span><span class="sc1c">&#34;Fri Jan 15 2016 00:00:10 GMT+0000 (UTC)&#34;</span><span class="s1388">,</span><span class="sc1c">&#34;path&#34;</span><span class="sfa0">:</span><span class="sc1c">&#34;/awesome&#34;</span><span class="s1388">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="p">{</span><span class="s2">&#34;date&#34;</span><span class="o">:</span><span class="s2">&#34;Fri Jan 15 2016 00:00:01 GMT+0000 (UTC)&#34;</span><span class="p">,</span><span class="s2">&#34;path&#34;</span><span class="o">:</span><span class="s2">&#34;/foobar&#34;</span><span class="p">}</span>
+<span class="p">{</span><span class="s2">&#34;date&#34;</span><span class="o">:</span><span class="s2">&#34;Fri Jan 15 2016 00:00:03 GMT+0000 (UTC)&#34;</span><span class="p">,</span><span class="s2">&#34;path&#34;</span><span class="o">:</span><span class="s2">&#34;/croquis&#34;</span><span class="p">}</span>
+<span class="p">{</span><span class="s2">&#34;date&#34;</span><span class="o">:</span><span class="s2">&#34;Fri Jan 15 2016 00:00:10 GMT+0000 (UTC)&#34;</span><span class="p">,</span><span class="s2">&#34;path&#34;</span><span class="o">:</span><span class="s2">&#34;/awesome&#34;</span><span class="p">}</span></code></pre></div>
 
 <p>였던 데이터를</p>
 
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="s1388">{</span><span class="sc1c">&#34;date&#34;</span><span class="sfa0">:</span><span class="sc1c">&#34;2016-01-15T00:00:01.000Z&#34;</span><span class="s1388">,</span><span class="sc1c">&#34;path&#34;</span><span class="sfa0">:</span><span class="sc1c">&#34;/foobar&#34;</span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">{</span><span class="sc1c">&#34;date&#34;</span><span class="sfa0">:</span><span class="sc1c">&#34;2016-01-15T00:00:03.000Z&#34;</span><span class="s1388">,</span><span class="sc1c">&#34;path&#34;</span><span class="sfa0">:</span><span class="sc1c">&#34;/croquis&#34;</span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">{</span><span class="sc1c">&#34;date&#34;</span><span class="sfa0">:</span><span class="sc1c">&#34;2016-01-15T00:00:10.000Z&#34;</span><span class="s1388">,</span><span class="sc1c">&#34;path&#34;</span><span class="sfa0">:</span><span class="sc1c">&#34;/awesome&#34;</span><span class="s1388">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="p">{</span><span class="s2">&#34;date&#34;</span><span class="o">:</span><span class="s2">&#34;2016-01-15T00:00:01.000Z&#34;</span><span class="p">,</span><span class="s2">&#34;path&#34;</span><span class="o">:</span><span class="s2">&#34;/foobar&#34;</span><span class="p">}</span>
+<span class="p">{</span><span class="s2">&#34;date&#34;</span><span class="o">:</span><span class="s2">&#34;2016-01-15T00:00:03.000Z&#34;</span><span class="p">,</span><span class="s2">&#34;path&#34;</span><span class="o">:</span><span class="s2">&#34;/croquis&#34;</span><span class="p">}</span>
+<span class="p">{</span><span class="s2">&#34;date&#34;</span><span class="o">:</span><span class="s2">&#34;2016-01-15T00:00:10.000Z&#34;</span><span class="p">,</span><span class="s2">&#34;path&#34;</span><span class="o">:</span><span class="s2">&#34;/awesome&#34;</span><span class="p">}</span></code></pre></div>
 
 <p>처럼 바꿔야 했습니다.</p>
 
@@ -204,57 +202,53 @@ gzip으로 압축해서 저장하고 있습니다.
 
 <p>위의 작업을 하는 Node.js 프로그램은 다음과 같습니다.</p>
 
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">byline</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">require</span><span class="s1388">(</span><span class="sc1c">&#39;byline&#39;</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">stream</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">byline</span><span class="s1388">(</span><span class="s7df">process</span><span class="s1388">.</span><span class="s7df">stdin</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7df">stream</span><span class="s1388">.</span><span class="s7df">on</span><span class="s1388">(</span><span class="sc1c">&#39;data&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s3e8">function</span><span class="s1f40"> </span><span class="s1388">(</span><span class="s7df">line</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">data</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">JSON</span><span class="s1388">.</span><span class="s7df">parse</span><span class="s1388">(</span><span class="s7df">line</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">data</span><span class="s1388">.</span><span class="s7df">date</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">Date</span><span class="s1388">(</span><span class="s7df">data</span><span class="s1388">.</span><span class="s7df">date</span><span class="s1388">).</span><span class="s7df">toISOString</span><span class="s1388">();</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">console</span><span class="s1388">.</span><span class="s7df">log</span><span class="s1388">(</span><span class="s7df">JSON</span><span class="s1388">.</span><span class="s7df">stringify</span><span class="s1388">(</span><span class="s7df">data</span><span class="s1388">));</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">});</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">const</span> <span class="nx">byline</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;byline&#39;</span><span class="p">);</span>
+<span class="k">const</span> <span class="nx">stream</span> <span class="o">=</span> <span class="nx">byline</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">stdin</span><span class="p">);</span>
+<span class="nx">stream</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">line</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">line</span><span class="p">);</span>
+  <span class="nx">data</span><span class="p">.</span><span class="nx">date</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">date</span><span class="p">).</span><span class="nx">toISOString</span><span class="p">();</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
+<span class="p">});</span></code></pre></div>
 
 <p><a href="https://github.com/jahewson/node-byline">byline</a>은 스트림을 줄별로 처리할 수 있게 해주는 모듈입니다.
 줄별로 들어온 JSON 문자열을 파싱하고 원하는 처리를 한 후 다시 쓰기만 하는 단순한 코드입니다.
 이 프로그램을 유닉스 파이프라인에 넣으면 원하는 결과를 얻을 수 있습니다.</p>
 
-<p><div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="s1f40">$ gunzip -c original/01.data.gz </span><span class="s1388">|</span><span class="s1f40"> node convert.js </span><span class="s1388">|</span><span class="s1f40"> gzip &gt; converted/01.data.gz</span></code></pre>
-</div></p>
+<p><div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ gunzip -c original/01.data.gz <span class="p">|</span> node convert.js <span class="p">|</span> gzip &gt; converted/01.data.gz</code></pre></div></p>
 
 <h3 id="보너스">보너스</h3>
 
 <p>이 작업을 순수히 Node.js만 가지고도 할 수 있습니다.</p>
 
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">fs</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">require</span><span class="s1388">(</span><span class="sc1c">&#39;fs&#39;</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">stream</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">require</span><span class="s1388">(</span><span class="sc1c">&#39;stream&#39;</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">zlib</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">require</span><span class="s1388">(</span><span class="sc1c">&#39;zlib&#39;</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">byline</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">require</span><span class="s1388">(</span><span class="sc1c">&#39;byline&#39;</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7df">Convert</span><span class="s1f40"> </span><span class="s3e8">extends</span><span class="s1f40"> </span><span class="s7df">stream</span><span class="s1388">.</span><span class="s7df">Transform</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">constructor</span><span class="s1388">(</span><span class="s7df">options</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">super</span><span class="s1388">(</span><span class="s7df">options</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">_transform</span><span class="s1388">(</span><span class="s7df">line</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">encoding</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">callback</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">data</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">JSON</span><span class="s1388">.</span><span class="s7df">parse</span><span class="s1388">(</span><span class="s7df">line</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">data</span><span class="s1388">.</span><span class="s7df">date</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">Date</span><span class="s1388">(</span><span class="s7df">data</span><span class="s1388">.</span><span class="s7df">date</span><span class="s1388">).</span><span class="s7df">toISOString</span><span class="s1388">();</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">callback</span><span class="s1388">(</span><span class="s3e8">null</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">JSON</span><span class="s1388">.</span><span class="s7df">stringify</span><span class="s1388">(</span><span class="s7df">data</span><span class="s1388">)</span><span class="sfa0">+</span><span class="sc1c">&#39;\n&#39;</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7df">fs</span><span class="s1388">.</span><span class="s7df">createReadStream</span><span class="s1388">(</span><span class="sc1c">&#39;original/01.data.gz&#39;</span><span class="s1388">)</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">.</span><span class="s7df">pipe</span><span class="s1388">(</span><span class="s7df">zlib</span><span class="s1388">.</span><span class="s7df">createGunzip</span><span class="s1388">())</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">.</span><span class="s7df">pipe</span><span class="s1388">(</span><span class="s7df">byline</span><span class="s1388">())</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">.</span><span class="s7df">pipe</span><span class="s1388">(</span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7df">Convert</span><span class="s1388">())</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">.</span><span class="s7df">pipe</span><span class="s1388">(</span><span class="s7df">zlib</span><span class="s1388">.</span><span class="s7df">createGzip</span><span class="s1388">())</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">.</span><span class="s7df">pipe</span><span class="s1388">(</span><span class="s7df">fs</span><span class="s1388">.</span><span class="s7df">createWriteStream</span><span class="s1388">(</span><span class="sc1c">&#39;converted/01.data.gz&#39;</span><span class="s1388">));</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">);</span>
+<span class="k">const</span> <span class="nx">stream</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;stream&#39;</span><span class="p">);</span>
+<span class="k">const</span> <span class="nx">zlib</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;zlib&#39;</span><span class="p">);</span>
+<span class="k">const</span> <span class="nx">byline</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;byline&#39;</span><span class="p">);</span>
+
+<span class="k">class</span> <span class="nx">Convert</span> <span class="k">extends</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">Transform</span> <span class="p">{</span>
+  <span class="nx">constructor</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">options</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="nx">_transform</span><span class="p">(</span><span class="nx">line</span><span class="p">,</span> <span class="nx">encoding</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">line</span><span class="p">);</span>
+    <span class="nx">data</span><span class="p">.</span><span class="nx">date</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">date</span><span class="p">).</span><span class="nx">toISOString</span><span class="p">();</span>
+    <span class="nx">callback</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;\n&#39;</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">fs</span><span class="p">.</span><span class="nx">createReadStream</span><span class="p">(</span><span class="s1">&#39;original/01.data.gz&#39;</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">zlib</span><span class="p">.</span><span class="nx">createGunzip</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">byline</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="k">new</span> <span class="nx">Convert</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">zlib</span><span class="p">.</span><span class="nx">createGzip</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">fs</span><span class="p">.</span><span class="nx">createWriteStream</span><span class="p">(</span><span class="s1">&#39;converted/01.data.gz&#39;</span><span class="p">));</span></code></pre></div>
 
 <p>하지만 파이프의 특성상 하나의 프로그램이 하나의 작업만
 할 수록 응용하기가 편해집니다.
 예를 들어 파일이 로컬에 있는게 아니고 S3에 있다면
 유닉스 파이프로는 다음과 같이 바꾸면 됩니다.</p>
 
-<p><div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="s1f40">$ aws s3 cp s3://mybucket/stream.txt - </span><span class="s1388">|</span><span class="s1f40"> gunzip </span><span class="s1388">|</span><span class="s1f40"> node convert.js </span><span class="s1388">|</span><span class="s1f40"> gzip &gt; converted/01.data.gz</span></code></pre>
-</div></p>
+<p><div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ aws s3 cp s3://mybucket/stream.txt - <span class="p">|</span> gunzip <span class="p">|</span> node convert.js <span class="p">|</span> gzip &gt; converted/01.data.gz</code></pre></div></p>
 
 <p>Node.js로도 작성할 수 있지만 훨씬 많은 코드를 작성해야겠죠.</p>
 
@@ -287,78 +281,77 @@ AWS Lambda 편집화면에서 Actions -&gt; Configure test event 에서 입력�
 
 <p>다음은 최종 Lambda 코드입니다.</p>
 
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="sc1c">&#39;use strict&#39;</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">AWS</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">require</span><span class="s1388">(</span><span class="sc1c">&#39;aws-sdk&#39;</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">url</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">require</span><span class="s1388">(</span><span class="sc1c">&#39;url&#39;</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">https</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">require</span><span class="s1388">(</span><span class="sc1c">&#39;https&#39;</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">let</span><span class="s1f40"> </span><span class="s7df">hookUrl</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">function</span><span class="s1f40"> </span><span class="s7df">sendMessage</span><span class="s1388">(</span><span class="s7df">message</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">body</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">JSON</span><span class="s1388">.</span><span class="s7df">stringify</span><span class="s1388">(</span><span class="s7df">message</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">options</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">url</span><span class="s1388">.</span><span class="s7df">parse</span><span class="s1388">(</span><span class="s7df">hookUrl</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">options</span><span class="s1388">.</span><span class="s7df">method</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc1c">&#39;POST&#39;</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">options</span><span class="s1388">.</span><span class="s7df">headers</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="sc1c">&#39;Content-Type&#39;</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;application/json&#39;</span><span class="s1388">,</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="sc1c">&#39;Content-Length&#39;</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">Buffer</span><span class="s1388">.</span><span class="s7df">byteLength</span><span class="s1388">(</span><span class="s7df">body</span><span class="s1388">)</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">};</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">Promise</span><span class="s1388">((</span><span class="s7df">resolve</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">=&gt;</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">req</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">https</span><span class="s1388">.</span><span class="s7df">request</span><span class="s1388">(</span><span class="s7df">options</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">(</span><span class="s7df">res</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">=&gt;</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">      </span><span class="s7df">res</span><span class="s1388">.</span><span class="s7df">on</span><span class="s1388">(</span><span class="sc1c">&#39;end&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">()</span><span class="s1f40"> </span><span class="s1388">=&gt;</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s7df">resolve</span><span class="s1388">({</span><span class="s1f40">
-</span><span class="s1f40">          </span><span class="s7df">statusCode</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">res</span><span class="s1388">.</span><span class="s7df">statusCode</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s1388">});</span><span class="s1f40">
-</span><span class="s1f40">      </span><span class="s1388">});</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s1388">});</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">req</span><span class="s1388">.</span><span class="s7df">write</span><span class="s1388">(</span><span class="s7df">body</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">req</span><span class="s1388">.</span><span class="s7df">end</span><span class="s1388">();</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">});</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">function</span><span class="s1f40"> </span><span class="s7df">decryptHookUrl</span><span class="s1388">()</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s3e8">if</span><span class="s1f40"> </span><span class="s1388">(</span><span class="s7df">hookUrl</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s7d0">Promise</span><span class="s1388">.</span><span class="s7df">resolve</span><span class="s1388">(</span><span class="s7df">hookUrl</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">}</span><span class="s1f40"> </span><span class="s3e8">else</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">kms</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7df">AWS</span><span class="s1388">.</span><span class="s7df">KMS</span><span class="s1388">();</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">Promise</span><span class="s1388">((</span><span class="s7df">resolve</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">reject</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">=&gt;</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">      </span><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">blob</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7df">Buffer</span><span class="s1388">(</span><span class="s7df">process</span><span class="s1388">.</span><span class="s7df">env</span><span class="s1388">.</span><span class="s7df">encryptedHookUrl</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c">&#39;base64&#39;</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40">      </span><span class="s7df">kms</span><span class="s1388">.</span><span class="s7df">decrypt</span><span class="s1388">({</span><span class="s1f40"> </span><span class="s7df">CiphertextBlob</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">blob</span><span class="s1f40"> </span><span class="s1388">},</span><span class="s1f40"> </span><span class="s1388">(</span><span class="s7df">error</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">data</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">=&gt;</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s3e8">if</span><span class="s1f40"> </span><span class="s1388">(</span><span class="s7df">error</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">          </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s7df">reject</span><span class="s1388">(</span><span class="s7df">error</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s7df">hookUrl</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">data</span><span class="s1388">.</span><span class="s7df">Plaintext</span><span class="s1388">.</span><span class="s7df">toString</span><span class="s1388">(</span><span class="sc1c">&#39;ascii&#39;</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s7df">resolve</span><span class="s1388">(</span><span class="s7df">hookUrl</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40">      </span><span class="s1388">});</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s1388">});</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">function</span><span class="s1f40"> </span><span class="s7df">processGithubPayload</span><span class="s1388">(</span><span class="s7df">payload</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">page</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">payload</span><span class="s1388">.</span><span class="s7df">pages</span><span class="s1388">[</span><span class="sc80">0</span><span class="s1388">];</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">repo</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">payload</span><span class="s1388">.</span><span class="s7df">repository</span><span class="s1388">.</span><span class="s7df">full_name</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">page_link</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">page</span><span class="s1388">.</span><span class="s7df">html_url</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="sc1c">&#39;|&#39;</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="s7df">page</span><span class="s1388">.</span><span class="s7df">title</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">sender_link</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">payload</span><span class="s1388">.</span><span class="s7df">sender</span><span class="s1388">.</span><span class="s7df">html_url</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="sc1c">&#39;|&#39;</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="s7df">payload</span><span class="s1388">.</span><span class="s7df">sender</span><span class="s1388">.</span><span class="s7df">login</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">username</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;github wiki&#39;</span><span class="s1388">,</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">text</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">`[</span><span class="sc1c">${</span><span class="s7df">repo</span><span class="sc1c">}</span><span class="sc1c">] &lt;</span><span class="sc1c">${</span><span class="s7df">page_link</span><span class="sc1c">}</span><span class="sc1c">&gt; is </span><span class="sc1c">${</span><span class="s7df">page</span><span class="s1388">.</span><span class="s7df">action</span><span class="sc1c">}</span><span class="sc1c"> by &lt;</span><span class="sc1c">${</span><span class="s7df">sender_link</span><span class="sc1c">}</span><span class="sc1c">&gt;`</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7df">exports</span><span class="s1388">.</span><span class="s7df">handler</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">(</span><span class="s7df">event</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">context</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">callback</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">=&gt;</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">decryptHookUrl</span><span class="s1388">()</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">.</span><span class="s7df">then</span><span class="s1388">(()</span><span class="s1f40"> </span><span class="s1388">=&gt;</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">message</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">processGithubPayload</span><span class="s1388">(</span><span class="s7df">event</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">message</span><span class="s1388">.</span><span class="s7df">channel</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc1c">&#39;#auto-github&#39;</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">sendMessage</span><span class="s1388">(</span><span class="s7df">message</span><span class="s1388">)</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s1388">.</span><span class="s7df">then</span><span class="s1388">((</span><span class="s7df">response</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">=&gt;</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">      </span><span class="s7df">callback</span><span class="s1388">(</span><span class="s3e8">null</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c">&#39;success&#39;</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s1388">});</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">}).</span><span class="s3e8">catch</span><span class="s1388">((</span><span class="s7df">error</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">=&gt;</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">callback</span><span class="s1388">(</span><span class="s7df">error</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">});</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">};</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+
+<span class="k">const</span> <span class="nx">AWS</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;aws-sdk&#39;</span><span class="p">);</span>
+<span class="k">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="p">);</span>
+<span class="k">const</span> <span class="nx">https</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;https&#39;</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">hookUrl</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">sendMessage</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="nx">body</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
+  <span class="k">const</span> <span class="nx">options</span> <span class="o">=</span> <span class="nx">url</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">hookUrl</span><span class="p">);</span>
+  <span class="nx">options</span><span class="p">.</span><span class="nx">method</span> <span class="o">=</span> <span class="s1">&#39;POST&#39;</span><span class="p">;</span>
+  <span class="nx">options</span><span class="p">.</span><span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Content-Length&#39;</span><span class="o">:</span> <span class="nx">Buffer</span><span class="p">.</span><span class="nx">byteLength</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span>
+  <span class="p">};</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">req</span> <span class="o">=</span> <span class="nx">https</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="nx">options</span><span class="p">,</span> <span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;end&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="nx">resolve</span><span class="p">({</span>
+          <span class="nx">statusCode</span><span class="o">:</span> <span class="nx">res</span><span class="p">.</span><span class="nx">statusCode</span>
+        <span class="p">});</span>
+      <span class="p">});</span>
+    <span class="p">});</span>
+    <span class="nx">req</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">body</span><span class="p">);</span>
+    <span class="nx">req</span><span class="p">.</span><span class="nx">end</span><span class="p">();</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">decryptHookUrl</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">hookUrl</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">hookUrl</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">kms</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AWS</span><span class="p">.</span><span class="nx">KMS</span><span class="p">();</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="k">const</span> <span class="nx">blob</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Buffer</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">encryptedHookUrl</span><span class="p">,</span> <span class="s1">&#39;base64&#39;</span><span class="p">);</span>
+      <span class="nx">kms</span><span class="p">.</span><span class="nx">decrypt</span><span class="p">({</span> <span class="nx">CiphertextBlob</span><span class="o">:</span> <span class="nx">blob</span> <span class="p">},</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">return</span> <span class="nx">reject</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="nx">hookUrl</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">Plaintext</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">);</span>
+        <span class="nx">resolve</span><span class="p">(</span><span class="nx">hookUrl</span><span class="p">);</span>
+      <span class="p">});</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">processGithubPayload</span><span class="p">(</span><span class="nx">payload</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="nx">page</span> <span class="o">=</span> <span class="nx">payload</span><span class="p">.</span><span class="nx">pages</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="k">const</span> <span class="nx">repo</span> <span class="o">=</span> <span class="nx">payload</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nx">full_name</span><span class="p">;</span>
+  <span class="k">const</span> <span class="nx">page_link</span> <span class="o">=</span> <span class="nx">page</span><span class="p">.</span><span class="nx">html_url</span> <span class="o">+</span> <span class="s1">&#39;|&#39;</span> <span class="o">+</span> <span class="nx">page</span><span class="p">.</span><span class="nx">title</span><span class="p">;</span>
+  <span class="k">const</span> <span class="nx">sender_link</span> <span class="o">=</span> <span class="nx">payload</span><span class="p">.</span><span class="nx">sender</span><span class="p">.</span><span class="nx">html_url</span> <span class="o">+</span> <span class="s1">&#39;|&#39;</span> <span class="o">+</span> <span class="nx">payload</span><span class="p">.</span><span class="nx">sender</span><span class="p">.</span><span class="nx">login</span><span class="p">;</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="nx">username</span><span class="o">:</span> <span class="s1">&#39;github wiki&#39;</span><span class="p">,</span>
+    <span class="nx">text</span><span class="o">:</span> <span class="sb">`[</span><span class="si">${</span><span class="nx">repo</span><span class="si">}</span><span class="sb">] &lt;</span><span class="si">${</span><span class="nx">page_link</span><span class="si">}</span><span class="sb">&gt; is </span><span class="si">${</span><span class="nx">page</span><span class="p">.</span><span class="nx">action</span><span class="si">}</span><span class="sb"> by &lt;</span><span class="si">${</span><span class="nx">sender_link</span><span class="si">}</span><span class="sb">&gt;`</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">exports</span><span class="p">.</span><span class="nx">handler</span> <span class="o">=</span> <span class="p">(</span><span class="nx">event</span><span class="p">,</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">decryptHookUrl</span><span class="p">()</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">message</span> <span class="o">=</span> <span class="nx">processGithubPayload</span><span class="p">(</span><span class="nx">event</span><span class="p">);</span>
+    <span class="nx">message</span><span class="p">.</span><span class="nx">channel</span> <span class="o">=</span> <span class="s1">&#39;#auto-github&#39;</span><span class="p">;</span>
+    <span class="nx">sendMessage</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="nx">callback</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="s1">&#39;success&#39;</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">}).</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">callback</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">};</span></code></pre></div>
 
 <p>이제 위키를 수정하고 슬랙에 메시지가 표시되는 것을 확인하면 끝입니다.
 수정내역이나 커밋 메시지를 표시해주면 좋은데 아쉽게도 해당 데이터는 없는 것 같습니다.</p>

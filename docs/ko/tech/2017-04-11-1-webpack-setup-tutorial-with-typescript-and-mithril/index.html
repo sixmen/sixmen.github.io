@@ -65,24 +65,22 @@
 <p>우선 다른 툴/라이브러리/프레임워크를 배제한 기본 파일로 부터 시작합니다.</p>
 
 <p><strong><em>app/index.html</em></strong>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="s1770">&lt;!DOCTYPE html&gt;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">html</span><span class="s1f40"> </span><span class="s7d1">lang</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#39;en&#39;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">head</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">meta</span><span class="s1f40"> </span><span class="s7d1">charset</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#39;utf-8&#39;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">title</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">Sample App</span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">title</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">head</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">body</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">script</span><span class="s1f40"> </span><span class="s7d1">src</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#39;index.js&#39;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">script</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">body</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">html</span><span class="s1f40"></span><span class="s1388">&gt;</span></code></pre>
-</div></p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#39;en&#39;</span><span class="p"></span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">head</span><span class="p"></span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&#39;utf-8&#39;</span><span class="p"></span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">title</span><span class="p"></span><span class="p">&gt;</span>Sample App<span class="p">&lt;</span><span class="p">/</span><span class="nt">title</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="p">/</span><span class="nt">head</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">body</span><span class="p"></span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;index.js&#39;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="p">/</span><span class="nt">body</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="p">/</span><span class="nt">html</span><span class="p">&gt;</span></code></pre></div></p>
 
 <p><strong><em>app/index.js</em></strong>
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="s7df">console</span><span class="s1388">.</span><span class="s7df">log</span><span class="s1388">(</span><span class="sc1c">&#39;Hello&#39;</span><span class="s1388">);</span></code></pre>
-</div></p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Hello&#39;</span><span class="p">);</span></code></pre></div></p>
 
 <p><code>app/index.html</code> 파일을 브라우저로 열면 콘솔에 Hello가 출력됩니다.</p>
 
@@ -92,10 +90,9 @@
 <code>package.json</code> 파일을 생성하고 <code>node_modules</code> 디렉토리를 Git 무시 목록에 추가합니다.</p>
 
 <p><strong><em>package.json</em></strong>
-<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7e2">&#34;name&#34;</span><span class="s1388">:</span><span class="s1f40"> </span><span class="sc1c">&#34;setup-from-scratch&#34;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
-</div></p>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;setup-from-scratch&#34;</span>
+<span class="p">}</span></code></pre></div></p>
 
 <h1 id="webpack을-통해-js-번들을-생성하기-8978b0e-https-github-com-sixmen-mithril-examples-commit-8978b0e6032007729b75021074ba2b015934c33b">webpack을 통해 js 번들을 생성하기 (<a href="https://github.com/sixmen/mithril-examples/commit/8978b0e6032007729b75021074ba2b015934c33b">8978b0e</a>)</h1>
 
@@ -103,34 +100,31 @@
 
 <p>우선 webpack을 설치합니다.</p>
 
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="s1f40">$ npm install --save-dev webpack</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ npm install --save-dev webpack</code></pre></div>
 
 <p><code>app/index.js</code> 파일을 진입점으로 하는 묶음 js 파일 <code>dist/main.js</code>를 만들어내는 webpack 설정은 다음과 같습니다.</p>
 
 <p><strong><em>webpack.config.js</em></strong>
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">path</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">require</span><span class="s1388">(</span><span class="sc1c">&#39;path&#39;</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7df">module</span><span class="s1388">.</span><span class="s7df">exports</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">context</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">path</span><span class="s1388">.</span><span class="s7df">resolve</span><span class="s1388">(</span><span class="s7df">__dirname</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c">&#39;app&#39;</span><span class="s1388">),</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">entry</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;./index&#39;</span><span class="s1388">,</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">output</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">path</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">path</span><span class="s1388">.</span><span class="s7df">resolve</span><span class="s1388">(</span><span class="s7df">__dirname</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c">&#39;dist&#39;</span><span class="s1388">),</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">filename</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;[name].js&#39;</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">};</span></code></pre>
-</div></p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">);</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">context</span><span class="o">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;app&#39;</span><span class="p">),</span>
+  <span class="nx">entry</span><span class="o">:</span> <span class="s1">&#39;./index&#39;</span><span class="p">,</span>
+  <span class="nx">output</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">path</span><span class="o">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;dist&#39;</span><span class="p">),</span>
+    <span class="nx">filename</span><span class="o">:</span> <span class="s1">&#39;[name].js&#39;</span>
+  <span class="p">}</span>
+<span class="p">};</span></code></pre></div></p>
 
 <p>webpack을 실행하면 최종 js 파일이 만들어지는 것을 볼 수 있습니다.</p>
 
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="s1f40">$ ./node_modules/.bin/webpack
-</span><span class="s1f40">Hash: d063a108d2635900dd0a
-</span><span class="s1f40">Version: webpack </span><span class="sc80">2</span><span class="s1f40">.3.3
-</span><span class="s1f40">...
-</span><span class="s1f40">
-</span><span class="s1f40">$ ls dist
-</span><span class="s1f40">main.js</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ ./node_modules/.bin/webpack
+Hash: d063a108d2635900dd0a
+Version: webpack <span class="m">2</span>.3.3
+...
+
+$ ls dist
+main.js</code></pre></div>
 
 <p>예제에서는 원본 js 파일이 하나뿐이라 묶으나 안 묶으나 큰 차이가 없지만,
 import나 require등의 구문을 사용하면 요구하는 js 파일의 내용이 모두 main.js에 포함되는 것을 확인할 수 있습니다.</p>
@@ -142,39 +136,38 @@ import나 require등의 구문을 사용하면 요구하는 js 파일의 내용�
 
 <p>우선 html-webpack-plugin을 설치합니다.</p>
 
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="s1f40">$ npm install --save-dev html-webpack-plugin</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ npm install --save-dev html-webpack-plugin</code></pre></div>
 
 <p><code>webpack.config.js</code>에 html-webpack-plugin 설정을 추가합니다.</p>
 
 <p><strong><em>webpack.config.js</em></strong>
-<div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"><span class="s1f40"> const path = require(&#39;path&#39;);
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1b5d">+const HtmlWebpackPlugin = require(&#39;html-webpack-plugin&#39;);
-</span><span class="s1b5d">+
-</span><span class="s1b5d"></span><span class="s1f40"> module.exports = {
-</span><span class="s1f40">   context: path.resolve(__dirname, &#39;app&#39;),
-</span><span class="s1f40">   entry: &#39;./index&#39;,
-</span><span class="s1f40">   output: {
-</span><span class="s1f40">     path: path.resolve(__dirname, &#39;dist&#39;),
-</span><span class="s1f40">     filename: &#39;[name].js&#39;
-</span><span class="s1f40"></span><span class="s1b59">-  }
-</span><span class="s1b59"></span><span class="s1b5d">+  },
-</span><span class="s1b5d">+  plugins: [
-</span><span class="s1b5d">+    new HtmlWebpackPlugin({
-</span><span class="s1b5d">+      template: &#39;index.html&#39;
-</span><span class="s1b5d">+    })
-</span><span class="s1b5d">+  ]
-</span><span class="s1b5d"></span><span class="ss4"> };</span></code></pre>
-</div></p>
+<div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"> const path = require(&#39;path&#39;);
+
+<span class="gi">+const HtmlWebpackPlugin = require(&#39;html-webpack-plugin&#39;);
+</span><span class="gi">+
+</span><span class="gi"></span> module.exports = {
+   context: path.resolve(__dirname, &#39;app&#39;),
+   entry: &#39;./index&#39;,
+   output: {
+     path: path.resolve(__dirname, &#39;dist&#39;),
+     filename: &#39;[name].js&#39;
+<span class="gd">-  }
+</span><span class="gd"></span><span class="gi">+  },
+</span><span class="gi">+  plugins: [
+</span><span class="gi">+    new HtmlWebpackPlugin({
+</span><span class="gi">+      template: &#39;index.html&#39;
+</span><span class="gi">+    })
+</span><span class="gi">+  ]
+</span><span class="gi"></span> };
+</code></pre></div></p>
 
 <p>html-webpack-plugin을 사용하면 최종 js 파일이 자동으로 HTML에 추가됩니다. 원본에서 이를 제거합니다.</p>
 
 <p><strong><em>app/index.html</em></strong>
-<div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"><span class="s1f40"> &lt;body&gt;
-</span><span class="s1f40"></span><span class="s1b59">-  &lt;script src=&#39;index.js&#39;&gt;&lt;/script&gt;
-</span><span class="s1b59"></span><span class="ss4"> &lt;/body&gt;</span></code></pre>
-</div></p>
+<div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"> &lt;body&gt;
+<span class="gd">-  &lt;script src=&#39;index.js&#39;&gt;&lt;/script&gt;
+</span><span class="gd"></span> &lt;/body&gt;
+</code></pre></div></p>
 
 <p>다시 webpack을 실행하면 <code>dist/index.html</code> 파일이 생성된 것을 볼 수 있습니다.
 이 파일을 브라우저로 열면 이전과 마찬가지로 콘솔에 Hello가 출력됩니다.</p>
@@ -187,59 +180,56 @@ import나 require등의 구문을 사용하면 요구하는 js 파일의 내용�
 <p>webpack-dev-server를 설치하고 실행하면 파일을 수정할 때마다 브라우저가 릴로드됩니다.
 (--open 옵션을 주면 브라우저가 자동으로 실행됩니다.)</p>
 
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="s1f40">$ npm install --save-dev webpack-dev-server
-</span><span class="s1f40">$ ./node_modules/.bin/webpack-dev-server --open</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ npm install --save-dev webpack-dev-server
+$ ./node_modules/.bin/webpack-dev-server --open</code></pre></div>
 
 <p>webpack / webpack-dev-server를 실행할 때 경로를 써주는 것이 귀찮을 경우 <a href="https://docs.npmjs.com/misc/scripts">npm 스크립트</a>를 활용하면 편리합니다.</p>
 
 <p><strong><em>package.json</em></strong>
-<div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"><span class="s1f40">   &#34;devDependencies&#34;: {
-</span><span class="s1f40">     &#34;html-webpack-plugin&#34;: &#34;^2.28.0&#34;,
-</span><span class="s1f40">     &#34;webpack&#34;: &#34;^2.3.3&#34;,
-</span><span class="s1f40">     &#34;webpack-dev-server&#34;: &#34;^2.4.2&#34;
-</span><span class="s1f40"></span><span class="s1b5d">+  },
-</span><span class="s1b5d">+  &#34;scripts&#34;: {
-</span><span class="s1b5d">+    &#34;build&#34;: &#34;webpack&#34;,
-</span><span class="s1b5d">+    &#34;start&#34;: &#34;webpack-dev-server --open&#34;
-</span><span class="s1b5d"></span><span class="s1f40">   }
-</span><span class="s1f40"></span><span class="ss4"> }</span></code></pre>
-</div></p>
+<div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff">   &#34;devDependencies&#34;: {
+     &#34;html-webpack-plugin&#34;: &#34;^2.28.0&#34;,
+     &#34;webpack&#34;: &#34;^2.3.3&#34;,
+     &#34;webpack-dev-server&#34;: &#34;^2.4.2&#34;
+<span class="gi">+  },
+</span><span class="gi">+  &#34;scripts&#34;: {
+</span><span class="gi">+    &#34;build&#34;: &#34;webpack&#34;,
+</span><span class="gi">+    &#34;start&#34;: &#34;webpack-dev-server --open&#34;
+</span><span class="gi"></span>   }
+ }
+</code></pre></div></p>
 
 <p>위와 같이 추가해주면 다음부터는 다음과 같이 실행할 수 있습니다.</p>
 
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="s1f40">$ npm start </span><span class="s1770"># 개발시
-</span><span class="s1770"></span><span class="s1f40">$ npm run bild # 배포 파일 생성시</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ npm start <span class="c1"># 개발시
+</span><span class="c1"></span>$ npm run bild # 배포 파일 생성시</code></pre></div>
 
 <h1 id="typescript-설정하기-5bb9d39-https-github-com-sixmen-mithril-examples-commit-5bb9d3901e427b595e2744811cd9103184c510de">TypeScript 설정하기 (<a href="https://github.com/sixmen/mithril-examples/commit/5bb9d3901e427b595e2744811cd9103184c510de">5bb9d39</a>)</h1>
 
 <p>TypeScript를 사용하도록 설정하는 것은 <a href="https://webpack.js.org/guides/webpack-and-typescript/">webpack &amp; TypeScript</a> 문서를 참고하면 쉽게 할 수 있습니다.
 TypeScript 지원을 위한 loader가 두가지가 있는데 여기서는 <a href="https://github.com/s-panferov/awesome-typescript-loader">awesome-typescript-loader</a>를 사용합니다.</p>
 
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="s1f40">$ npm install --save-dev typescript awesome-typescript-loader</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ npm install --save-dev typescript awesome-typescript-loader</code></pre></div>
 
 <p><strong><em>webpack.config.js</em></strong>
-<div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"><span class="s1f40">     path: path.resolve(__dirname, &#39;dist&#39;),
-</span><span class="s1f40">     filename: &#39;[name].js&#39;
-</span><span class="s1f40">   },
-</span><span class="s1f40"></span><span class="s1b5d">+  module: {
-</span><span class="s1b5d">+    rules: [
-</span><span class="s1b5d">+      {
-</span><span class="s1b5d">+        test: /\.tsx?$/,
-</span><span class="s1b5d">+        loader: &#39;awesome-typescript-loader&#39;,
-</span><span class="s1b5d">+        exclude: /node_modules/
-</span><span class="s1b5d">+      }
-</span><span class="s1b5d">+    ]
-</span><span class="s1b5d">+  },
-</span><span class="s1b5d">+  resolve: {
-</span><span class="s1b5d">+    extensions: [&#39;.js&#39;, &#39;.ts&#39;, &#39;.tsx&#39;]
-</span><span class="s1b5d">+  },
-</span><span class="s1b5d"></span><span class="s1f40">   plugins: [
-</span><span class="s1f40">     new HtmlWebpackPlugin({
-</span><span class="s1f40"></span><span class="ss4">       template: &#39;index.html&#39;</span></code></pre>
-</div></p>
+<div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff">     path: path.resolve(__dirname, &#39;dist&#39;),
+     filename: &#39;[name].js&#39;
+   },
+<span class="gi">+  module: {
+</span><span class="gi">+    rules: [
+</span><span class="gi">+      {
+</span><span class="gi">+        test: /\.tsx?$/,
+</span><span class="gi">+        loader: &#39;awesome-typescript-loader&#39;,
+</span><span class="gi">+        exclude: /node_modules/
+</span><span class="gi">+      }
+</span><span class="gi">+    ]
+</span><span class="gi">+  },
+</span><span class="gi">+  resolve: {
+</span><span class="gi">+    extensions: [&#39;.js&#39;, &#39;.ts&#39;, &#39;.tsx&#39;]
+</span><span class="gi">+  },
+</span><span class="gi"></span>   plugins: [
+     new HtmlWebpackPlugin({
+       template: &#39;index.html&#39;
+</code></pre></div></p>
 
 <p>원본 js 파일의 확장자를 ts로 변경하고 webpack을 실행하면 awesome-typescript-loader 에 의해서 js로 변경되어 최종 js로 합쳐집니다.</p>
 
@@ -249,29 +239,27 @@ TypeScript 지원을 위한 loader가 두가지가 있는데 여기서는 <a hre
 
 <p>최종 결과물에 포함될 프레임워크는 일반 의존 모듈로 추가하고, TypeScript를 위한 타입 정의 파일은 개발 의존 모듈로 추가합니다.</p>
 
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="s1f40">$ npm install --save mithril
-</span><span class="s1f40">$ npm install --save-dev @types/mithril</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ npm install --save mithril
+$ npm install --save-dev @types/mithril</code></pre></div>
 
 <p><code>index.html</code>에 프레임워크가 렌더링할 타겟을 추가하고, 간단한 Mithril 코드를 작성해봅니다.</p>
 
 <p><strong><em>app/index.html</em></strong>
-<div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"><span class="s1f40"> &lt;body&gt;
-</span><span class="s1f40"></span><span class="s1b5d">+  &lt;div id=&#39;app&#39;&gt;&lt;/div&gt;
-</span><span class="s1b5d"></span><span class="ss4"> &lt;/body&gt;</span></code></pre>
-</div></p>
+<div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"> &lt;body&gt;
+<span class="gi">+  &lt;div id=&#39;app&#39;&gt;&lt;/div&gt;
+</span><span class="gi"></span> &lt;/body&gt;
+</code></pre></div></p>
 
 <p><strong><em>app/index.ts</em></strong>
-<div class="highlight"><pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="s3e8">import</span><span class="s1f40"> </span><span class="sfa0">*</span><span class="s1f40"> </span><span class="s3e8">as</span><span class="s1f40"> </span><span class="s7df">m</span><span class="s1f40"> </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;mithril&#39;</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7df">App</span><span class="s1f40"> </span><span class="s3e8">implements</span><span class="s1f40"> </span><span class="s7df">m</span><span class="s1388">.</span><span class="s7df">ClassComponent</span><span class="sfa0">&lt;</span><span class="s1388">{}</span><span class="sfa0">&gt;</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">view() {</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s7df">m</span><span class="s1388">(</span><span class="sc1c">&#39;div&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c">&#39;Hello Mithril&#39;</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7df">m</span><span class="s1388">.</span><span class="s7df">mount</span><span class="s1388">(</span><span class="s7d0">document</span><span class="s1388">.</span><span class="s7df">getElementById</span><span class="s1388">(</span><span class="sc1c">&#39;app&#39;</span><span class="s1388">),</span><span class="s1f40"> </span><span class="s7df">App</span><span class="s1388">);</span></code></pre>
-</div></p>
+<div class="highlight"><pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="kr">import</span> <span class="o">*</span> <span class="kr">as</span> <span class="nx">m</span> <span class="nx">from</span> <span class="s1">&#39;mithril&#39;</span><span class="p">;</span>
+
+<span class="kr">class</span> <span class="nx">App</span> <span class="kr">implements</span> <span class="nx">m</span><span class="p">.</span><span class="nx">ClassComponent</span><span class="o">&lt;</span><span class="p">{}</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="nx">view() {</span>
+        <span class="k">return</span> <span class="nx">m</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">,</span> <span class="s1">&#39;Hello Mithril&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">m</span><span class="p">.</span><span class="nx">mount</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;app&#39;</span><span class="p">),</span> <span class="nx">App</span><span class="p">);</span></code></pre></div></p>
 
 <h1 id="jsx-설정하기-a106af0-https-github-com-sixmen-mithril-examples-commit-a106af0ff92ed872231705d614289ea1cf65d36d">JSX 설정하기 (<a href="https://github.com/sixmen/mithril-examples/commit/a106af0ff92ed872231705d614289ea1cf65d36d">a106af0</a>)</h1>
 
@@ -281,24 +269,23 @@ TypeScript 지원을 위한 loader가 두가지가 있는데 여기서는 <a hre
 <p><a href="https://www.typescriptlang.org/docs/handbook/jsx.html">TypeScript의 JSX 지원 기능</a>을 사용하고, factory 함수를 Mithril에 맞게 설정하면 됩니다.</p>
 
 <p><strong><em>tsconfig.json</em></strong>
-<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7e2">&#34;compilerOptions&#34;</span><span class="s1388">:</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7e2">&#34;jsx&#34;</span><span class="s1388">:</span><span class="s1f40"> </span><span class="sc1c">&#34;react&#34;</span><span class="s1388">,</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7e2">&#34;jsxFactory&#34;</span><span class="s1388">:</span><span class="s1f40"> </span><span class="sc1c">&#34;m&#34;</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
-</div></p>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;compilerOptions&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;jsx&#34;</span><span class="p">:</span> <span class="s2">&#34;react&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;jsxFactory&#34;</span><span class="p">:</span> <span class="s2">&#34;m&#34;</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></div></p>
 
 <p>이제 JSX 문법을 사용할 수 있습니다. 다만 확장자를 tsx로 변경해야 합니다.</p>
 
 <p><strong><em>app/index.tsx</em></strong>
-<div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"><span class="s1f40"> class App implements m.ClassComponent&lt;{}&gt; {
-</span><span class="s1f40">     view() {
-</span><span class="s1f40"></span><span class="s1b59">-        return m(&#39;div&#39;, &#39;Hello Mithril&#39;);
-</span><span class="s1b59"></span><span class="s1b5d">+        return &lt;div&gt;Hello Mithril with JSX&lt;/div&gt;;
-</span><span class="s1b5d"></span><span class="s1f40">     }
-</span><span class="s1f40"></span><span class="ss4"> }</span></code></pre>
-</div></p>
+<div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"> class App implements m.ClassComponent&lt;{}&gt; {
+     view() {
+<span class="gd">-        return m(&#39;div&#39;, &#39;Hello Mithril&#39;);
+</span><span class="gd"></span><span class="gi">+        return &lt;div&gt;Hello Mithril with JSX&lt;/div&gt;;
+</span><span class="gi"></span>     }
+ }
+</code></pre></div></p>
 
 <h1 id="css-추가하기-53518ea-https-github-com-sixmen-mithril-examples-commit-53518eac007afdca4dbfadecbea2eea8b18ee8e8">CSS 추가하기 (<a href="https://github.com/sixmen/mithril-examples/commit/53518eac007afdca4dbfadecbea2eea8b18ee8e8">53518ea</a>)</h1>
 
@@ -306,42 +293,40 @@ TypeScript 지원을 위한 loader가 두가지가 있는데 여기서는 <a hre
 이는 <a href="https://github.com/webpack-contrib/css-loader">css-loader</a>와 <a href="https://github.com/webpack-contrib/style-loader">style-loader</a>를 사용해서 이루어집니다.
 모듈을 설치하고 css 파일에 대해서 두 loader를 사용하도록 설정합니다.</p>
 
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="s1f40">$ npm install --save-dev css-loader style-loader</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ npm install --save-dev css-loader style-loader</code></pre></div>
 
 <p><strong><em>webpack.config.js</em></strong>
-<div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"><span class="s1f40">        test: /\.tsx?$/,
-</span><span class="s1f40">         loader: &#39;awesome-typescript-loader&#39;,
-</span><span class="s1f40">         exclude: /node_modules/
-</span><span class="s1f40"></span><span class="s1b5d">+      },
-</span><span class="s1b5d">+      {
-</span><span class="s1b5d">+        test: /\.css$/,
-</span><span class="s1b5d">+        loader: [&#39;style-loader&#39;, &#39;css-loader&#39;]
-</span><span class="s1b5d"></span><span class="s1f40">       }
-</span><span class="s1f40"></span><span class="ss4">     ]</span></code></pre>
-</div></p>
+<div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff">        test: /\.tsx?$/,
+         loader: &#39;awesome-typescript-loader&#39;,
+         exclude: /node_modules/
+<span class="gi">+      },
+</span><span class="gi">+      {
+</span><span class="gi">+        test: /\.css$/,
+</span><span class="gi">+        loader: [&#39;style-loader&#39;, &#39;css-loader&#39;]
+</span><span class="gi"></span>       }
+     ]
+</code></pre></div></p>
 
 <p>이제 스타일을 추가해봅니다.</p>
 
 <p><strong><em>app/index.css</em></strong>
-<div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="s1388">.</span><span class="s7d4">message</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s3e8">font-size</span><span class="s1f40"></span><span class="s1388">:</span><span class="s1f40"> </span><span class="sc80">20</span><span class="s3e8">px</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s3e8">color</span><span class="s1f40"></span><span class="s1388">:</span><span class="s1f40"> </span><span class="s3e8">magenta</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
-</div></p>
+<div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="p">.</span><span class="nc">message</span> <span class="p">{</span>
+  <span class="k">font-size</span><span class="p">:</span> <span class="mi">20</span><span class="kt">px</span><span class="p">;</span>
+  <span class="k">color</span><span class="p">:</span> <span class="kc">magenta</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div></p>
 
 <p><strong><em>app/index.tsx</em></strong>
-<div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"><span class="s1f40"> import * as m from &#39;mithril&#39;;
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1b5d">+import &#39;./index.css&#39;;
-</span><span class="s1b5d">+
-</span><span class="s1b5d"></span><span class="s1f40"> class App implements m.ClassComponent&lt;{}&gt; {
-</span><span class="s1f40">     view() {
-</span><span class="s1f40"></span><span class="s1b59">-        return &lt;div&gt;Hello Mithril with JSX&lt;/div&gt;;
-</span><span class="s1b59"></span><span class="s1b5d">+        return &lt;div class=&#39;message&#39;&gt;Hello Mithril with JSX&lt;/div&gt;;
-</span><span class="s1b5d"></span><span class="s1f40">     }
-</span><span class="s1f40"></span><span class="ss4"> }</span></code></pre>
-</div></p>
+<div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"> import * as m from &#39;mithril&#39;;
+
+<span class="gi">+import &#39;./index.css&#39;;
+</span><span class="gi">+
+</span><span class="gi"></span> class App implements m.ClassComponent&lt;{}&gt; {
+     view() {
+<span class="gd">-        return &lt;div&gt;Hello Mithril with JSX&lt;/div&gt;;
+</span><span class="gd"></span><span class="gi">+        return &lt;div class=&#39;message&#39;&gt;Hello Mithril with JSX&lt;/div&gt;;
+</span><span class="gi"></span>     }
+ }
+</code></pre></div></p>
 
 <p>웹 페이지의 텍스트에 크기와 색상이 적용된 것을 볼 수 있습니다.</p>
 
@@ -359,43 +344,41 @@ TypeScript 지원을 위한 loader가 두가지가 있는데 여기서는 <a hre
 <p>지역 범위를 사용하려면 CSS 파일에 :local을 붙여줍니다.</p>
 
 <p><strong><em>app/index.css</em></strong>
-<div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"><span class="s1b59">-.message {
-</span><span class="s1b59"></span><span class="s1b5d">+:local .message {
-</span><span class="s1b5d"></span><span class="ss4">   font-size: 20px;</span></code></pre>
-</div></p>
+<div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"><span class="gd">-.message {
+</span><span class="gd"></span><span class="gi">+:local .message {
+</span><span class="gi"></span>   font-size: 20px;
+</code></pre></div></p>
 
 <p>이렇게 하면 <code>index.css</code>가 다음과 같은 구조체를 내보냅니다.</p>
 
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">module</span><span class="s1388">.</span><span class="s7df">exports</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="sc1c">&#34;message&#34;</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#34;Ag7q-vI0hGDj8L_qsNLr7&#34;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s2">&#34;message&#34;</span><span class="o">:</span> <span class="s2">&#34;Ag7q-vI0hGDj8L_qsNLr7&#34;</span>
+<span class="p">}</span></code></pre></div>
 
 <p>이 구조체를 사용해서 HTML 원소에 적절한 클래스명을 설정해줍니다.
 다만 TypeScript가 CSS 파일이 내보내는 구조체를 인식하지 못하기 때문에 타입 정의 파일을 만들어 줘야 컴파일이 됩니다.</p>
 
 <p><strong><em>app/index.d.ts</em></strong>
-<div class="highlight"><pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="s3e8">declare</span><span class="s1f40"> </span><span class="s7df">module</span><span class="s1f40"> </span><span class="sc1c">&#39;*.css&#39;</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">styles</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s7df">key</span><span class="s1f40">: </span><span class="s3e8">string</span><span class="s1388">]</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">string</span><span class="s1f40"> </span><span class="s1388">};</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">export</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">styles</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
-</div></p>
+<div class="highlight"><pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="kr">declare</span> <span class="nx">module</span> <span class="s1">&#39;*.css&#39;</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">styles</span><span class="o">:</span> <span class="p">{</span> <span class="p">[</span><span class="nx">key</span>: <span class="kt">string</span><span class="p">]</span><span class="o">:</span> <span class="kt">string</span> <span class="p">};</span>
+    <span class="kr">export</span> <span class="o">=</span> <span class="nx">styles</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div></p>
 
 <p><strong><em>app/index.tsx</em></strong>
-<div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"><span class="s1b5d">+/// &lt;reference path=&#39;index.d.ts&#39;/&gt;
-</span><span class="s1b5d">+
-</span><span class="s1b5d"></span><span class="s1f40"> import * as m from &#39;mithril&#39;;
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1b59">-import &#39;./index.css&#39;;
-</span><span class="s1b59"></span><span class="s1b5d">+import styles = require(&#39;./index.css&#39;);
-</span><span class="s1b5d"></span><span class="s1f40">
-</span><span class="s1f40"> class App implements m.ClassComponent&lt;{}&gt; {
-</span><span class="s1f40">     view() {
-</span><span class="s1f40"></span><span class="s1b59">-        return &lt;div class=&#39;message&#39;&gt;Hello Mithril with JSX&lt;/div&gt;;
-</span><span class="s1b59"></span><span class="s1b5d">+        return &lt;div class={styles.message}&gt;Hello Mithril with JSX&lt;/div&gt;;
-</span><span class="s1b5d"></span><span class="s1f40">     }
-</span><span class="s1f40"></span><span class="ss4"> }</span></code></pre>
-</div></p>
+<div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"><span class="gi">+/// &lt;reference path=&#39;index.d.ts&#39;/&gt;
+</span><span class="gi">+
+</span><span class="gi"></span> import * as m from &#39;mithril&#39;;
+
+<span class="gd">-import &#39;./index.css&#39;;
+</span><span class="gd"></span><span class="gi">+import styles = require(&#39;./index.css&#39;);
+</span><span class="gi"></span>
+ class App implements m.ClassComponent&lt;{}&gt; {
+     view() {
+<span class="gd">-        return &lt;div class=&#39;message&#39;&gt;Hello Mithril with JSX&lt;/div&gt;;
+</span><span class="gd"></span><span class="gi">+        return &lt;div class={styles.message}&gt;Hello Mithril with JSX&lt;/div&gt;;
+</span><span class="gi"></span>     }
+ }
+</code></pre></div></p>
 
 <p>다만 이렇게 하면 CSS의 클래스명에 대한 검증을 하지 못합니다. (styles.massage로 오타를 내도 알 수 없음)
 이에 대한 타입 정의 파일을 만들어 주는 <a href="https://github.com/Quramy/typed-css-modules">typed-css-modules</a> 모듈은 있지만,
@@ -412,35 +395,34 @@ webpack과 부드럽게 연동하는 방법은 찾지 못했습니다.</p>
 extract-text-webpack-plugin 모듈을 추가하고, 적절한 설정을 해주면 <code>main.css</code> 파일이 만들어집니다.
 이 extract-text-webpack-plugin 사용시 style-loader는 필요하지 않습니다.</p>
 
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="s1f40">$ npm install --save-dev extract-text-webpack-plugin</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ npm install --save-dev extract-text-webpack-plugin</code></pre></div>
 
 <p><strong><em>webpack.config.js</em></strong>
-<div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"><span class="s1f40"> const path = require(&#39;path&#39;);
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1b5d">+const ExtractTextPlugin = require(&#39;extract-text-webpack-plugin&#39;);
-</span><span class="s1b5d"></span><span class="s1f40"> const HtmlWebpackPlugin = require(&#39;html-webpack-plugin&#39;);
-</span><span class="s1f40">
-</span><span class="s1f40"> module.exports = {
-</span><span class="s1f40">...
-</span><span class="s1f40">       },
-</span><span class="s1f40">       {
-</span><span class="s1f40">         test: /\.css$/,
-</span><span class="s1f40"></span><span class="s1b59">-        loader: [&#39;style-loader&#39;, &#39;css-loader&#39;]
-</span><span class="s1b59"></span><span class="s1b5d">+        loader: ExtractTextPlugin.extract(&#39;css-loader&#39;)
-</span><span class="s1b5d"></span><span class="s1f40">       }
-</span><span class="s1f40">     ]
-</span><span class="s1f40">   },
-</span><span class="s1f40">...
-</span><span class="s1f40">   plugins: [
-</span><span class="s1f40">     new HtmlWebpackPlugin({
-</span><span class="s1f40">       template: &#39;index.html&#39;
-</span><span class="s1f40"></span><span class="s1b5d">+    }),
-</span><span class="s1b5d">+    new ExtractTextPlugin({
-</span><span class="s1b5d">+      filename: &#39;[name].css&#39;
-</span><span class="s1b5d"></span><span class="s1f40">     })
-</span><span class="s1f40"></span><span class="ss4">   ]</span></code></pre>
-</div></p>
+<div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"> const path = require(&#39;path&#39;);
+
+<span class="gi">+const ExtractTextPlugin = require(&#39;extract-text-webpack-plugin&#39;);
+</span><span class="gi"></span> const HtmlWebpackPlugin = require(&#39;html-webpack-plugin&#39;);
+
+ module.exports = {
+...
+       },
+       {
+         test: /\.css$/,
+<span class="gd">-        loader: [&#39;style-loader&#39;, &#39;css-loader&#39;]
+</span><span class="gd"></span><span class="gi">+        loader: ExtractTextPlugin.extract(&#39;css-loader&#39;)
+</span><span class="gi"></span>       }
+     ]
+   },
+...
+   plugins: [
+     new HtmlWebpackPlugin({
+       template: &#39;index.html&#39;
+<span class="gi">+    }),
+</span><span class="gi">+    new ExtractTextPlugin({
+</span><span class="gi">+      filename: &#39;[name].css&#39;
+</span><span class="gi"></span>     })
+   ]
+</code></pre></div></p>
 
 <h1 id="마무리-f596154-https-github-com-sixmen-mithril-examples-commit-f5961546ccdd444da68c8c6bf518948b3527d8c1">마무리 (<a href="https://github.com/sixmen/mithril-examples/commit/f5961546ccdd444da68c8c6bf518948b3527d8c1">f596154</a>)</h1>
 
@@ -448,12 +430,12 @@ extract-text-webpack-plugin 모듈을 추가하고, 적절한 설정을 해주�
 webpack은 이를 위한 간단한 옵션을 제공합니다. <code>-p</code> 만 붙여주면 js 파일과 css 파일이 최소화됩니다.</p>
 
 <p><strong><em>package.json</em></strong>
-<div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"><span class="s1f40">   &#34;scripts&#34;: {
-</span><span class="s1f40"></span><span class="s1b59">-    &#34;build&#34;: &#34;webpack&#34;,
-</span><span class="s1b59"></span><span class="s1b5d">+    &#34;build&#34;: &#34;webpack -p&#34;,
-</span><span class="s1b5d"></span><span class="s1f40">     &#34;start&#34;: &#34;webpack-dev-server --open&#34;
-</span><span class="s1f40"></span><span class="ss4">   }</span></code></pre>
-</div></p>
+<div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff">   &#34;scripts&#34;: {
+<span class="gd">-    &#34;build&#34;: &#34;webpack&#34;,
+</span><span class="gd"></span><span class="gi">+    &#34;build&#34;: &#34;webpack -p&#34;,
+</span><span class="gi"></span>     &#34;start&#34;: &#34;webpack-dev-server --open&#34;
+   }
+</code></pre></div></p>
 
 <p>webpack은 여기서 다루지 못한 많은 기능을 가지고 있습니다. 예를 들어</p>
 

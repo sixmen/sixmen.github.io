@@ -93,52 +93,51 @@ AWS Lambda 함수를 생성해서 슬랙에 메시지를 보내는데 성공했�
 
 <p>이제 이 값을 이용하도록 Lambda 코드를 수정합니다.</p>
 
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="sc1c">&#39;use strict&#39;</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">AWS</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">require</span><span class="s1388">(</span><span class="sc1c">&#39;aws-sdk&#39;</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">url</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">require</span><span class="s1388">(</span><span class="sc1c">&#39;url&#39;</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">https</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">require</span><span class="s1388">(</span><span class="sc1c">&#39;https&#39;</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">let</span><span class="s1f40"> </span><span class="s7df">hookUrl</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">function</span><span class="s1f40"> </span><span class="s7df">sendMessage</span><span class="s1388">(</span><span class="s7df">message</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1770">// ... 이전과 같음
-</span><span class="s1770"></span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">function</span><span class="s1f40"> </span><span class="s7df">decryptHookUrl</span><span class="s1388">()</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s3e8">if</span><span class="s1f40"> </span><span class="s1388">(</span><span class="s7df">hookUrl</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s7d0">Promise</span><span class="s1388">.</span><span class="s7df">resolve</span><span class="s1388">(</span><span class="s7df">hookUrl</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">}</span><span class="s1f40"> </span><span class="s3e8">else</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">kms</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7df">AWS</span><span class="s1388">.</span><span class="s7df">KMS</span><span class="s1388">();</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">Promise</span><span class="s1388">((</span><span class="s7df">resolve</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">reject</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">=&gt;</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">      </span><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">blob</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7df">Buffer</span><span class="s1388">(</span><span class="s7df">process</span><span class="s1388">.</span><span class="s7df">env</span><span class="s1388">.</span><span class="s7df">encryptedHookUrl</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c">&#39;base64&#39;</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40">      </span><span class="s7df">kms</span><span class="s1388">.</span><span class="s7df">decrypt</span><span class="s1388">({</span><span class="s1f40"> </span><span class="s7df">CiphertextBlob</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">blob</span><span class="s1f40"> </span><span class="s1388">},</span><span class="s1f40"> </span><span class="s1388">(</span><span class="s7df">error</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">data</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">=&gt;</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s3e8">if</span><span class="s1f40"> </span><span class="s1388">(</span><span class="s7df">error</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">          </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s7df">reject</span><span class="s1388">(</span><span class="s7df">error</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s7df">hookUrl</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">data</span><span class="s1388">.</span><span class="s7df">Plaintext</span><span class="s1388">.</span><span class="s7df">toString</span><span class="s1388">(</span><span class="sc1c">&#39;ascii&#39;</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s7df">resolve</span><span class="s1388">(</span><span class="s7df">hookUrl</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40">      </span><span class="s1388">});</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s1388">});</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7df">exports</span><span class="s1388">.</span><span class="s7df">handler</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">(</span><span class="s7df">event</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">context</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">callback</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">=&gt;</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">decryptHookUrl</span><span class="s1388">()</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">.</span><span class="s7df">then</span><span class="s1388">(()</span><span class="s1f40"> </span><span class="s1388">=&gt;</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">message</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">      </span><span class="s7df">channel</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;#auto-github&#39;</span><span class="s1388">,</span><span class="s1f40">
-</span><span class="s1f40">      </span><span class="s7df">text</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;This is a test message&#39;</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s1388">};</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">sendMessage</span><span class="s1388">(</span><span class="s7df">message</span><span class="s1388">)</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s1388">.</span><span class="s7df">then</span><span class="s1388">((</span><span class="s7df">response</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">=&gt;</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">      </span><span class="s7df">callback</span><span class="s1388">(</span><span class="s3e8">null</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">response</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s1388">});</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">}).</span><span class="s3e8">catch</span><span class="s1388">((</span><span class="s7df">error</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">=&gt;</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">callback</span><span class="s1388">(</span><span class="s7df">error</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">});</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">};</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+
+<span class="k">const</span> <span class="nx">AWS</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;aws-sdk&#39;</span><span class="p">);</span>
+<span class="k">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="p">);</span>
+<span class="k">const</span> <span class="nx">https</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;https&#39;</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">hookUrl</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">sendMessage</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// ... 이전과 같음
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">decryptHookUrl</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">hookUrl</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">hookUrl</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">kms</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AWS</span><span class="p">.</span><span class="nx">KMS</span><span class="p">();</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="k">const</span> <span class="nx">blob</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Buffer</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">encryptedHookUrl</span><span class="p">,</span> <span class="s1">&#39;base64&#39;</span><span class="p">);</span>
+      <span class="nx">kms</span><span class="p">.</span><span class="nx">decrypt</span><span class="p">({</span> <span class="nx">CiphertextBlob</span><span class="o">:</span> <span class="nx">blob</span> <span class="p">},</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">return</span> <span class="nx">reject</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="nx">hookUrl</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">Plaintext</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">);</span>
+        <span class="nx">resolve</span><span class="p">(</span><span class="nx">hookUrl</span><span class="p">);</span>
+      <span class="p">});</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">exports</span><span class="p">.</span><span class="nx">handler</span> <span class="o">=</span> <span class="p">(</span><span class="nx">event</span><span class="p">,</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">decryptHookUrl</span><span class="p">()</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">message</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="nx">channel</span><span class="o">:</span> <span class="s1">&#39;#auto-github&#39;</span><span class="p">,</span>
+      <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;This is a test message&#39;</span>
+    <span class="p">};</span>
+    <span class="nx">sendMessage</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="nx">callback</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">response</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">}).</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">callback</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">};</span></code></pre></div>
 
 <p>저장하고 테스트를 실행하면 이전과 같이 슬랙 채널에서 메시지를 볼 수 있습니다.</p>
 
