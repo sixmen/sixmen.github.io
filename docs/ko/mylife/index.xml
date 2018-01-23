@@ -5,10 +5,19 @@
     <link>http://sixmen.com/ko/mylife/</link>
     <description>Recent content in Mylives on sixmen.com</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 28 Feb 2015 01:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 23 Jan 2018 01:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://sixmen.com/ko/mylife/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>가상화폐에 대한 단상</title>
+      <link>http://sixmen.com/ko/mylife/2018-01-23-1-gasanghwapyee-daehan-dansang/</link>
+      <pubDate>Tue, 23 Jan 2018 01:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/ko/mylife/2018-01-23-1-gasanghwapyee-daehan-dansang/</guid>
+      <description>비트코인에 대해 처음 들었던 것은 2013년 말 어느 컨퍼런스로 기억한다. 아마 코빗을 창업했고 라는 얘기가 기억에 나는 것으로 봐서 유영석씨가 발표한 세션이 아니였</description>
+    </item>
     
     <item>
       <title>iOS와 안드로이드의 개발 난이도에 대한 단상</title>
