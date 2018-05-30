@@ -141,7 +141,8 @@ AWS Lambda 편집화면에서 Actions -&gt; Configure test event 에서 입력�
   <span class="p">}).</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
     <span class="nx">callback</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
   <span class="p">});</span>
-<span class="p">};</span></code></pre></div>
+<span class="p">};</span>
+</code></pre></div>
 
 <p>이제 위키를 수정하고 슬랙에 메시지가 표시되는 것을 확인하면 끝입니다.
 수정내역이나 커밋 메시지를 표시해주면 좋은데 아쉽게도 해당 데이터는 없는 것 같습니다.</p>
@@ -290,7 +291,8 @@ AWS Lambda 함수를 생성해서 슬랙에 메시지를 보내는데 성공했�
   <span class="p">}).</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
     <span class="nx">callback</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
   <span class="p">});</span>
-<span class="p">};</span></code></pre></div>
+<span class="p">};</span>
+</code></pre></div>
 
 <p>저장하고 테스트를 실행하면 이전과 같이 슬랙 채널에서 메시지를 볼 수 있습니다.</p>
 
@@ -399,13 +401,16 @@ AWS Lambda 함수를 생성해서 슬랙에 메시지를 보내는데 성공했�
 
 
 <script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-48366784-1', 'auto');
-ga('send', 'pageview');
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-48366784-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
 
 <script src='https://code.jquery.com/jquery-1.12.4.min.js'></script>
