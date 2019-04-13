@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>게임 on sixmen.com</title>
+    <link>http://sixmen.com/ko/tags/%EA%B2%8C%EC%9E%84/</link>
+    <description>Recent content in 게임 on sixmen.com</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 08 Aug 2011 01:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://sixmen.com/ko/tags/%EA%B2%8C%EC%9E%84/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>CivWorld 게임 종료</title>
+      <link>http://sixmen.com/ko/mylife/2011-08-08-1-civworld-geim-jongryo/</link>
+      <pubDate>Mon, 08 Aug 2011 01:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/ko/mylife/2011-08-08-1-civworld-geim-jongryo/</guid>
+      <description>요새 CivWorld를 한참 하고 있다. 아직 베타에 버그도 꽤 있고, 밸런스 조정도 좀 필요할 것 같고, 느리고 답답하지만, 계속 하게 되는게 역시 문명은 문명인가 보</description>
+    </item>
+    
+  </channel>
+</rss>

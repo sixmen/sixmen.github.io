@@ -1,1 +1,2 @@
-{{ if len .Params | eq 3 }}<img src='{{ printf "/evernote/%s.jpg" (.Get 0) | relURL }}' width='{{ .Get 1 }}' height='{{ .Get 2 }}'>{{ else }}<img src='{{ printf "/evernote/%s.jpg" (.Get 0) | relURL }}'>{{ end }}
+{{ if len .Params | eq 3 }}<img src='{{ printf "/evernote/%s.jpg" (.Get 0) | relURL }}' width='{{ .Get 1 }}'
+    height='{{ .Get 2 }}'>{{ else }}<img src='{{ printf "/evernote/%s.jpg" (.Get 0) | relURL }}'>{{ end }}

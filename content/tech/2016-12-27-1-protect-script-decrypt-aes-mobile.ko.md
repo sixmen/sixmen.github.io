@@ -4,7 +4,7 @@ tags: []
 date: 2016-12-27
 ---
 
-이번에는 <a href='{{< relref "tech/2016-12-27-1-protect-script-decrypt-aes-mobile.ko.md" >}}'>전편</a>에서
+이번에는 <a href='{{< relref "/tech/2016-12-27-1-protect-script-decrypt-aes-mobile.ko.md" >}}'>전편</a>에서
 암호화한 파일을 모바일 환경(iOS, 안드로이드)에서 해독화 해보겠습니다.
 
 ---

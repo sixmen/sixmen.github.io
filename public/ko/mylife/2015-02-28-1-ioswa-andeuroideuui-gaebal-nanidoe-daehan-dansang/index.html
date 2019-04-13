@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang='ko'>
+<head>
+  <meta charset='utf-8'>
+
+  
+    <title>sixmen.com: iOS와 안드로이드의 개발 난이도에 대한 단상</title>
+  
+  
+  <meta name='author' content='Sangmin Yoon'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+  <link href='/css/style.css?body=1' rel='stylesheet' type='text/css' media='all'>
+  <link href='/css/syntax.css?body=1' rel='stylesheet' type='text/css' media='all'>
+
+  <!--[if lt IE 9]>
+    <script src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js'></script>
+    <script src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js'></script>
+  <![endif]-->
+</head>
+<body>
+
+<div class='hp-navbar'>
+  <div class='container-fluid'><div class='row'><div class='col-xs-12'>
+    
+    <nav class='hp-nav'>
+      <a class='hp-nav-item' href='/ko/'>Home</a>
+      <a class='hp-nav-item active' href='/ko/mylife/'>MyLife</a>
+      <a class='hp-nav-item' href='/ko/travel/'>Travel</a>
+      <a class='hp-nav-item' href='/ko/tech/'>Tech</a>
+      <a class='hp-nav-item' href='/ko/tags/'>Tags</a>
+      <a class='hp-nav-item pull-right' href='/en/'>English</a>
+    </nav>
+  </div></div></div>
+</div>
+
+
+
+<div class='container'>
+
+<div class='row'>
+  <div class='col-xs-12'>
+    <div class='page-header'>
+      <h1>iOS와 안드로이드의 개발 난이도에 대한 단상</h1>
+    </div>
+  </div>
+
+  <div class='col-xs-12 col-sm-9'>
+    
+<div>iOS와 안드로이드의 개발툴 얘기가 나오면 대부분 Xcode가 이클립스(최근에는 안드로이드 스튜디오)를 압도한다고들 얘기한다.</div>
+<div><br/></div>
+<div>물론 초창기의 이클립스는 무지 느리고 안드로이드 에뮬레이터는 iOS 시뮬레이터에 비해 느려터져서 iOS 개발 환경이 좋았던 건 맞지만, 이게 지금에도 통하는 얘기인지는 잘 모르겠다.</div>
+<div><br/></div>
+<div>회사 초반에는 iOS를 개발하고 안드로이드를 그에 맞췄었다. (우리 회사는 두 플랫폼의 소스 구조를 가급적 유사하게 가져가려고 노력하고 있다. 그렇다고 Titanium이나 Xamarin 같은 크로스 플랫폼을 고려하지는 않고 있다.) 하지만, 이번에 개발하는 앱은 안드로이드 부터 개발하고 iOS를 그에 맞추고 있다. 물론 우리나라 타겟이라 안드로이드가 우선이라 생각한 것도 있지만, 여성 타겟이라 iOS 부터 갔어도 상관은 없었다고 본다. 하지만 개발이 안드로이드가 훨씬 낫다고 생각해서 안드로이드부터 갔다.</div>
+<div><br/></div>
+<div>안드로이드가 낫다고 생각하는 이유는 몇가지가 있다.</div>
+<div><br/></div>
+<div>그중 가장 첫번째는 언어인 것 같다. 아무리 해도 Objective-C는 정이 들지 않는다. 가장 큰 이유가 대부분의 주류 언어들과 달리 메소드를 호출할 때 인자 이름을 적어줘야 한다는 것이기 때문에, Swift도 전혀 좋은 점을 모르겠다. Objective-C도 계속 발전해 나가면서 편리해지고 있긴 한데(Objective-C Literals 같은 것들. Java 언어의 개선이 느리기도 하지만, 그나마 개선된 점도 안드로이드에서는 써먹기 어려우니..) 저 근본적이 컨셉때문에 코딩하는게 그다지 즐겁지 않다.</div>
+<div><br/></div>
+<div>반면 Java는 사실 그다지 좋아하는 언어는 아니였지만, 오랫동안 많은 사람이 쓰면서 발전해 와서 툴이 세세한 부분까지 잘 되어 있는 것 같다. 꼭 찝어 말하면 리팩토링이 Objective-C 보다 쉬워서 구조를 개선하기에 좋다. 그래서 안드로이드에서 구조를 잡은 후에 iOS로 넘어가기로 한게 가장 크다. 그리고 안드로이드 스튜디오로 넘어오면서 초반에는 굉장히 어색했는데 익숙해지니 이것만한게 없는 것처럼 느껴진다. 놓치기 쉬운 코딩 실수를 바로 바로 알려준다던지, 안드로이드 리소스를 참조했을 때 그 리소스(이미지나 문자열)를 코드에 직접 표시해준다던지. 안드로이드가 Java를 선택하므로써 생긴 이득인 것 같다.</div>
+<div><br/></div>
+<div>둘째는 인터페이스 디자인 작업이다. 안드로이드는 XML을 수동으로 편집하는 경우가 대부분이고, iOS는 WYSIWIG로 다 되는데 무슨 얘기냐라고 할 수도 있는데, 좋은 GUI 에디터 놔두고 Vim이 최고라고 하는 것과 비슷하다고 할까? 초보들이 처음에 만들기에는 Xcode 쪽이 좋을 수도 있지만, 세세하게 건드려야 하는 경우는 결국 XML을 고치는게 훨씬 편하다. 전에는 에뮬레이터로 확인해야 해서 굉장히 비효율적이였지만, 최근 안드로이드 스튜디오에서는 렌더링을 꽤 잘해줘서 굳이 앱을 실행해보지 않아도 인터페이스를 만들 수 있다.</div>
+<div><br/></div>
+<div>안드로이드에서 기존 위젯에 커스텀 스타일을 적용하려면 style.xml만 잘 구성해도 되는데, iOS에서는 아마 커스텀 클래스를 추가해야 할 거다. 안드로이드에서는 문자열 번역을 하려면 string.xml만 따로 가져가면 되는데, iOS에서는 xib 파일을 복사해야 하는 것으로 알고 있다. (물론 언어마다 문자열 길이에 맞춰 버튼 크기도 바꾸고, 글꼴도 바꾸겠다고 하면 의미가 있겠지만, 그렇게 하는 사람이 있을까?) 결정적으로 안드로이드는 초기부터 다양한 단말을 맞춰야 해서 다양한 Layout이 존재하지만, iOS의 Auto-Layout은 도대체 머리속에 개념이 안 들어온다.</div>
+<div><br/></div>
+<div>아무튼 Vim 처럼 잘 쓰기는 어려울 수 있지만, 익숙해지기만 하면 안드로이드에서 인터페이스를 만드는 것이 훨씬 쉽다고 생각한다.</div>
+<div><br/></div>
+<div>그 외에도 안드로이드에서는 Android Annotations등을 써서 반복되는 코드를 많이 줄이고 있지만, iOS에서는 아직 좋은 것을 많이 찾지 못했다.</div>
+<div><br/></div>
+<div>나머지는 각 플랫폼을 지원하는 프레임워크나 라이브러리에 따라 좋고 나쁜 부분이 있긴 한데 (예를 들어 안드로이드 네트워크는 iOS 보다는 생각할게 많긴 하다. 그리고 안드로이드 액티비티는 좀 이해하기 어려운 부분이 있긴 하다) 그런 부분은 한번 잘 정리하면 되는 부분이라 전체 그림에서는 문제가 안 되는 것 같다.</div>
+<div><br/></div>
+<div>iOS 쪽에서 그나마 좋은 건 시뮬레이터긴 한데, 그것도 Genymotion이나 실제 단말을 사용하면 아주 크게 문제 되지는 않는 것 같다.</div>
+<div><br/></div>
+<div>버전 파편화 얘기를 해보면 오히려 iOS는 기존 버전을 자꾸 버려야 하는데 반해, 안드로이드는 Support Library를 통해 기존 버전에서도 문제 없는 경우가 많다. 해상도 파편화는 다양한 해상도를 지원하면서 좋은 디자인을 하기가 어려워서 그렇지, 디자인만 명확하면 개발은 아무 영향이 없다고 생각한다. 반면 iOS의 Size Class의 Any, Regular, Compat은 아직도 어쩌라는 건지 잘 모르겠다.</div>
+<div><br/></div>
+<div>iOS를 다시 집중하면 또 모르던 기술이 있어서 내가 생각한 것보다는 훨신 쉬울 수도 있겠지만 (인터페이스 빌더에서 코드로 드래그 해서 IBOutlet을 설정하는 것도 최근에야 알았다) 현재로서는 나에게는 안드로이드 개발이 훨씬 쉽다.</div>
+<div><br/></div>
+<div>너무 iOS 개발 환경들을 좋아하는 것 같아서 한번 써봤다.</div>
+<div><br/></div>
+<div>(참고로 요 몇년 계속 MacOSX를 쓰고 있지만, 내가 좋아하는 Command Line Tool이 약해서 개발하는데 못 써서 그렇지, 일반 작업을 위한 GUI 쪽은 Windows 7이 훨씬 편하다)</div>
+<div><br/></div>
+
+  </div>
+
+  <div class='col-xs-12 col-sm-3'>
+    <div class='post-date'>
+      <i class='glyphicon glyphicon-pencil'></i>
+      <span>28 February 2015</span>
+    </div>
+
+    
+
+
+  </div>
+
+  <div class='col-xs-12'>
+    <hr>
+
+    <ul class='pager'>
+      
+        <li class='previous'><a href='/ko/mylife/2014-09-10-1-aepeul-2014nyeon-9wol-haengsa-gamsang-iphone6-apple-watch/' title='애플 2014년 9월 행사 감상 (iPhone6, Apple Watch)'>&larr; 이전 글</a></li>
+      
+      
+        <li class='next'><a href='/ko/mylife/2018-01-23-1-gasanghwapyee-daehan-dansang/' title='가상화폐에 대한 단상'>다음 글 &rarr;</a></li>
+      
+    </ul>
+    <hr>
+    <div class='text-center'>
+      <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "sixmen-blog" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class='container-fluid'>
+  <hr>
+  <footer>
+    <p>
+      &copy; 2014-2018 Sangmin Yoon
+      <span class='pull-right text-muted'>
+        powered by
+        <a href='https://gohugo.io/' target='_blank'>Hugo</a>
+        ,
+        <a href='http://getbootstrap.com/' target='_blank'>Bootstrap</a>
+        ,
+        <a href='http://www.dnsever.com' target='dnsever'><img src='http://banner.dnsever.com/dnsever-banner_62x15.gif' border='0' alt='DNS server, DNS service '></a>
+      </span>
+    </p>
+  </footer>
+</div>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-48366784-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+<script src='https://code.jquery.com/jquery-1.12.4.min.js'></script>
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
+
+</body>
+</html>
+

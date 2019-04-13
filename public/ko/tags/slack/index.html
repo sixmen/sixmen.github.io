@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang='ko'>
+<head>
+  <meta charset='utf-8'>
+
+  
+    <title>sixmen.com: Slack</title>
+  
+  
+  <meta name='author' content='Sangmin Yoon'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+  <link href='/css/style.css?body=1' rel='stylesheet' type='text/css' media='all'>
+  <link href='/css/syntax.css?body=1' rel='stylesheet' type='text/css' media='all'>
+
+  <!--[if lt IE 9]>
+    <script src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js'></script>
+    <script src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js'></script>
+  <![endif]-->
+</head>
+<body>
+
+<div class='hp-navbar'>
+  <div class='container-fluid'><div class='row'><div class='col-xs-12'>
+    
+    <nav class='hp-nav'>
+      <a class='hp-nav-item' href='/ko/'>Home</a>
+      <a class='hp-nav-item' href='/ko/mylife/'>MyLife</a>
+      <a class='hp-nav-item' href='/ko/travel/'>Travel</a>
+      <a class='hp-nav-item' href='/ko/tech/'>Tech</a>
+      <a class='hp-nav-item active' href='/ko/tags/'>Tags</a>
+      <a class='hp-nav-item pull-right' href='/en/'>English</a>
+    </nav>
+  </div></div></div>
+</div>
+
+
+
+<div class='container'>
+
+<div class='row' style='margin-top: 20px;'>
+
+<div class='col-sm-10 col-sm-offset-1'>
+  <div class='list-group'>
+    
+    <a href='/ko/tech/2017-01-06-3-github-wiki-to-slack-setup-github-hook/' class='list-group-item'>
+      <h4 class='list-group-item-heading'>
+        GitHub 위키 이벤트를 슬랙으로 받기 - 4. GitHub 웹훅 연결하기
+        <small class='pull-right list-group-item-text'>06 Jan 2017</small>
+      </h4>
+      <p class='list-group-item-text'>이제 GitHub 웹훅을 처리할 수 있게 됐습니다. 이전 글에서 생성한 URL을 GitHub에 설정해줍니다. GitHub 저장소의 Settings 탭에 가면 Webhooks 메뉴가 있습니다. 여기서 웹훅을 추가</p>
+    </a>
+    
+    <a href='/ko/tech/2017-01-06-2-github-wiki-to-slack-aws-api-gateway/' class='list-group-item'>
+      <h4 class='list-group-item-heading'>
+        GitHub 위키 이벤트를 슬랙으로 받기 - 3. AWS API Gateway 생성하기
+        <small class='pull-right list-group-item-text'>06 Jan 2017</small>
+      </h4>
+      <p class='list-group-item-text'>GitHub 이벤트를 받으려면 GitHub에서 접근가능한 URL이 필요합니다. 이전 글에서 만든 Lambda 함수를 외부에서 접근가능하게 하려면 AWS API Gateway를 사용하면</p>
+    </a>
+    
+    <a href='/ko/tech/2017-01-06-1-github-wiki-to-slack-protect-secret-using-kms/' class='list-group-item'>
+      <h4 class='list-group-item-heading'>
+        GitHub 위키 이벤트를 슬랙으로 받기 - 2. AWS KMS를 이용해 키 보호
+        <small class='pull-right list-group-item-text'>06 Jan 2017</small>
+      </h4>
+      <p class='list-group-item-text'>이전 글에서는 AWS Lambda 함수를 생성해서 슬랙에 메시지를 보내는데 성공했습니다. 그런데 이때 사용하는 훅 URL이 그대로 코드에 들어가 있는게 마음에 걸립니다. 이 UR</p>
+    </a>
+    
+    <a href='/ko/tech/2017-01-05-1-github-wiki-to-slack-setting-aws-lambda/' class='list-group-item'>
+      <h4 class='list-group-item-heading'>
+        GitHub 위키 이벤트를 슬랙으로 받기 - 1. AWS Lambda 설정
+        <small class='pull-right list-group-item-text'>05 Jan 2017</small>
+      </h4>
+      <p class='list-group-item-text'>크로키닷컴에서는 GitHub 이벤트(이슈 수정, PR등)를 슬랙으로 확인하고 있습니다. 그런데 아쉽게도 기본 GitHub 슬랙 앱은 GitHub 위키 이벤트는 처리하지 못합니다. 그래서 이</p>
+    </a>
+    
+  </div>
+</div>
+
+</div>
+
+</div>
+
+<div class='container-fluid'>
+  <hr>
+  <footer>
+    <p>
+      &copy; 2014-2018 Sangmin Yoon
+      <span class='pull-right text-muted'>
+        powered by
+        <a href='https://gohugo.io/' target='_blank'>Hugo</a>
+        ,
+        <a href='http://getbootstrap.com/' target='_blank'>Bootstrap</a>
+        ,
+        <a href='http://www.dnsever.com' target='dnsever'><img src='http://banner.dnsever.com/dnsever-banner_62x15.gif' border='0' alt='DNS server, DNS service '></a>
+      </span>
+    </p>
+  </footer>
+</div>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-48366784-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+<script src='https://code.jquery.com/jquery-1.12.4.min.js'></script>
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
+
+</body>
+</html>
+

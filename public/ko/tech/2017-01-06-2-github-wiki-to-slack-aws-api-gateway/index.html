@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang='ko'>
+<head>
+  <meta charset='utf-8'>
+
+  
+    <title>sixmen.com: GitHub 위키 이벤트를 슬랙으로 받기 - 3. AWS API Gateway 생성하기</title>
+  
+  
+  <meta name='author' content='Sangmin Yoon'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+  <link href='/css/style.css?body=1' rel='stylesheet' type='text/css' media='all'>
+  <link href='/css/syntax.css?body=1' rel='stylesheet' type='text/css' media='all'>
+
+  <!--[if lt IE 9]>
+    <script src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js'></script>
+    <script src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js'></script>
+  <![endif]-->
+</head>
+<body>
+
+<div class='hp-navbar'>
+  <div class='container-fluid'><div class='row'><div class='col-xs-12'>
+    
+    <nav class='hp-nav'>
+      <a class='hp-nav-item' href='/ko/'>Home</a>
+      <a class='hp-nav-item' href='/ko/mylife/'>MyLife</a>
+      <a class='hp-nav-item' href='/ko/travel/'>Travel</a>
+      <a class='hp-nav-item active' href='/ko/tech/'>Tech</a>
+      <a class='hp-nav-item' href='/ko/tags/'>Tags</a>
+      <a class='hp-nav-item pull-right' href='/en/'>English</a>
+    </nav>
+  </div></div></div>
+</div>
+
+
+
+<div class='container'>
+
+<div class='row'>
+  <div class='col-xs-12'>
+    <div class='page-header'>
+      <h1>GitHub 위키 이벤트를 슬랙으로 받기 - 3. AWS API Gateway 생성하기</h1>
+    </div>
+  </div>
+
+  <div class='col-xs-12 col-sm-9'>
+    <p>GitHub 이벤트를 받으려면 GitHub에서 접근가능한 URL이 필요합니다.
+<a href='/ko/tech/2017-01-06-1-github-wiki-to-slack-protect-secret-using-kms/'>이전 글</a>에서
+만든 Lambda 함수를 외부에서 접근가능하게 하려면 AWS API Gateway를 사용하면 됩니다.</p>
+
+<p>API Gateway 콘솔에서 새 API를 생성합니다.</p>
+
+<p><img src="/img/ko/tech/2017-01-06-2-01.jpg" alt="Create API" /></p>
+
+<p>생성된 직후에는 어떤 메소드도 없습니다.
+GitHub 이벤트는 POST 메소드로 전달되므로 Resources에서 POST 메소드를 하나 생성합니다.</p>
+
+<p>Actions 메뉴에서 Create Method를 누른 후 POST를 선택하면 메소드가 생성됩니다.</p>
+
+<p><img src="/img/ko/tech/2017-01-06-2-02.jpg" alt="Created POST Method" /></p>
+
+<p>이 메소드에 우리가 생성한 Lambda 함수를 연결할 수 있습니다.</p>
+
+<p><img src="/img/ko/tech/2017-01-06-2-03.jpg" alt="Integration with Lambda Function" /></p>
+
+<p>테스트 버튼을 누르면 API 테스트를 할 수 있습니다.
+슬랙에 메시지가 오는지 확인해보세요.</p>
+
+<p>이제 이 API를 활성화할 차례입니다.
+Actions에서 Deploy API를 선택합니다.
+현재 stage가 없으므로 '[New State]'를 선택하고 prod라고 이름을 줍니다.</p>
+
+<p><img src="/img/ko/tech/2017-01-06-2-04.jpg" alt="Setup deploy" /></p>
+
+<p>이제 외부에서 접근가능한 URL이 생성됐습니다.
+해당 URL에 POST 메소드로 접근할 수 있습니다.</p>
+
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ curl -X POST https://&lt;your-invoke-url&gt;/prod
+null</code></pre></div>
+
+<p>이번에도 역시 슬랙에 메시지가 표시되면 제대로 설정된 것입니다.</p>
+
+  </div>
+
+  <div class='col-xs-12 col-sm-3'>
+    <div class='post-date'>
+      <i class='glyphicon glyphicon-pencil'></i>
+      <span>06 January 2017</span>
+    </div>
+
+    
+
+  <ul class='tag_box inline'>
+    <li><i class='glyphicon glyphicon-tags'></i></li>
+    
+      <li><a href='/ko/tags/github'>
+        GitHub
+        <span>4</span>
+      </a></li>
+    
+      <li><a href='/ko/tags/slack'>
+        Slack
+        <span>4</span>
+      </a></li>
+    
+      <li><a href='/ko/tags/aws'>
+        AWS
+        <span>4</span>
+      </a></li>
+    
+      <li><a href='/ko/tags/aws-lambda'>
+        AWS Lambda
+        <span>4</span>
+      </a></li>
+    
+      <li><a href='/ko/tags/aws-api-gateway'>
+        AWS API Gateway
+        <span>2</span>
+      </a></li>
+    
+  </ul>
+
+
+  </div>
+
+  <div class='col-xs-12'>
+    <hr>
+
+    <ul class='pager'>
+      
+        <li class='previous'><a href='/ko/tech/2017-01-06-1-github-wiki-to-slack-protect-secret-using-kms/' title='GitHub 위키 이벤트를 슬랙으로 받기 - 2. AWS KMS를 이용해 키 보호'>&larr; 이전 글</a></li>
+      
+      
+        <li class='next'><a href='/ko/tech/2017-01-06-3-github-wiki-to-slack-setup-github-hook/' title='GitHub 위키 이벤트를 슬랙으로 받기 - 4. GitHub 웹훅 연결하기'>다음 글 &rarr;</a></li>
+      
+    </ul>
+    <hr>
+    <div class='text-center'>
+      <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "sixmen-blog" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class='container-fluid'>
+  <hr>
+  <footer>
+    <p>
+      &copy; 2014-2018 Sangmin Yoon
+      <span class='pull-right text-muted'>
+        powered by
+        <a href='https://gohugo.io/' target='_blank'>Hugo</a>
+        ,
+        <a href='http://getbootstrap.com/' target='_blank'>Bootstrap</a>
+        ,
+        <a href='http://www.dnsever.com' target='dnsever'><img src='http://banner.dnsever.com/dnsever-banner_62x15.gif' border='0' alt='DNS server, DNS service '></a>
+      </span>
+    </p>
+  </footer>
+</div>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-48366784-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+<script src='https://code.jquery.com/jquery-1.12.4.min.js'></script>
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
+
+</body>
+</html>
+

@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang='ko'>
+<head>
+  <meta charset='utf-8'>
+
+  
+    <title>sixmen.com: Tech</title>
+  
+  
+  <meta name='author' content='Sangmin Yoon'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+  <link href='/css/style.css?body=1' rel='stylesheet' type='text/css' media='all'>
+  <link href='/css/syntax.css?body=1' rel='stylesheet' type='text/css' media='all'>
+
+  <!--[if lt IE 9]>
+    <script src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js'></script>
+    <script src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js'></script>
+  <![endif]-->
+</head>
+<body>
+
+<div class='hp-navbar'>
+  <div class='container-fluid'><div class='row'><div class='col-xs-12'>
+    
+    <nav class='hp-nav'>
+      <a class='hp-nav-item' href='/ko/'>Home</a>
+      <a class='hp-nav-item' href='/ko/mylife/'>MyLife</a>
+      <a class='hp-nav-item' href='/ko/travel/'>Travel</a>
+      <a class='hp-nav-item active' href='/ko/tech/'>Tech</a>
+      <a class='hp-nav-item' href='/ko/tags/'>Tags</a>
+      <a class='hp-nav-item pull-right' href='/en/'>English</a>
+    </nav>
+  </div></div></div>
+</div>
+
+
+
+
+
+<div class='container'>
+
+<div class='row' style='margin-top: 20px;'>
+
+<div class='col-sm-10 col-sm-offset-1'>
+  
+  <div class='panel panel-default'>
+    <div class='panel-heading'>
+      <h2 class='posts-title'><a href='/ko/tech/2017-01-06-1-github-wiki-to-slack-protect-secret-using-kms/'>GitHub 위키 이벤트를 슬랙으로 받기 - 2. AWS KMS를 이용해 키 보호</a></h2>
+      <p class='posts-date'>06 Jan 2017</p>
+    </div>
+    <div class='panel-body'>
+      <p><a href='/ko/tech/2017-01-05-1-github-wiki-to-slack-setting-aws-lambda/'>이전 글</a>에서는
+AWS Lambda 함수를 생성해서 슬랙에 메시지를 보내는데 성공했습니다.
+그런데 이때 사용하는 훅 URL이 그대로 코드에 들어가 있는게 마음에 걸립니다.
+이 URL을 알면 외부에서 우리 슬랙 채널에 스팸을 보낼 수 있습니다.</p>
+
+<p>이번 글에서는 AWS KMS(Key Management Service)를 이용해서 이 URL을 보호하는 방법에 대해서 얘기합니다.</p>
+
+<p>AWS Lambda 생성시 blueprint에 slack-echo-command를 선택하면 이미 URL을 보호하는 절차에 대해서 설명하고 있습니다.</p>
+
+<blockquote>
+<p>To encrypt your secrets use the following steps:</p>
+
+<ol>
+<li><p>Create or use an existing KMS Key - <a href="http://docs.aws.amazon.com/kms/latest/developerguide/create-keys.html">http://docs.aws.amazon.com/kms/latest/developerguide/create-keys.html</a></p></li>
+
+<li><p>Click the &quot;Enable Encryption Helpers&quot; checkbox</p></li>
+
+<li><p>Paste <COMMAND_TOKEN> into the kmsEncryptedToken environment variable and click encrypt</p></li>
+</ol>
+</blockquote>
+
+<p>하나씩 따라해 봅시다.</p>
+
+<p>AWS IAM 화면에 들어가면 Encryption keys 메뉴가 있습니다.
+다른 메뉴와는 달리 여기는 지역 선택이 필터 부분에 있습니다. 여기서 원하는 지역을 선택하고 'Create Key'를 선택합니다.</p>
+
+<p><img src="/img/ko/tech/2017-01-06-1-01.jpg" alt="Create key" /></p>
+
+<p>Alias만 입력하고 나머지는 특별히 선택하지 않아도 됩니다.</p>
+
+<p>키가 생성되면 생성한 Lambda 함수로 이동합니다.
+코드 섹션 밑에 보면 'Enable encryption helpers' 체크박스가 있습니다.
+활성화하고 'Encryption key'에 생성한 키를 설정합니다.</p>
+
+<p>'Environment variables'에 훅 URL을 넣고 'Encrypt'를 누르면 URL이 암호화됩니다.</p>
+
+<p><img src="/img/ko/tech/2017-01-06-1-02.jpg" alt="Before encrypt" /></p>
+
+<p><img src="/img/ko/tech/2017-01-06-1-03.jpg" alt="After encrypt" /></p>
+
+<p>변경사항을 저장하면 암호화된 URL이 표시됩니다.</p>
+
+<p><img src="/img/ko/tech/2017-01-06-1-04.jpg" alt="Encrypted URL" /></p>
+
+<p>이제 이 값을 이용하도록 Lambda 코드를 수정합니다.</p>
+
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+
+<span class="k">const</span> <span class="nx">AWS</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;aws-sdk&#39;</span><span class="p">);</span>
+<span class="k">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="p">);</span>
+<span class="k">const</span> <span class="nx">https</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;https&#39;</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">hookUrl</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">sendMessage</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// ... 이전과 같음
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">decryptHookUrl</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">hookUrl</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">hookUrl</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">kms</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AWS</span><span class="p">.</span><span class="nx">KMS</span><span class="p">();</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="k">const</span> <span class="nx">blob</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Buffer</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">encryptedHookUrl</span><span class="p">,</span> <span class="s1">&#39;base64&#39;</span><span class="p">);</span>
+      <span class="nx">kms</span><span class="p">.</span><span class="nx">decrypt</span><span class="p">({</span> <span class="nx">CiphertextBlob</span><span class="o">:</span> <span class="nx">blob</span> <span class="p">},</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">return</span> <span class="nx">reject</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="nx">hookUrl</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">Plaintext</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">);</span>
+        <span class="nx">resolve</span><span class="p">(</span><span class="nx">hookUrl</span><span class="p">);</span>
+      <span class="p">});</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">exports</span><span class="p">.</span><span class="nx">handler</span> <span class="o">=</span> <span class="p">(</span><span class="nx">event</span><span class="p">,</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">decryptHookUrl</span><span class="p">()</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">message</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="nx">channel</span><span class="o">:</span> <span class="s1">&#39;#auto-github&#39;</span><span class="p">,</span>
+      <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;This is a test message&#39;</span>
+    <span class="p">};</span>
+    <span class="nx">sendMessage</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="nx">callback</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">response</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">}).</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">callback</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<p>저장하고 테스트를 실행하면 이전과 같이 슬랙 채널에서 메시지를 볼 수 있습니다.</p>
+
+    </div>
+  </div>
+  
+  <div class='panel panel-default'>
+    <div class='panel-heading'>
+      <h2 class='posts-title'><a href='/ko/tech/2017-01-05-1-github-wiki-to-slack-setting-aws-lambda/'>GitHub 위키 이벤트를 슬랙으로 받기 - 1. AWS Lambda 설정</a></h2>
+      <p class='posts-date'>05 Jan 2017</p>
+    </div>
+    <div class='panel-body'>
+      <p>크로키닷컴에서는 GitHub 이벤트(이슈 수정, PR등)를 슬랙으로 확인하고 있습니다.
+그런데 아쉽게도 기본 GitHub 슬랙 앱은 GitHub 위키 이벤트는 처리하지 못합니다.
+그래서 이를 자체적으로 구현하기로 했습니다.</p>
+
+<p>우선 이번글에서는 AWS Lambda를 통해 슬랙으로 메시지 보내는 방법에 대해서 설명합니다.</p>
+
+<hr />
+
+<p>외부에서 슬랙에 메시지를 보내기 위해서는 Incoming WebHooks을 설정해야 합니다.
+슬랙에서 'Apps &amp; integrations' 메뉴를 선택하면, App Directory 화면을 볼 수 있습니다.</p>
+
+<p><img src="/img/ko/tech/2017-01-05-1-01.jpg" alt="App Directory" /></p>
+
+<p>여기서 Incoming WebHooks을 검색하면 선택하면 설정화면이 표시됩니다.
+Add Configuration을 눌러서 새로운 설정을 추가합니다.</p>
+
+<p>메시지를 받을 채널을 선택하고 Add Incoming WebHooks integration을 누르면
+설정이 생성됩니다.</p>
+
+<p><img src="/img/ko/tech/2017-01-05-1-02.jpg" alt="Add Incoming WebHooks integration" /></p>
+
+<p>설정을 생성한 후에 몇가지 수정을 할 수 있지만, 여기서는 그냥 넘어가겠습니다.
+생성된 설정에서 중요한 것은 Webhook URL 입니다.</p>
+
+<p><img src="/img/ko/tech/2017-01-05-1-03.jpg" alt="Webhook URL" /></p>
+
+<p>밑에 친절하게 예제가 있습니다. 한번 테스트 해보세요.</p>
+
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ curl -X POST --data-urlencode <span class="s1">&#39;payload={&#34;channel&#34;: &#34;#auto-github&#34;, &#34;username&#34;: &#34;webhookbot&#34;, &#34;text&#34;: &#34;This is posted to #auto-github and comes from a bot named webhookbot.&#34;, &#34;icon_emoji&#34;: &#34;:ghost:&#34;}&#39;</span> https://hooks.slack.com/services/&lt;my-webhook-url&gt;</code></pre></div>
+
+<hr />
+
+<p>위 요청을 Node.js로 작성하면 다음과 같습니다.</p>
+
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+
+<span class="k">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="p">);</span>
+<span class="k">const</span> <span class="nx">https</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;https&#39;</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">hookUrl</span> <span class="o">=</span> <span class="s1">&#39;https://hooks.slack.com/services/&lt;my-webhook-url&gt;&#39;</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">sendMessage</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="nx">body</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
+  <span class="k">const</span> <span class="nx">options</span> <span class="o">=</span> <span class="nx">url</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">hookUrl</span><span class="p">);</span>
+  <span class="nx">options</span><span class="p">.</span><span class="nx">method</span> <span class="o">=</span> <span class="s1">&#39;POST&#39;</span><span class="p">;</span>
+  <span class="nx">options</span><span class="p">.</span><span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Content-Length&#39;</span><span class="o">:</span> <span class="nx">Buffer</span><span class="p">.</span><span class="nx">byteLength</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span>
+  <span class="p">};</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">req</span> <span class="o">=</span> <span class="nx">https</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="nx">options</span><span class="p">,</span> <span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;end&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="nx">resolve</span><span class="p">({</span>
+          <span class="nx">statusCode</span><span class="o">:</span> <span class="nx">res</span><span class="p">.</span><span class="nx">statusCode</span>
+        <span class="p">});</span>
+      <span class="p">});</span>
+    <span class="p">});</span>
+    <span class="nx">req</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">body</span><span class="p">);</span>
+    <span class="nx">req</span><span class="p">.</span><span class="nx">end</span><span class="p">();</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="k">const</span> <span class="nx">message</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">channel</span><span class="o">:</span> <span class="s1">&#39;#auto-github&#39;</span><span class="p">,</span>
+  <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;This is a test message&#39;</span>
+<span class="p">};</span>
+<span class="nx">sendMessage</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<hr />
+
+<p>위의 코드를 바탕으로 AWS Lambda 함수를 하나 만들면 됩니다.</p>
+
+<p>'Select blueprint' 단계에서 Blank Function을 선택합니다.</p>
+
+<p><img src="/img/ko/tech/2017-01-05-1-04.jpg" alt="Select blueprint" /></p>
+
+<p>'Configure triggers' 단계는 특별히 필요하지 않습니다.</p>
+
+<p>'Configure function' 단계에서 함수 이름을 입력하고, 위의 코드를 입력합니다.
+다만 <code>exports.handler</code> 메소드에서 메시지를 보내도록 수정합니다.</p>
+
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">exports</span><span class="p">.</span><span class="nx">handler</span> <span class="o">=</span> <span class="p">(</span><span class="nx">event</span><span class="p">,</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="nx">message</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">channel</span><span class="o">:</span> <span class="s1">&#39;#auto-github&#39;</span><span class="p">,</span>
+    <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;This is a test message&#39;</span>
+  <span class="p">};</span>
+  <span class="nx">sendMessage</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">callback</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">response</span><span class="p">);</span>
+  <span class="p">}).</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">callback</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<p><img src="/img/ko/tech/2017-01-05-1-05.jpg" alt="Configuration function 1" /></p>
+
+<p>기타 다른 설정은 건드리지 않아도 되지만 Role은 설정해줘야 합니다.
+적절한 Role이 없는 경우 템플릿을 통해 생성할 수 있습니다.
+'KMS decryption permissions'을 선택해서 Role을 생성합니다.</p>
+
+<p><img src="/img/ko/tech/2017-01-05-1-06.jpg" alt="Select role" /></p>
+
+<p>'Next' -&gt; 'Create function'을 선택하면 Lambda 함수가 만들어집니다.
+'Test' 버튼을 눌러 테스트를 하면 설정한 슬랙 채널에 메시지가 오는 것을 볼 수 있습니다.</p>
+
+    </div>
+  </div>
+  
+  <div class='panel panel-default'>
+    <div class='panel-heading'>
+      <h2 class='posts-title'><a href='/ko/tech/2017-01-04-1-language-comparison-date-current-unix-time/'>언어 비교 - 현재 유닉스 시간</a></h2>
+      <p class='posts-date'>04 Jan 2017</p>
+    </div>
+    <div class='panel-body'>
+      
+<div class='alert alert-success'>
+  유닉스 시간은 유닉스 Epoch(1970-01-01 00:00:00 +0000 (UTC))로 부터 지난 초 단위 시간을 말합니다.
+</div>
+
+<div class='langsheet'>
+
+<div class='panel panel-info'>
+  <div class='panel-heading'>C</div>
+  <div class='panel-body'>
+    <span class='cmd_stdlib'>time_t</span>&nbsp;now&nbsp;=&nbsp;<span class='cmd_stdlib'>time</span>(<span class='cmd_keyword'>NULL</span>);
+  </div>
+  <div class='panel-footer'>
+    #include &lt;time.h&gt;
+  </div>
+</div>
+
+<div class='panel panel-info'>
+  <div class='panel-heading'>C++</div>
+  <div class='panel-body'>
+    <span class='cmd_stdlib'>time_t</span>&nbsp;now&nbsp;=&nbsp;<span class='cmd_stdlib'>time</span>(<span class='cmd_keyword'>nullptr</span>);
+  </div>
+  <div class='panel-footer'>
+    #include &lt;ctime&gt;
+  </div>
+</div>
+
+<div class='panel panel-info'>
+  <div class='panel-heading'>CoffeeScript</div>
+  <div class='panel-body'>
+    now&nbsp;=&nbsp;<span class='cmd_stdlib'>Date</span>.<span class='cmd_stdlib'>now</span>()&nbsp;/&nbsp;<span class='cmd_number'>1000</span><br><span class='cmd_hr'></span><br>now&nbsp;=&nbsp;<span class='cmd_keyword'>new</span>&nbsp;<span class='cmd_stdlib'>Date</span>().<span class='cmd_stdlib'>getTime</span>()&nbsp;/&nbsp;<span class='cmd_number'>1000</span>
+  </div>
+</div>
+
+<div class='panel panel-info'>
+  <div class='panel-heading'>Java</div>
+  <div class='panel-body'>
+    <span class='cmd_keyword'>long</span>&nbsp;now&nbsp;=&nbsp;<span class='cmd_stdlib'>System</span>.<span class='cmd_stdlib'>currentTimeMillis</span>()&nbsp;/&nbsp;<span class='cmd_number'>1000</span>;<br><span class='cmd_hr'></span><br><span class='cmd_keyword'>long</span>&nbsp;now&nbsp;=&nbsp;<span class='cmd_keyword'>new</span>&nbsp;<span class='cmd_stdlib'>Date</span>().<span class='cmd_stdlib'>getTime</span>()&nbsp;/&nbsp;<span class='cmd_number'>1000</span>;
+  </div>
+  <div class='panel-footer'>
+    import java.util.Date;
+  </div>
+</div>
+
+<div class='panel panel-info'>
+  <div class='panel-heading'>JavaScript</div>
+  <div class='panel-body'>
+    now&nbsp;=&nbsp;<span class='cmd_stdlib'>Date</span>.<span class='cmd_stdlib'>now</span>()&nbsp;/&nbsp;<span class='cmd_number'>1000</span>;<br><span class='cmd_hr'></span><br>now&nbsp;=&nbsp;<span class='cmd_keyword'>new</span>&nbsp;<span class='cmd_stdlib'>Date</span>().<span class='cmd_stdlib'>getTime</span>()&nbsp;/&nbsp;<span class='cmd_number'>1000</span>;
+  </div>
+</div>
+
+<div class='panel panel-info'>
+  <div class='panel-heading'>Kotlin</div>
+  <div class='panel-body'>
+    <span class='cmd_keyword'>val</span>&nbsp;now&nbsp;=&nbsp;<span class='cmd_stdlib'>System</span>.<span class='cmd_stdlib'>currentTimeMillis</span>()&nbsp;/&nbsp;<span class='cmd_number'>1000</span><br><span class='cmd_hr'></span><br><span class='cmd_keyword'>val</span>&nbsp;now&nbsp;=&nbsp;<span class='cmd_stdlib'>Date</span>().<span class='cmd_stdlib'>getTime</span>()/<span class='cmd_number'>1000</span>
+  </div>
+  <div class='panel-footer'>
+    import java.util.Date
+  </div>
+</div>
+
+<div class='panel panel-info'>
+  <div class='panel-heading'>Lua</div>
+  <div class='panel-body'>
+    now&nbsp;=&nbsp;<span class='cmd_stdlib'>os</span>.<span class='cmd_stdlib'>time</span>()
+  </div>
+</div>
+
+<div class='panel panel-info'>
+  <div class='panel-heading'>Objective-C</div>
+  <div class='panel-body'>
+    <span class='cmd_stdlib'>NSTimeInterval</span>&nbsp;now&nbsp;=&nbsp;[[<span class='cmd_stdlib'>NSDate</span>&nbsp;<span class='cmd_stdlib'>date</span>]&nbsp;<span class='cmd_stdlib'>timeIntervalSince1970</span>];
+  </div>
+</div>
+
+<div class='panel panel-info'>
+  <div class='panel-heading'>Perl</div>
+  <div class='panel-body'>
+    $now&nbsp;=&nbsp;<span class='cmd_stdlib'>time</span>;
+  </div>
+</div>
+
+<div class='panel panel-info'>
+  <div class='panel-heading'>PHP</div>
+  <div class='panel-body'>
+    $now&nbsp;=&nbsp;<span class='cmd_stdlib'>time</span>();
+  </div>
+</div>
+
+<div class='panel panel-info'>
+  <div class='panel-heading'>Python</div>
+  <div class='panel-body'>
+    <span class='cmd_stdib'>time</span>.<span class='cmd_stdlib'>time</span>()
+  </div>
+  <div class='panel-footer'>
+    import time
+  </div>
+</div>
+
+<div class='panel panel-info'>
+  <div class='panel-heading'>Ruby</div>
+  <div class='panel-body'>
+    now&nbsp;=&nbsp;<span class='cmd_stdlib'>Time</span>.<span class='cmd_stdlib'>now</span>.<span class='cmd_stdlib'>to_i</span>
+  </div>
+</div>
+
+<div class='panel panel-info'>
+  <div class='panel-heading'>Swift</div>
+  <div class='panel-body'>
+    <span class='cmd_keyword'>let</span>&nbsp;now&nbsp;=&nbsp;<span class='cmd_stdlib'>Date</span>().<span class='cmd_stdlib'>timeIntervalSince1970</span>
+  </div>
+</div>
+
+</div>
+
+    </div>
+  </div>
+  
+</div>
+
+
+<div class='col-xs-12 text-center'>
+  
+  <ul class='pagination'>
+    
+      <li><a href='/ko/tech/'>&laquo; 처음</a></li>
+      <li><a href='/ko/tech/page/3/'>&lt; 이전</a></li>
+    
+
+    
+      <li class='disabled'><span>&hellip;</span></li>
+    
+
+    
+      
+      
+      
+      
+    
+      
+      
+      
+        <li><a href='/ko/tech/page/2/'>2</a></li>
+      
+    
+      
+      
+      
+        <li><a href='/ko/tech/page/3/'>3</a></li>
+      
+    
+      
+      
+      
+        <li class='active'><span>4</span></li>
+      
+    
+      
+      
+      
+        <li><a href='/ko/tech/page/5/'>5</a></li>
+      
+    
+      
+      
+      
+        <li><a href='/ko/tech/page/6/'>6</a></li>
+      
+    
+      
+      
+      
+      
+    
+      
+      
+      
+      
+    
+      
+      
+      
+      
+    
+      
+      
+      
+      
+    
+
+    
+    
+      <li class='disabled'><span>&hellip;</span></li>
+    
+
+    
+      <li><a href='/ko/tech/page/5/'>다음 &gt;</a></li>
+      <li><a href='/ko/tech/page/10/'>끝 &raquo;</a></li>
+    
+  </ul>
+  
+</div>
+
+
+</div>
+
+</div>
+
+<div class='container-fluid'>
+  <hr>
+  <footer>
+    <p>
+      &copy; 2014-2018 Sangmin Yoon
+      <span class='pull-right text-muted'>
+        powered by
+        <a href='https://gohugo.io/' target='_blank'>Hugo</a>
+        ,
+        <a href='http://getbootstrap.com/' target='_blank'>Bootstrap</a>
+        ,
+        <a href='http://www.dnsever.com' target='dnsever'><img src='http://banner.dnsever.com/dnsever-banner_62x15.gif' border='0' alt='DNS server, DNS service '></a>
+      </span>
+    </p>
+  </footer>
+</div>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-48366784-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+<script src='https://code.jquery.com/jquery-1.12.4.min.js'></script>
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
+
+</body>
+</html>
+

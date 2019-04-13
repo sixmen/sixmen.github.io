@@ -4,7 +4,7 @@ tags: []
 date: 2016-12-26
 ---
 
-<a href='{{< relref "tech/2016-12-23-1-protect-script-encryption-types.ko.md" >}}'>전편</a>에 이어
+<a href='{{< relref "/tech/2016-12-23-1-protect-script-encryption-types.ko.md" >}}'>전편</a>에 이어
 실제로 파일을 암호화/해독화 해보겠습니다.
 
 OpenSSL 커맨드 라인 도구를 사용하면 프로그램을 따로 작성하지 않아도 암호화를 할 수 있습니다.

@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang='ko'>
+
 <head>
   <meta charset='utf-8'>
 
   
-    <title>sixmen.com: Node.js로 유닉스 파이프 처리하기</title>
+  <title>sixmen.com: Node.js로 유닉스 파이프 처리하기</title>
   
   
   <meta name='author' content='Sangmin Yoon'>
@@ -15,39 +16,46 @@
   <link href='/css/syntax.css?body=1' rel='stylesheet' type='text/css' media='all'>
 
   <!--[if lt IE 9]>
-    <script src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js'></script>
-    <script src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js'></script>
+  <script src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js'></script>
+  <script src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js'></script>
   <![endif]-->
 </head>
+
 <body>
-
 <div class='hp-navbar'>
-  <div class='container-fluid'><div class='row'><div class='col-xs-12'>
-    
-    <nav class='hp-nav'>
-      <a class='hp-nav-item' href='/ko/'>Home</a>
-      <a class='hp-nav-item' href='/ko/mylife/'>MyLife</a>
-      <a class='hp-nav-item' href='/ko/travel/'>Travel</a>
-      <a class='hp-nav-item active' href='/ko/tech/'>Tech</a>
-      <a class='hp-nav-item' href='/ko/tags/'>Tags</a>
-      <a class='hp-nav-item pull-right' href='/en/'>English</a>
-    </nav>
-  </div></div></div>
+  <div class='container-fluid'>
+    <div class='row'>
+      <div class='col-xs-12'>
+        
+        <nav class='hp-nav'>
+          <a class='hp-nav-item'
+            href='/ko/'>Home</a>
+          <a class='hp-nav-item'
+            href='/ko/mylife/'>MyLife</a>
+          <a class='hp-nav-item'
+            href='/ko/travel/'>Travel</a>
+          <a class='hp-nav-item active'
+            href='/ko/tech/'>Tech</a>
+          <a class='hp-nav-item'
+            href='/ko/tags/'>Tags</a>
+          <a class='hp-nav-item pull-right' href='/en/'>English</a>
+        </nav>
+      </div>
+    </div>
+  </div>
 </div>
-
-
 
 <div class='container'>
 
-<div class='row'>
-  <div class='col-xs-12'>
-    <div class='page-header'>
-      <h1>Node.js로 유닉스 파이프 처리하기</h1>
+  <div class='row'>
+    <div class='col-xs-12'>
+      <div class='page-header'>
+        <h1>Node.js로 유닉스 파이프 처리하기</h1>
+      </div>
     </div>
-  </div>
 
-  <div class='col-xs-12 col-sm-9'>
-    
+    <div class='col-xs-12 col-sm-9'>
+      
 
 <p>크로키에서는 로그를 JSON 문자열로 만들어 일자별(혹은 시간별)로 묶은 후
 gzip으로 압축해서 저장하고 있습니다.
@@ -89,7 +97,7 @@ gzip으로 압축해서 저장하고 있습니다.
 줄별로 들어온 JSON 문자열을 파싱하고 원하는 처리를 한 후 다시 쓰기만 하는 단순한 코드입니다.
 이 프로그램을 유닉스 파이프라인에 넣으면 원하는 결과를 얻을 수 있습니다.</p>
 
-<p><div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ gunzip -c original/01.data.gz <span class="p">|</span> node convert.js <span class="p">|</span> gzip &gt; converted/01.data.gz</code></pre></div></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ gunzip -c original/01.data.gz <span class="p">|</span> node convert.js <span class="p">|</span> gzip &gt; converted/01.data.gz</code></pre></div>
 
 <h3 id="보너스">보너스</h3>
 
@@ -124,38 +132,39 @@ gzip으로 압축해서 저장하고 있습니다.
 예를 들어 파일이 로컬에 있는게 아니고 S3에 있다면
 유닉스 파이프로는 다음과 같이 바꾸면 됩니다.</p>
 
-<p><div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ aws s3 cp s3://mybucket/stream.txt - <span class="p">|</span> gunzip <span class="p">|</span> node convert.js <span class="p">|</span> gzip &gt; converted/01.data.gz</code></pre></div></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ aws s3 cp s3://mybucket/stream.txt - <span class="p">|</span> gunzip <span class="p">|</span> node convert.js <span class="p">|</span> gzip &gt; converted/01.data.gz</code></pre></div>
 
 <p>Node.js로도 작성할 수 있지만 훨씬 많은 코드를 작성해야겠죠.</p>
 
-  </div>
-
-  <div class='col-xs-12 col-sm-3'>
-    <div class='post-date'>
-      <i class='glyphicon glyphicon-pencil'></i>
-      <span>15 January 2017</span>
     </div>
 
-    
+    <div class='col-xs-12 col-sm-3'>
+      <div class='post-date'>
+        <i class='glyphicon glyphicon-pencil'></i>
+        <span>15 January 2017</span>
+      </div>
 
+      
 
-  </div>
+    </div>
 
-  <div class='col-xs-12'>
-    <hr>
+    <div class='col-xs-12'>
+      <hr>
 
-    <ul class='pager'>
-      
-        <li class='previous'><a href='/ko/tech/2017-01-06-3-github-wiki-to-slack-setup-github-hook/' title='GitHub 위키 이벤트를 슬랙으로 받기 - 4. GitHub 웹훅 연결하기'>&larr; 이전 글</a></li>
-      
-      
-        <li class='next'><a href='/ko/tech/2017-02-08-1-why-croquis-selects-nodejs/' title='크로키가 Node.js를 선택한 이유'>다음 글 &rarr;</a></li>
-      
-    </ul>
-    <hr>
-    <div class='text-center'>
-      <div id="disqus_thread"></div>
-<script>
+      <ul class='pager'>
+        
+        <li class='previous'><a href='/ko/tech/2017-01-06-3-github-wiki-to-slack-setup-github-hook/' title='GitHub 위키 이벤트를 슬랙으로 받기 - 4. GitHub 웹훅 연결하기'>&larr; 이전
+            글</a></li>
+        
+        
+        <li class='next'><a href='/ko/tech/2017-02-08-1-why-croquis-selects-nodejs/' title='크로키가 Node.js를 선택한 이유'>다음 글 &rarr;</a>
+        </li>
+        
+      </ul>
+      <hr>
+      <div class='text-center'>
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
     var disqus_config = function () {
     
     
@@ -174,9 +183,9 @@ gzip으로 압축해서 저장하고 있습니다.
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      </div>
     </div>
   </div>
-</div>
 
 </div>
 
@@ -191,14 +200,15 @@ gzip으로 압축해서 저장하고 있습니다.
         ,
         <a href='http://getbootstrap.com/' target='_blank'>Bootstrap</a>
         ,
-        <a href='http://www.dnsever.com' target='dnsever'><img src='http://banner.dnsever.com/dnsever-banner_62x15.gif' border='0' alt='DNS server, DNS service '></a>
+        <a href='http://www.dnsever.com' target='dnsever'><img src='http://banner.dnsever.com/dnsever-banner_62x15.gif'
+            border='0' alt='DNS server, DNS service '></a>
       </span>
     </p>
   </footer>
 </div>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -215,5 +225,5 @@ if (!doNotTrack) {
 <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
 
 </body>
-</html>
 
+</html>

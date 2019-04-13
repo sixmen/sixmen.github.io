@@ -5,7 +5,7 @@ date: 2017-01-06T02:00:00
 ---
 
 GitHub 이벤트를 받으려면 GitHub에서 접근가능한 URL이 필요합니다.
-<a href='{{< relref "2017-01-06-1-github-wiki-to-slack-protect-secret-using-kms.ko.md" >}}'>이전 글</a>에서
+<a href='{{< relref "/tech/2017-01-06-1-github-wiki-to-slack-protect-secret-using-kms.ko.md" >}}'>이전 글</a>에서
 만든 Lambda 함수를 외부에서 접근가능하게 하려면 AWS API Gateway를 사용하면 됩니다.
 
 API Gateway 콘솔에서 새 API를 생성합니다.

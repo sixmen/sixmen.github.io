@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang='{{ .Lang }}'>
+
 <head>
   <meta charset='utf-8'>
 
   {{ if isset .Site.Data.titles .Title }}
-    <title>sixmen.com: {{ index .Site.Data.titles .Title }}</title>
+  <title>sixmen.com: {{ index .Site.Data.titles .Title }}</title>
   {{ else }}
-    <title>sixmen.com: {{ .Title }}</title>
+  <title>sixmen.com: {{ .Title }}</title>
   {{ end }}
-  {{ if .Description }}<meta name='description' content='{{ .Description }}'>{{ end }}
+  {{ if .Description }}
+  <meta name='description' content='{{ .Description }}'>{{ end }}
   <meta name='author' content='{{ .Site.Author.name }}'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0'>
 
@@ -17,8 +19,9 @@
   <link href='{{ "/css/syntax.css?body=1" | relURL }}' rel='stylesheet' type='text/css' media='all'>
 
   {{ "<!--[if lt IE 9]>" | safeHTML }}
-    <script src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js'></script>
-    <script src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js'></script>
+  <script src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js'></script>
+  <script src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js'></script>
   {{ "<![endif]-->" | safeHTML }}
 </head>
+
 <body>

@@ -5,7 +5,7 @@ date: 2017-01-06T03:00:00
 ---
 
 이제 GitHub 웹훅을 처리할 수 있게 됐습니다.
-<a href='{{< relref "2017-01-06-2-github-wiki-to-slack-aws-api-gateway.ko.md" >}}'>이전 글</a>에서
+<a href='{{< relref "/tech/2017-01-06-2-github-wiki-to-slack-aws-api-gateway.ko.md" >}}'>이전 글</a>에서
 생성한 URL을 GitHub에 설정해줍니다.
 
 GitHub 저장소의 Settings 탭에 가면 Webhooks 메뉴가 있습니다. 여기서 웹훅을 추가할 수 있습니다.

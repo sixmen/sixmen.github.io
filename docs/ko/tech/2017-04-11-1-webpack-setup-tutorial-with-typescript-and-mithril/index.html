@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang='ko'>
+
 <head>
   <meta charset='utf-8'>
 
   
-    <title>sixmen.com: webpack, TypeScript, Mithril을 사용하는 프로젝트 생성 튜토리얼</title>
+  <title>sixmen.com: webpack, TypeScript, Mithril을 사용하는 프로젝트 생성 튜토리얼</title>
   
   
   <meta name='author' content='Sangmin Yoon'>
@@ -15,39 +16,46 @@
   <link href='/css/syntax.css?body=1' rel='stylesheet' type='text/css' media='all'>
 
   <!--[if lt IE 9]>
-    <script src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js'></script>
-    <script src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js'></script>
+  <script src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js'></script>
+  <script src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js'></script>
   <![endif]-->
 </head>
+
 <body>
-
 <div class='hp-navbar'>
-  <div class='container-fluid'><div class='row'><div class='col-xs-12'>
-    
-    <nav class='hp-nav'>
-      <a class='hp-nav-item' href='/ko/'>Home</a>
-      <a class='hp-nav-item' href='/ko/mylife/'>MyLife</a>
-      <a class='hp-nav-item' href='/ko/travel/'>Travel</a>
-      <a class='hp-nav-item active' href='/ko/tech/'>Tech</a>
-      <a class='hp-nav-item' href='/ko/tags/'>Tags</a>
-      <a class='hp-nav-item pull-right' href='/en/'>English</a>
-    </nav>
-  </div></div></div>
+  <div class='container-fluid'>
+    <div class='row'>
+      <div class='col-xs-12'>
+        
+        <nav class='hp-nav'>
+          <a class='hp-nav-item'
+            href='/ko/'>Home</a>
+          <a class='hp-nav-item'
+            href='/ko/mylife/'>MyLife</a>
+          <a class='hp-nav-item'
+            href='/ko/travel/'>Travel</a>
+          <a class='hp-nav-item active'
+            href='/ko/tech/'>Tech</a>
+          <a class='hp-nav-item'
+            href='/ko/tags/'>Tags</a>
+          <a class='hp-nav-item pull-right' href='/en/'>English</a>
+        </nav>
+      </div>
+    </div>
+  </div>
 </div>
-
-
 
 <div class='container'>
 
-<div class='row'>
-  <div class='col-xs-12'>
-    <div class='page-header'>
-      <h1>webpack, TypeScript, Mithril을 사용하는 프로젝트 생성 튜토리얼</h1>
+  <div class='row'>
+    <div class='col-xs-12'>
+      <div class='page-header'>
+        <h1>webpack, TypeScript, Mithril을 사용하는 프로젝트 생성 튜토리얼</h1>
+      </div>
     </div>
-  </div>
 
-  <div class='col-xs-12 col-sm-9'>
-    
+    <div class='col-xs-12 col-sm-9'>
+      
 
 <p>클라이언트 JavaScript 개발 환경은 빠르게 변화하고 있습니다.
 다양한 관련 기술 중 빌드 툴 쪽에서 최근 가장 주목 받는 것은 <a href="https://webpack.js.org/">webpack</a>이라고 할 수 있습니다.</p>
@@ -202,8 +210,8 @@ $ ./node_modules/.bin/webpack-dev-server --open</code></pre></div>
 
 <p>위와 같이 추가해주면 다음부터는 다음과 같이 실행할 수 있습니다.</p>
 
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ npm start <span class="c1"># 개발시
-</span><span class="c1"></span>$ npm run bild # 배포 파일 생성시</code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ npm start <span class="c1"># 개발시</span>
+$ npm run bild <span class="c1"># 배포 파일 생성시</span></code></pre></div>
 
 <h1 id="typescript-설정하기-5bb9d39-https-github-com-sixmen-mithril-examples-commit-5bb9d3901e427b595e2744811cd9103184c510de">TypeScript 설정하기 (<a href="https://github.com/sixmen/mithril-examples/commit/5bb9d3901e427b595e2744811cd9103184c510de">5bb9d39</a>)</h1>
 
@@ -452,59 +460,60 @@ webpack은 이를 위한 간단한 옵션을 제공합니다. <code>-p</code> �
 
 <p>등이 있습니다. 이런 부분들은 차후 기회가 되면 다른 글로 소개하도록 하겠습니다.</p>
 
-  </div>
-
-  <div class='col-xs-12 col-sm-3'>
-    <div class='post-date'>
-      <i class='glyphicon glyphicon-pencil'></i>
-      <span>11 April 2017</span>
     </div>
 
-    
+    <div class='col-xs-12 col-sm-3'>
+      <div class='post-date'>
+        <i class='glyphicon glyphicon-pencil'></i>
+        <span>11 April 2017</span>
+      </div>
 
-  <ul class='tag_box inline'>
-    <li><i class='glyphicon glyphicon-tags'></i></li>
-    
-      <li><a href='/ko/tags/webpack'>
-        webpack
-        <span>1</span>
-      </a></li>
-    
-      <li><a href='/ko/tags/typescript'>
-        TypeScript
-        <span>1</span>
-      </a></li>
-    
-      <li><a href='/ko/tags/mithril'>
-        Mithril
-        <span>2</span>
-      </a></li>
-    
-      <li><a href='/ko/tags/%ED%8A%9C%ED%86%A0%EB%A6%AC%EC%96%BC'>
-        튜토리얼
-        <span>1</span>
-      </a></li>
-    
-  </ul>
-
-
-  </div>
-
-  <div class='col-xs-12'>
-    <hr>
-
-    <ul class='pager'>
       
-        <li class='previous'><a href='/ko/tech/2017-04-07-1-croquis-stack-mithril/' title='크로키의 스택 - Mithril'>&larr; 이전 글</a></li>
-      
-      
-        <li class='next'><a href='/ko/tech/2017-10-15-1-croquis-stack-microservice/' title='크로키의 스택 - 마이크로서비스'>다음 글 &rarr;</a></li>
-      
-    </ul>
-    <hr>
-    <div class='text-center'>
-      <div id="disqus_thread"></div>
-<script>
+
+<ul class='tag_box inline'>
+  <li><i class='glyphicon glyphicon-tags'></i></li>
+  
+  <li><a href='/ko/tags/webpack'>
+      webpack
+      <span>1</span>
+    </a></li>
+  
+  <li><a href='/ko/tags/typescript'>
+      TypeScript
+      <span>1</span>
+    </a></li>
+  
+  <li><a href='/ko/tags/mithril'>
+      Mithril
+      <span>2</span>
+    </a></li>
+  
+  <li><a href='/ko/tags/%ED%8A%9C%ED%86%A0%EB%A6%AC%EC%96%BC'>
+      튜토리얼
+      <span>1</span>
+    </a></li>
+  
+</ul>
+
+    </div>
+
+    <div class='col-xs-12'>
+      <hr>
+
+      <ul class='pager'>
+        
+        <li class='previous'><a href='/ko/tech/2017-04-07-1-croquis-stack-mithril/' title='크로키의 스택 - Mithril'>&larr; 이전
+            글</a></li>
+        
+        
+        <li class='next'><a href='/ko/tech/2017-10-15-1-croquis-stack-microservice/' title='크로키의 스택 - 마이크로서비스'>다음 글 &rarr;</a>
+        </li>
+        
+      </ul>
+      <hr>
+      <div class='text-center'>
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
     var disqus_config = function () {
     
     
@@ -523,9 +532,9 @@ webpack은 이를 위한 간단한 옵션을 제공합니다. <code>-p</code> �
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      </div>
     </div>
   </div>
-</div>
 
 </div>
 
@@ -540,14 +549,15 @@ webpack은 이를 위한 간단한 옵션을 제공합니다. <code>-p</code> �
         ,
         <a href='http://getbootstrap.com/' target='_blank'>Bootstrap</a>
         ,
-        <a href='http://www.dnsever.com' target='dnsever'><img src='http://banner.dnsever.com/dnsever-banner_62x15.gif' border='0' alt='DNS server, DNS service '></a>
+        <a href='http://www.dnsever.com' target='dnsever'><img src='http://banner.dnsever.com/dnsever-banner_62x15.gif'
+            border='0' alt='DNS server, DNS service '></a>
       </span>
     </p>
   </footer>
 </div>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -564,5 +574,5 @@ if (!doNotTrack) {
 <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
 
 </body>
-</html>
 
+</html>
