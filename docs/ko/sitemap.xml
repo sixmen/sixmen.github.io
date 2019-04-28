@@ -3,6 +3,78 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://sixmen.com/ko/tags/croquis/</loc>
+    <lastmod>2019-04-28T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://sixmen.com/ko/tags/microservice/</loc>
+    <lastmod>2019-04-28T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://sixmen.com/ko/tags/stack/</loc>
+    <lastmod>2019-04-28T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://sixmen.com/ko/tags/</loc>
+    <lastmod>2019-04-28T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://sixmen.com/en/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ko"
+                href="http://sixmen.com/ko/tags/"
+                />
+  </url>
+  
+  <url>
+    <loc>http://sixmen.com/ko/tech/</loc>
+    <lastmod>2019-04-28T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://sixmen.com/ko/tags/thrift/</loc>
+    <lastmod>2019-04-28T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://sixmen.com/ko/</loc>
+    <lastmod>2019-04-28T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://sixmen.com/en/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ko"
+                href="http://sixmen.com/ko/"
+                />
+  </url>
+  
+  <url>
+    <loc>http://sixmen.com/ko/tags/%EB%A7%88%EC%9D%B4%ED%81%AC%EB%A1%9C%EC%84%9C%EB%B9%84%EC%8A%A4/</loc>
+    <lastmod>2019-04-28T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://sixmen.com/ko/tech/2019-04-28-1-croquis-stack-thrift/</loc>
+    <lastmod>2019-04-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://sixmen.com/ko/tech/2019-04-27-1-make-slack-bot-using-botkit/</loc>
     <lastmod>2019-04-27T00:00:00+00:00</lastmod>
   </url>
@@ -20,56 +92,7 @@
   </url>
   
   <url>
-    <loc>http://sixmen.com/ko/tags/</loc>
-    <lastmod>2019-04-27T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="http://sixmen.com/en/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="ko"
-                href="http://sixmen.com/ko/tags/"
-                />
-  </url>
-  
-  <url>
-    <loc>http://sixmen.com/ko/tech/</loc>
-    <lastmod>2019-04-27T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://sixmen.com/ko/</loc>
-    <lastmod>2019-04-27T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="http://sixmen.com/en/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="ko"
-                href="http://sixmen.com/ko/"
-                />
-  </url>
-  
-  <url>
-    <loc>http://sixmen.com/ko/tags/croquis/</loc>
-    <lastmod>2018-05-30T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>http://sixmen.com/ko/tags/rest-api/</loc>
-    <lastmod>2018-05-30T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://sixmen.com/ko/tags/stack/</loc>
     <lastmod>2018-05-30T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -99,18 +122,6 @@
   <url>
     <loc>http://sixmen.com/ko/mylife/2018-01-23-1-gasanghwapyee-daehan-dansang/</loc>
     <lastmod>2018-01-23T01:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://sixmen.com/ko/tags/microservice/</loc>
-    <lastmod>2017-10-15T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://sixmen.com/ko/tags/%EB%A7%88%EC%9D%B4%ED%81%AC%EB%A1%9C%EC%84%9C%EB%B9%84%EC%8A%A4/</loc>
-    <lastmod>2017-10-15T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
