@@ -5,10 +5,19 @@
     <link>http://sixmen.com/ko/tags/microservice/</link>
     <description>Recent content in Microservice on sixmen.com</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 28 Apr 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 22 May 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://sixmen.com/ko/tags/microservice/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>크로키의 스택 - GraphQL</title>
+      <link>http://sixmen.com/ko/tech/2020-05-22-1-croquis-stack-graphql/</link>
+      <pubDate>Wed, 22 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/ko/tech/2020-05-22-1-croquis-stack-graphql/</guid>
+      <description>현재 크로키는 API를 GraphQL로 만들고 있습니다. 아직 많은 부분에 대해서 연구 중이어서 현재 상황만 간단하게 정리해 보겠습니다. Thrift를 1년 정</description>
+    </item>
     
     <item>
       <title>크로키의 스택 - Thrift</title>
