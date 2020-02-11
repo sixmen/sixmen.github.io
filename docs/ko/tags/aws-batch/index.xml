@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AWS Batch on sixmen.com</title>
+    <link>http://sixmen.com/ko/tags/aws-batch/</link>
+    <description>Recent content in AWS Batch on sixmen.com</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 11 Feb 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://sixmen.com/ko/tags/aws-batch/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>크로키의 스택 - AWS Batch</title>
+      <link>http://sixmen.com/ko/tech/2020-02-11-1-croquis-stack-aws-batch/</link>
+      <pubDate>Tue, 11 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/ko/tech/2020-02-11-1-croquis-stack-aws-batch/</guid>
+      <description>서비스를 운영하다보면 주기적으로 실행이 필요한 작업들이 생깁니다. 이런 작업들을 실행하는 방법은 여러가지가 있을 수 있습니다. 지그재그 서비스 초기에는 서버가</description>
+    </item>
+    
+  </channel>
+</rss>
