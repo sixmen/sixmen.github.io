@@ -16,7 +16,7 @@
       <pubDate>Tue, 11 Feb 2020 00:00:00 +0000</pubDate>
       
       <guid>http://sixmen.com/ko/tech/2020-02-11-1-croquis-stack-aws-batch/</guid>
-      <description>서비스를 운영하다보면 주기적으로 실행이 필요한 작업들이 생깁니다. 이런 작업들을 실행하는 방법은 여러가지가 있을 수 있습니다. 지그재그 서비스 초기에는 서버가</description>
+      <description>서비스를 운영하다 보면 주기적으로 실행이 필요한 작업이 생깁니다. 이런 작업을 실행하는 방법은 여러 가지가 있을 수 있습니다. 다음은 크로키에서 현재 선택해서 전환</description>
     </item>
     
   </channel>
