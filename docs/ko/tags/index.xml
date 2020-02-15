@@ -5,10 +5,19 @@
     <link>http://sixmen.com/ko/tags/</link>
     <description>Recent content in Tags on sixmen.com</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 11 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 15 Feb 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://sixmen.com/ko/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>TypeScript</title>
+      <link>http://sixmen.com/ko/tags/typescript/</link>
+      <pubDate>Sat, 15 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://sixmen.com/ko/tags/typescript/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>AWS</title>
@@ -124,15 +133,6 @@
       <pubDate>Tue, 11 Apr 2017 00:00:00 +0000</pubDate>
       
       <guid>http://sixmen.com/ko/tags/mithril/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>TypeScript</title>
-      <link>http://sixmen.com/ko/tags/typescript/</link>
-      <pubDate>Tue, 11 Apr 2017 00:00:00 +0000</pubDate>
-      
-      <guid>http://sixmen.com/ko/tags/typescript/</guid>
       <description></description>
     </item>
     
