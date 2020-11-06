@@ -3,8 +3,19 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://sixmen.com/ko/tags/github/</loc>
+    <lastmod>2020-11-06T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://sixmen.com/ko/tech/2020-11-06-1-using-github-actions/</loc>
+    <lastmod>2020-11-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://sixmen.com/ko/tags/</loc>
-    <lastmod>2020-02-15T00:00:00+00:00</lastmod>
+    <lastmod>2020-11-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
     <xhtml:link
                 rel="alternate"
@@ -20,8 +31,23 @@
   
   <url>
     <loc>http://sixmen.com/ko/tech/</loc>
-    <lastmod>2020-02-15T00:00:00+00:00</lastmod>
+    <lastmod>2020-11-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://sixmen.com/ko/</loc>
+    <lastmod>2020-11-06T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://sixmen.com/en/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ko"
+                href="http://sixmen.com/ko/"
+                />
   </url>
   
   <url>
@@ -33,21 +59,6 @@
   <url>
     <loc>http://sixmen.com/ko/tech/2020-02-15-1-configuration-in-typescript/</loc>
     <lastmod>2020-02-15T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://sixmen.com/ko/</loc>
-    <lastmod>2020-02-15T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="http://sixmen.com/en/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="ko"
-                href="http://sixmen.com/ko/"
-                />
   </url>
   
   <url>
@@ -220,12 +231,6 @@
   
   <url>
     <loc>http://sixmen.com/ko/tags/aws-lambda/</loc>
-    <lastmod>2017-01-06T03:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://sixmen.com/ko/tags/github/</loc>
     <lastmod>2017-01-06T03:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
